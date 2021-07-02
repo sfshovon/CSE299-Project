@@ -30,4 +30,4 @@ Step 6: Run the following command in your VS code terminal to run the project an
 
         python manage.py runserver   
         
-For further documentation, please visit the following link - https://github.com/sfshovon/Team_STAR_CSE327/wiki
+For further documentation, please visit the following link - https://github.com/sfshovon/CSE299-Project/wiki
