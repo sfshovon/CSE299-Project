@@ -52,6 +52,9 @@
 <h2 class="text-center alert alert-info"> Meet Our Specialists {{doc_list}}</h2>
 
 {% endblock body %}
+<action="{% url 'doc_profile' %}" method="POST" id="p">
+
+   {% csrf_token %}
 
 {% for docName, docSpecialty, docEmail, docImage in results %}
 
