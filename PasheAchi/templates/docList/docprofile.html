@@ -1,55 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css bootstrap.min.css"
-      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-      crossorigin="anonymous"
-    />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!-- add style css  -->
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
 
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<body>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <!-- BEGIN USER PROFILE -->
+        <div class="col-md-12">
+            <div class="grid profile">
+                <div class="grid-header">
+                    <div class="col-xs-2">
+                        <img src="{{docImage}}" class="img-circle" alt="logo">
+                    </div>
+                    <div class="col-xs-7">
+                        <h3>{{docName}}</h3>
+                        <p>{{dDesignation}}</p>
+                        <p>{{dWorkPlace}}</p>
+                        <p><strong> <i class="glyphicon glyphicon-envelope"></strong></i> <a href = "mailto: {{docEmail}}?subject=Health Concern">{{docEmail}}</a> </p>
+                    </div>
+                </div>
+                <div class="grid-body">
+                    <ul class="nav nav-tabs">
+                        <!--<li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>-->
+                    </ul>
+                    <div class="tab-content">
+                        <!-- BEGIN PROFILE -->
+                        <div class="tab-pane active" id="profile">
+                            <p class="lead">Doctor Profile</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"
-     
-      crossorigin="anonymous"
-    />
+                                    <p><strong>Specialized Field:</strong> {{specializedField}} </p>
+                                    <p><strong>Qualification:</strong> {{dQualification}}</p>
+                                    <p><strong>Number:</strong> {{contact}}</p>
+                                    <p><strong>Work Schedule:</strong> {{timeOne}},{{timeTwo}}</p>
+                                    <p><strong>Fees:</strong> {{CFees}}</p>
+                                    
+                                </div>
+                                 
+                                <div class="col-md-6 justify-content-center">
+                                    <p><strong>About:</strong> {{dAbout}}</p>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PROFILE -->
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END USER PROFILE -->
+</div>
+</div>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+<style>
+body {
+    margin-top: 20px;
+    background: #eee;
+  }
   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        
+  .profile .grid-header {
+    background: url("https://lh3.googleusercontent.com/ehnTKRM7WF-rfmvHdZnYc9VeHn7MdlmghjGN-zS74fTTx0j8m5KHlX6TxFK1j2-AeWzZhG8-FGQPoH-t_jzQniRzIm217CgHpurbtgNXpDSo8BgErmq--H1vkPFh7D0KzM2L_89ywxO-ncV2hBQztCQYUTx1yJOF4pJp_frSBu71beL3iS5h9e7Z9tSBcxUHHkFHvxEdLmDISV29jXda0WT1Ma4Cnf-5ooMtJpwcReiTQX9i_aT96FDQ2CnQryUTO1X1RsJpM8MIRExTyB2N0R4VVwCRPANHhVhKXagN8QpQDcEkJKMez5y-CSMtOCG8dkNvv9qx5oScNcSDkzg48qp-JbVs0ea3jg5r8EzjJfHZUHI74H88fAq6r-VcGUECp3p7Zu077K-47NEhmS4F4_G6Tbq345MzYAJN7BNudElCAD1PoVr-8-ZnTgse9pIkJBF0MDmjq3mhbRigFhHiDWucYQIh2eDfsnCeMLw6Yx9Fvr31kS32RrW5IBrEKgQyoqg3UCab3phajMg6FulO_7_IBRTJFqX3IRsHwUXk-znD74A6bGiigWi-F1jhRYGudliLeecDIjytVXWOe99xekquBKd2roYUO0mc2TTlmnbpRklRcuMBlGaKygApa9JrspSL7kjrHdxTNPjk5LVrqjT1u-BotfXkd1WyhTc2oRQr6fCKzDLWyrLSb6XLcjwQSkICv6QQWH39dY6yQQ=w832-h260-no?authuser=0") no-repeat center center;
+    background-size: cover;
+    color: #f5f5f5;
+  }
+  
+  .profile img {
+    max-width: 100%;
+  }
+  
+  .profile .grid-header img {
+    margin: 2em 1em;
+  }
+  
+  .profile .grid-header h3 {
+    color: #f5f5f5 !important;
+    font-weight: 400;
+    margin: 30px 0 20px 0;
+  }
+  
+  .profile .grid-header p {
+    margin-bottom: 5px;
+  }
+  
+  .profile .grid-header p a {
+    color: #f5f5f5;
+  }
+  
+  .profile .grid-body {
+    font-size: 1em;
+  }
+  
+  .profile .tab-content {
+    padding-bottom: 0px;
+  }
+  
+  .profile .stats {
+    margin-top: 20px;
+    padding: 0px 0px 20px;
+    background: #eee;
+    text-align: center;
+    border-top: 1px solid #ccc;
+  }
+  
+  .profile .stats h1 {
+    font-weight: 400;
+    margin-bottom: 0px;
+  }
+  
+  .profile .stats span {
+    margin: 5px 0 10px 0;
+    display: block;
+  }
+  
+  .profile .stats .btn {
+    padding-right: 4em;
+    padding-left: 4em;
+  }
+  
+  .profile .timeline-centered {
+    font-size: 1.15em;
+  }
+  
+  .profile .timeline-centered:before {
+    background: #eee;
+  }
+  
+  .profile .bg-default {
+    border: 1px solid #bbb;
+  }
+  
+  .grid {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    color: #666666;
+    border-radius: 2px;
+    margin-bottom: 25px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .grid .grid-header {
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 10px 10px 20px;
+  }
+  
+  .grid .grid-header:before,
+  .grid .grid-header:after {
+    display: table;
+    content: " ";
+  }
+  
+  .grid .grid-header:after {
+    clear: both;
+  }
+  
+  .grid .grid-header span,
+  .grid .grid-header > .fa {
+    display: inline-block;
+    margin: 0;
+    font-weight: 300;
+    font-size: 1.5em;
+    float: left;
+  }
+  
+  .grid .grid-header span {
+    padding: 0 5px;
+  }
+  
+  .grid .grid-header > .fa {
+    padding: 5px 10px 0 0;
+  }
+  
+  .grid .grid-header > .grid-tools {
+    padding: 4px 10px;
+  }
+  
+  .grid .grid-header > .grid-tools a {
+    color: #999999;
+    padding-left: 10px;
+    cursor: pointer;
+  }
+  
+  .grid .grid-header > .grid-tools a:hover {
+    color: #666666;
+  }
+  
+  .grid .grid-body {
+    padding: 15px 20px 15px 20px;
+    font-size: 0.9em;
+    line-height: 1.9em;
+  }
+  
+  .grid .full {
+    padding: 0 !important;
+  }
+  
+  .grid .transparent {
+    box-shadow: none !important;
+    margin: 0px !important;
+    border-radius: 0px !important;
+  }
+  
+  .grid.top.black > .grid-header {
+    border-top-color: #000000 !important;
+  }
+  
+  .grid.bottom.black > .grid-body {
+    border-bottom-color: #000000 !important;
+  }
+  
+  .grid.top.blue > .grid-header {
+    border-top-color: #007be9 !important;
+  }
+  
+  .grid.bottom.blue > .grid-body {
+    border-bottom-color: #007be9 !important;
+  }
+  
+  .grid.top.green > .grid-header {
+    border-top-color: #00c273 !important;
+  }
+  
+  .grid.bottom.green > .grid-body {
+    border-bottom-color: #00c273 !important;
+  }
+  
+  .grid.top.purple > .grid-header {
+    border-top-color: #a700d3 !important;
+  }
+  
+  .grid.bottom.purple > .grid-body {
+    border-bottom-color: #a700d3 !important;
+  }
+  
+  .grid.top.red > .grid-header {
+    border-top-color: #dc1200 !important;
+  }
+  
+  .grid.bottom.red > .grid-body {
+    border-bottom-color: #dc1200 !important;
+  }
+  
+  .grid.top.orange > .grid-header {
+    border-top-color: #f46100 !important;
+  }
+  
+  .grid.bottom.orange > .grid-body {
+    border-bottom-color: #f46100 !important;
+  }
+  
+  .grid.no-border > .grid-header {
+    border-bottom: 0px !important;
+  }
+  
+  .grid.top > .grid-header {
+    border-top-width: 4px !important;
+    border-top-style: solid !important;
+  }
+  
+  .grid.bottom > .grid-body {
+    border-bottom-width: 4px !important;
+    border-bottom-style: solid !important;
+  }
+  
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-     
-      crossorigin="anonymous"
-    />
-
-    
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
-
-{% block body %}
-
-
-<h2 class="text-center alert alert-info"> Doctor Information {{doc_profile}}</h2>
-
-{% endblock body %}
+</style>
 
 </html>

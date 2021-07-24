@@ -49,29 +49,32 @@
 {% block body %}
 
 
-<h2 class="text-center alert alert-info"> Meet Our Specialists {{doc_list}}</h2>
+<h1 class="text-center alert alert-info"> Meet Our Specialists {{doc_list}}</h1>
 
 {% endblock body %}
-<action="{% url 'doc_profile' %}" method="POST" id="p">
 
-   {% csrf_token %}
-
-{% for docName, docSpecialty, docEmail, docImage in results %}
+{% for docName, docSpecialty, docEmail, docImage, docID in results %}
 
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-between mb-3"> </div>
      <div class="row">
-      <div class="col-sm-6">
+      <div class="col sm justify-content-center">
   
      <div class="card p-2 py-3 text-center">
-                <div class="img mb-2"> <img src="{{docImage}}" width="200" class="rounded-circle"> </div>
-                <h5 class="mb-0">{{docName}}</h5> <small>{{docSpecialty}}</small> <small> {{docEmail}} </small>
-                <div class="mt-4 profileview"> <button class="btn btn-success text-uppercase" onclick="location.href='doc_profile'">View Profile</button> </div>
+                <div class="img mb-2"> <img src="{{docImage}}" width="400" class="rounded-circle"> </div>
+                <h5 class="mb-0">{{docName}}</h5> <medium>{{docSpecialty}}</medium> <medium> {{docEmail}} </medium> 
+                
+                <!--<a href = "{% url 'doc_profile' keyy=docID %}"></a>-->
+                <div class="mt-4 profileview"><a href = "{% url 'doc_profile' keyy=docID %}" class="btn btn-success text-uppercase">View Consultant Profile</a></button></div>
+
+               <!--<div class="mt-4 profileview"><a href = "{% url 'doc_profile' keyy=docID %}" > View Consultant Profile</a></div>-->
+              
                 
             </div>
         </div>
     </div>
 </div>
+
 
 {% endfor %}
  
@@ -95,6 +98,7 @@ body {
     border-radius: 10px;
     transition: all 1s;
     cursor: pointer
+    margin-left: 1000px; 
 }
 
 .card:hover {
@@ -106,11 +110,11 @@ body {
     color: green
 }
 
-.apointment button {
+.profileview button {
     border-radius: 20px;
-    background-color: #eee;
+    background-color: #f2f9ff;
     color: #000;
-    border-color: #eee;
+    border-color: #f2f9ff;
     font-size: 13px
 }
 

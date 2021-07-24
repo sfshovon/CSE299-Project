@@ -36,7 +36,9 @@ def doctor_list(request):
     docSpecialty = []
     docEmail = []
     docImage = []
+    docID = []
     for i in timeStampList:
+        id = i
         fName = database.child("Doctor").child(i).child("docFName").get().val()
         lName = database.child("Doctor").child(i).child("docLName").get().val()
         name=fName + " " +lName 
@@ -45,46 +47,37 @@ def doctor_list(request):
         email = database.child("Doctor").child(i).child("docEmail").get().val()
         specialty = database.child("Doctor").child(i).child("docSpecializedField").get().val()
         image = database.child("Doctor").child(i).child("docImage").get().val()
+        docID.append(id)
         docName.append(name)
         docSpecialty.append(specialty)   
         docEmail.append(email)  
         docImage.append(image)
-    results = zip(docName, docSpecialty, docEmail, docImage)  
+    results = zip(docName, docSpecialty, docEmail, docImage, docID)  
         # Sending all data in zip form to doclist.html        
     return render(request,'docList/doclist.html',{"results": results})
 
-def doctor_profile_view(request):
-    if request.method == "POST" and "csrfmiddlewaretoken" in request.POST:
-        email = request.POST.get('docEmail')
-        timeStamp = database.child("Doctor").get()
-        timeStampList = []
-        for i in timeStamp.each():
-            timeStampKey = i.key()
-            timeStampList.append(timeStampKey)
-        for i in timeStampList:
-            retrievedEmail = database.child("Doctor").child(i).child("docEmail").get().val()
-            # storing the desired user id in requid
-            if (email == retrievedEmail):
-                requid = i
-                break
-        fName = database.child("Doctor").child(requid).child("docFName").get().val()
-        lName = database.child("Doctor").child(requid).child("docLName").get().val()
-        name=fName + " " +lName 
-        docGender = database.child("Doctor").child(requid).child("docGender").get().val()
-        docDesignation = database.child("Doctor").child(requid).child("docDesignation").get().val()
-        email = database.child("Doctor").child(requid).child("docEmail").get().val()
-        specialty = database.child("Doctor").child(requid).child("docSpecializedField").get().val()
-        consultationDays = database.child("Doctor").child(requid).child("docConsultationDays").get().val()
-        image = database.child("Doctor").child(requid).child("docImage").get().val()
-        cNumber = database.child("Doctor").child(requid).child("docNumber").get().val()
-        workPlace = database.child("Doctor").child(requid).child("docWorkingPlace").get().val()
-        hourOne = database.child("Doctor").child(requid).child("docWorkingHour1").get().val()
-        hourTwo = database.child("Doctor").child(requid).child("docWorkingHour2").get().val()
-        docInfo = zip(name, docGender, docDesignation, email, 
-                    specialty, consultationDays, image,
-                    cNumber, workPlace, hourOne, hourTwo)
-   
-    return render(request, 'docList/docprofile.html')
+def doctor_profile_view(request, keyy):
+    fName = database.child("Doctor").child(keyy).child("docFName").get().val()
+    lName = database.child("Doctor").child(keyy).child("docLName").get().val()
+    Name=fName + " " +lName 
+    image = database.child("Doctor").child(keyy).child("docImage").get().val()
+    qualification = database.child("Doctor").child(keyy).child("docQualification").get().val()
+    about = database.child("Doctor").child(keyy).child("About").get().val()
+    designation = database.child("Doctor").child(keyy).child("docDesignation").get().val()
+    email = database.child("Doctor").child(keyy).child("docEmail").get().val()
+    workPlace = database.child("Doctor").child(keyy).child("docWorkingPlace").get().val()
+    specialty = database.child("Doctor").child(keyy).child("docSpecializedField").get().val()
+    consultationDays = database.child("Doctor").child(keyy).child("docConsultationDays").get().val()
+    cNumber = database.child("Doctor").child(keyy).child("docNumber").get().val()
+    hourOne = database.child("Doctor").child(keyy).child("docWorkingHour1").get().val()
+    hourTwo = database.child("Doctor").child(keyy).child("docWorkingHour2").get().val()
+    fees = database.child("Doctor").child(keyy).child("docConsultationFees").get().val()
+
+    
+    return render(request, 'docList/docprofile.html', {'docName':Name, 'docEmail':email, 'docImage':image, 'dWorkPlace':workPlace, 'dQualification':qualification, 'dAbout':about, 'dDesignation':designation, 'specializedField':specialty, 'cDays':consultationDays, 'timeOne':hourOne, 'timeTwo':hourTwo, 'CFees':fees, 'contact':cNumber })
+    #return render(request, 'docList/docprofile.html', {'name':name, 'gender':docGender, 'specializedField':specialty,  'wPlace':workPlace,'timeOne':hourOne, 'timeTwo':hourTwo, 'CFees':fees, 'contact':cNumber,'docEmail':email})
+
+    
 
 
 
