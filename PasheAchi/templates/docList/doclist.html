@@ -64,7 +64,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
+</head>
 {% block body %}
 
 <nav class="navbar navbar-light bg-light">
@@ -78,7 +78,7 @@
 
 <h1 class="text-center alert alert-info"> Meet Our Specialists {{doc_list}}</h1>
 
-{% endblock body %}
+
 
 {% for docName, docSpecialty, docEmail, docImage, docID in results %}
 
@@ -195,6 +195,7 @@ a:link {
 
 
 </style>
+{% endblock body %}
 
 
 </html>

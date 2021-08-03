@@ -41,9 +41,7 @@ def doctor_list(request):
         id = i
         fName = database.child("Doctor").child(i).child("docFName").get().val()
         lName = database.child("Doctor").child(i).child("docLName").get().val()
-        name=fName + " " +lName 
-        #docGender = database.child("Doctor").child(i).child("docGender").get().val()
-        #docDesignation = database.child("Doctor").child(specialties).child(requid).child("designation").get().val()
+        name=fName + " " +lName        
         email = database.child("Doctor").child(i).child("docEmail").get().val()
         specialty = database.child("Doctor").child(i).child("docSpecializedField").get().val()
         image = database.child("Doctor").child(i).child("docImage").get().val()
