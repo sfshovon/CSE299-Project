@@ -30,6 +30,8 @@ def search_blog_post(request):
         userName = []
         post = []
         posts = []
+        # initializing punctuations string
+        punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
         id = database.child("Blog Post").get()
         idList = []
         for i in id.each():
@@ -38,6 +40,9 @@ def search_blog_post(request):
         for i in idList:
             blog = database.child("Blog Post").child(i).child("post").get().val()
             post = blog.lower()
+            for ele in post:
+                if ele in punc:
+                    post = post.replace(ele, "")
             dict = post.split()
             for word in dict:
                 if(word==keyword):

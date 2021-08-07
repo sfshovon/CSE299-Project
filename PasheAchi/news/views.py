@@ -8,7 +8,7 @@ def news(request):
 
     url = "https://covid-19-news.p.rapidapi.com/v1/covid"
 
-    querystring = {"q":"covid","lang":"en","media":"True","country":"BD","from":"2021/07/31"}
+    querystring = {"q":"covid","lang":"en","media":"True","country":"BD","from":"2021/08/05"}
 
     headers = {
     'x-rapidapi-key': "3f65bbd635mshe1afe6cb1c3a5f3p1a2ff8jsn8a95a2d046e8",
