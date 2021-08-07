@@ -11,6 +11,10 @@
    -webkit-line-clamp: 3; /* number of lines to show */
    -webkit-box-orient: vertical;
 }
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+ }
 </style>
 <div style="margin-bottom:600px; margin-top: 200px" class="mt-5 mb-3 col-lg-6 container">
     <form action="{% url 'add_post' %}" method="POST">
@@ -98,17 +102,19 @@
                                 <i class="far fa-thumbs-up fa-lg"><span>{{totalLikesList}}</span></i>
                             </button>
                         </form>
-                        <div class="position-relative">
+                        <div class=" ">
                             <button style="background-color: transparent; border:none; box-shadow:none;">
+                                <a href="{% url 'post_details' timeStampList  %}">
                                 <i class="far fa-comment-dots fa-lg"><span>{{totalCommentsList}}</span></i>
-                                <a href="{% url 'post_details' timeStampList  %}" class="stretched-link"></a>
+                                </a>
                             </button>
                         </div>
                     </div>
-                    <h5 style="color:#52b69a;" class="font-weight-light float-right">Details
-                        <i style="margin-left: 5px;" class="fas fa-angle-double-right"></i> 
-                        <a href="{% url 'post_details' timeStampList  %}" class="stretched-link"></a>
-                    </h5>
+                    <a href="{% url 'post_details' timeStampList  %}">
+                        <h5 style="color:#52b69a;" class="font-weight-light float-right">Details
+                            <i style="margin-left: 5px;" class="fas fa-angle-double-right"></i> 
+                        </h5>
+                     </a>
                 </div>
             </div>
         </div>
