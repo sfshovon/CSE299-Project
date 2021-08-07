@@ -1,0 +1,759 @@
+{% if message %}
+    <script>
+        alert('{{message}}');
+    </script> 
+{% endif %}
+
+{% if msg0 %}
+    <script>
+        alert('{{msg0}}');
+    </script> 
+{% endif %}
+
+{% if msg1 %}
+    <script>
+        alert('{{msg1}}');
+    </script> 
+{% endif %}
+
+{% if msg3 %}
+    <script>
+        alert('{{msg3}}');
+    </script> 
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+      integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+      crossorigin="anonymous"
+    />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+
+    <script>
+    var config = {
+                  "apiKey": "AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY",
+                  "authDomain": "pashe-achi-cse299.firebaseapp.com",
+                  "databaseURL": "https://pashe-achi-cse299-default-rtdb.firebaseio.com/",
+                  "projectId": "pashe-achi-cse299",
+                  "storageBucket": "pashe-achi-cse299.appspot.com",
+                  "messagingSenderId": "798613820174",
+                  "appId": "1:798613820174:web:8d03f5cf0fbae3e9dcbd5f",
+                  "measurementId": "G-TZN8WC3LJT"
+                };
+    firebase.initializeApp(config);
+</script>
+
+ <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css"/>
+
+<script type="text/javascript">
+    var uiConfig = {
+
+                    signInSuccessUrl: '../home',
+                    signInFlow: 'popup',
+                    signInOptions: [
+
+                        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+
+                    ],
+                    tosUrl: 'home'
+    };
+
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start('#firebaseui-auth-container', uiConfig);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var photoURL = user.photoURL;
+                    var uid = user.uid;
+                    //var phoneNumber = user.phoneNumber;
+                    //var providerData = user.providerData;
+                    //var emailVerified = user.emailVerified;
+                    document.getElementById('username').value = displayName;
+                    document.getElementById('photo').value = photoURL;
+                    document.getElementById('uid').value = uid;
+                    document.getElementById('email').value = email;
+                  //document.getElementById('usernumber').value = phoneNumber;
+                  //document.getElementById('userproviderdata').value = providerData;
+                  //document.getElementById('useremailstatus').value = emailVerified;
+                  
+                    if (uid) {
+                            document.myForm.submit();
+                            firebase.auth().signOut()
+                    }
+
+                    console.log(phoneNumber);
+
+        } else {
+                document.getElementById('account-details').textContent = 'null';
+            }
+    });
+
+</script>
+
+    <title> Login </title>
+  </head>
+
+  <body onload="startTime()" data-spy="scroll" data-target="#main-nav" id="home">
+    <nav
+      class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+      id="main-nav"
+    >
+      <div class="container">
+        <a href='#' class="navbar-brand"></a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="#home" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="#explore-head-section" class="nav-link">Explore</a>
+            </li>
+            <li class="nav-item">
+              <a href="#faq" class="nav-link">FAQ</a>
+            </li>
+            <li class="nav-item">
+              <a href="#cs" class="nav-link">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HOME SECTION -->
+    <header id="home-section">
+      <div class="dark-overlay">
+        <div class="home-inner container ">
+          <div class="row">
+            <div id='dis' class="col-lg-9 d-block p-3 bg-dark text-left">
+              <h1 class="display-6">
+                <MARQUEE ONMOUSEOVER="this.stop()" ONMOUSEOUT="this.start()" BEHAVIOR="alternate"><strong>Our concern is your well being</strong></MARQUEE>
+              </h1>
+              <div class="d-flex flex-row bg-danger">
+                <div class="p-4 align-self-start">
+                  <i class="fas fa-check fa-1x"></i>
+                </div>
+                <div class="p-4 align-self-end">
+                  <strong>It is a social media web app only for the purpose of facilitating COVID-infected and suspected people!</strong>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row bg-primary">
+                <div class="p-4 align-self-start">
+                  <i class="fas fa-check fa-1x"></i>
+                </div>
+                <div class="p-4 align-self-end">
+                  <strong>This covers the urgent need for a health awareness platform that can effectively assist individuals infected with the virus!</strong>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row bg-success">
+                <div class="p-4 align-self-start">
+                  <i class="fas fa-check fa-x"></i>
+                </div>
+                <div class="p-4 align-self-end">
+                  <strong>The connectivity would make it easier for everyone to learn about COVID variant symptoms, precautions, treatments through blog posts!</strong>
+                </div>
+              </div>
+            </div>
+
+         <div id="container">
+         <div id="formcontainer"> <img id="img1" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/CHLA-What-You-Should-Know-Covid-19-1200x628-02.png?alt=media&token=ab22c9ce-2bfb-4e8f-b11f-7cec92e92b2a">
+           
+          <p id="text"> 
+          <b> Welcome to <i>  Pashe Achi  </i> <br> Login to your account </b>
+          </p> 
+
+           <form action="/google_login/" name="myForm" id="myForm" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="photo" value="" id="photo">
+            <input type="hidden" name="uid" value="" id="uid">
+            <input type="hidden" name="username" value="" id="username">
+            <input type="hidden" name="email" value="" id="email">
+          </form>
+
+          <form action="/post_login/" method="POST">
+            {% csrf_token %}
+            <input id="email" type="email" name="email" placeholder="Email" required> 
+            <input id="password" type="password" name="password" placeholder="Password" required> 
+            <button id="login" type="submit"> Login </button>
+          </form> 
+
+          <a id="forget" href='{% url 'forget_password' %}'>
+          <b> Forget Password? </b> 
+          </a> 
+
+          <hr id="hrline1">
+
+          <strong id="text1"> or </strong>
+
+          <hr id="hrline2"> 
+
+          <div id="firebaseui-auth-container"> </div>
+
+
+          <p id="text2">
+          <b> Not a Member? </b>
+          </p>
+
+          <button id="signup" onclick="location.href='/user_signup';"> <b> Sign Up </b> </button> 
+          <p id="time"><strong> Current Server Time: </strong> <span id='ct5'></span></p>
+        <script>
+          function display_ct5() {
+          var date = new Date();
+          var h = date.getHours(); // 0 - 23
+          var m = date.getMinutes(); // 0 - 59
+          var s = date.getSeconds(); // 0 - 59
+          var session = "AM";
+          
+          if(h == 0){
+              h = 12;
+          }
+          
+          if(h > 12){
+              h = h - 12;
+              session = "PM";
+          }
+          
+          h = (h < 10) ? "0" + h : h;
+          m = (m < 10) ? "0" + m : m;
+          s = (s < 10) ? "0" + s : s;
+          
+          var time = h + ":" + m + ":" + s + " " + session;
+          document.getElementById('ct5').innerHTML = time;
+          display_c5();
+          }
+          function display_c5(){
+          var refresh=1000; // Refresh rate in milli seconds
+          mytime=setTimeout('display_ct5()',refresh)
+          }
+          display_c5()
+        </script>
+      </div>
+    </div>
+   </header>
+        
+    <!-- EXPLORE HEAD -->
+    <section id="explore-head-section">
+      <div class="container">
+        <div class="row">
+          <div class="col text-justify py-4">
+            <h1 class="display-5">Explore</h1>
+            <p class="lead">
+              Pashe Achi is a web application which is developed and designed to provide benefits through the internet. We intend to build a web-based COVID assistance platform from scratch. At the moment, the entire world is suffering from the COVID-19 pandemic. Since the disease has no known cure, people are continuing to get infected by coming in contact with others who carry the virus, causing the infection rate to grow exponentially with time. As a result, providing adequate medical care has become very difficult, especially in a country like Bangladesh. Moreover, finding a valid plasma donor is undoubtedly difficult. If some of these crucial medical services could be provided online, this will ease the suffering of COVID patients seeking medical attention. Moreover, due to a general lack of knowledge about symptoms and primary home treatment procedures, people often face difficulties. Therefore, a platform is much needed for them where they will be able to get much information about COVID. Thus, we intend to build a web-based COVID assistance platform from scratch. The name of our web platform is "Pashe Achi". This name signifies the connectivity among the users and their trust toward our platform for many necessary services. Our number one priority is to create a dynamic web platform, which means we should be able to add, remove, or update any feature at any time. So, there will be a maintenance platform to achieve this goal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- FAQ -->
+   <section id="faq" class="p-4 bg-primary text-white">
+      <div class="container">
+        <h1 class="text-center">Frequently Asked Questions</h1>
+        <hr>
+
+        <div class="col">
+          <div class="col-md-10 mx-auto">
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="mb-0">
+                    <a href="#collapseOne" data-toggle="collapse" data-parent="accordion">
+                      What is COVID-19?
+                    </a>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse">
+                  <div class="card-body">
+                    <b> ANS: </b> COVID-19 is a disease caused by a virus called SARS-CoV-2. Most people with COVID-19 have mild symptoms, but some people can become severely ill. Although most people with COVID-19 get better within weeks of illness, some people experience post-COVID conditions. Post-COVID conditions are a wide range of new, returning, or ongoing health problems people can experience more than four weeks after first being infected with the virus that causes COVID-19. Older people and those who have certain underlying medical conditions are more likely to get severely ill from COVID-19. Vaccines against COVID-19 are safe and effective.
+                  </div>
+                </div>
+              </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">
+                  <a href="#collapseTwo" data-toggle="collapse" data-parent="accordion">
+                    How does the virus spread?
+                  </a>
+                </h5>
+              </div>
+
+              <div id="collapseTwo" class="collapse">
+                <div class="card-body">
+                  <b> ANS: </b> COVID-19 spreads when an infected person breathes out droplets and very small particles that contain the virus. These droplets and particles can be breathed in by other people or land on their eyes, noses, or mouth. In some circumstances, they may contaminate surfaces they touch. People who are closer than 6 feet from the infected person are most likely to get infected. <br>
+
+                  COVID-19 is spread in three main ways:
+
+                  <li> Breathing in air when close to an infected person who is exhaling small droplets and particles that contain the virus.</li> 
+                  <li> Having these small droplets and particles that contain virus land on the eyes, nose, or mouth, especially through splashes and sprays like a cough or sneeze.</li> 
+                  <li> Touching eyes, nose, or mouth with hands that have the virus on them. </li>
+                  For more information about how COVID-19 spreads, visit the How COVID-19 Spreads page to learn how COVID-19 spreads and how to protect yourself.
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">
+                  <a href="#collapseThree" data-toggle="collapse" data-parent="accordion">
+                    What is community spread?
+                  </a>
+                </h5>
+              </div>
+
+              <div id="collapseThree" class="collapse">
+                <div class="card-body">
+                  <b> ANS: </b> Community spread means people have been infected with the virus in an area, including some who are not sure how or where they became infected. Each health department determines community spread differently based on local conditions. For information on community spread in your area, please visit your local health department’s website.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10 mx-auto">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">
+                  <a href="#collapseFour" data-toggle="collapse" data-parent="accordion">
+                    Should I use soap and water or hand sanitizer to protect against COVID-19?
+                  </a>
+                </h5>
+              </div>
+
+              <div id="collapseFour" class="collapse">
+                <div class="card-body">
+                  <b> ANS: </b> Handwashing is one of the best ways to protect yourself and your family from getting sick. Wash your hands often with soap and water for at least 20 seconds, especially after blowing your nose, coughing, or sneezing; going to the bathroom; and before eating or preparing food. If soap and water are not readily available, use an alcohol-based hand sanitizer with at least 60% alcohol.
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">
+                  <a href="#collapseFive" data-toggle="collapse" data-parent="accordion">
+                    What should I do if I get sick or someone in my house gets sick? 
+                  </a>
+                </h5>
+              </div>
+
+              <div id="collapseFive" class="collapse">
+                <div class="card-body">
+                  <b> ANS: </b> People who have been in close contact with someone who has COVID-19—excluding people who have had COVID-19 within the past 3 months or who are fully vaccinated
+
+                  <li>People who have tested positive for COVID-19 within the past 3 months and recovered do not have to quarantine or get tested again as long as they do not develop new symptoms.</li>
+                  <li>People who develop symptoms again within 3 months of their first bout of COVID-19 may need to be tested again if there is no other cause identified for their symptoms.</li>
+                  <li>People who have been in close contact with someone who has COVID-19 are not required to quarantine if they have been fully vaccinated against the disease and show no symptoms.</li>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">
+                  <a href="#collapseSix" data-toggle="collapse" data-parent="accordion">
+                    What are the recommendations for someone who has symptoms of COVID-19? 
+                  </a>
+                </h5>
+              </div>
+
+              <div id="collapseSix" class="collapse">
+                <div class="card-body">
+                  <b> ANS: </b> If you are sick with COVID-19 or think you might have COVID-19, follow the steps below to care for yourself and to help protect other people in your home and community.
+
+                  <li> Stay at home (except to get medical care).</li> 
+                  <li> Separate yourself from others.</li> 
+                  <li> Monitor your symptoms.</li> 
+                  <li> Wear a mask over your nose and mouth when around others.</li> 
+                  <li> Cover your coughs and sneezes.</li> 
+                  <li> Wash your hands often.</li> 
+                  <li> Clean high-touch surfaces every day.</li> 
+                  <li> Avoid sharing personal household items.</li> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- FOOTER -->
+    <section id="cs">
+    <footer id="main-footer" class="bg-danger">
+      <div class="container">
+        <div class="row">
+          <div class="col text-center py-3">
+            <h3>Team Pashe Achi</h3>
+            <p>
+              Copyright &copy;
+              <span id="year"></span>
+            </p>
+            <button
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#contactModal"
+            >
+              Contact Us
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CONTACT MODAL -->
+    <div class="modal fade text-dark" id="contactModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Contact Us</h5>
+            <button class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Contact Number: +88 01715933508 </p>
+
+            <a  class="btn btn-success btn-block" href = "https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=shahriar.shovon@northsouthe.edu&body=Hello%20Team %20PasheAchi%2C%0A%0AI%20have%20tried%20contacting%20you%20today,%20but%20you%20seem%20to%20have%20missed%20my%20call.%20%0A%0APlease%20return%20my%20call%20as%20soon%20as%20you%E2%80%99re%20available.%20%0A%0AIn%20any%20case%2C%20I%20will%20try%20to%20call%20you%20at%20a%20later%20time.%0A%0AThank%20you."> Email Us </a>
+          <div class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+             <b> <center> Team Pashe Achi, North South University, Dhaka-1229 </center> </b>
+          </div>   
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+      integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // Get the current year for the copyright
+      $("#year").text(new Date().getFullYear());
+
+      // Init Scrollspy
+      $("body").scrollspy({ target: "#main-nav" });
+
+      // Smooth Scrolling
+      $("#main-nav a").on("click", function (event) {
+        if (this.hash !== "") {
+          event.preventDefault();
+
+          const hash = this.hash;
+
+          $("html, body").animate(
+            {
+              scrollTop: $(hash).offset().top,
+            },
+            800,
+            function () {
+              window.location.hash = hash;
+            }
+          );
+        }
+      });
+    </script>
+
+    <style>
+          body {
+              background: #333;
+              color: #d1ede8;
+            }
+          
+          #container {
+              
+              width: 100%;
+              height: 745px;
+              
+          }
+
+          #formcontainer {
+              width: 400px;
+              height: 655px;
+              background-color: #d1ede8;
+              position: relative;
+              top: -450px;
+              left: 75%;
+              box-shadow: 0 0 20px black;
+              border-radius: 8px;
+              
+              
+          }
+
+          #img1 {
+              width: 400px;
+              height: 150px;
+              border-top-left-radius: 8px;
+              border-top-right-radius: 8px
+          }
+
+          #cross {
+              width: 20px;
+              height: 20px;
+              position: relative;
+              top: -145px;
+              left: 94%
+          }
+
+          #text {
+              font-size: 25px;
+              font-family: 'Roboto Slab', serif;
+              color: #14253E;
+              text-align: center;
+              position: relative;
+              top: -5px
+          }
+
+          #email, 
+          #password {
+              width: 350px;
+              height: 1px;
+              position: relative;
+              top: -15px;
+              left: 7%;
+              border-radius: 5px;
+              border-width: 1px;
+              border-color: gray;
+              padding: 20px;
+              font-size: 20px;
+              outline: none;
+              margin-bottom: 15px
+          }
+
+          #email:hover,
+          #password:hover {
+              background-color: gainsboro;
+          }
+
+          #email:focus,
+          #password:focus {
+              box-shadow: 0 0 10px darkblue;
+              border: none;
+          }
+
+          #check {
+              position: relative;
+              top: 26.5px;
+              left: -75%;
+          }      
+
+          #forget {
+              position: relative;
+              top: -64px;
+              left: 63%;
+              color: #010d87;
+              font-size: 18px;
+              font-family: 'Roboto Slab', serif
+          }
+
+          #forget:hover {
+              background-color: white
+          }
+
+          #forget:focus {
+              box-shadow: 0 0 10px darkblue;
+              border: none
+          }
+
+          #login {
+              width: 350px;
+              height: 40px;
+              position: relative;
+              left: 6.5%;
+              top: 10px;
+              cursor: pointer;
+              font-size: 22px;
+              font-family: 'Roboto Slab', serif;
+              border-radius: 5px;
+              border: none;
+              background-color: rgb(0, 128, 0);
+              color: white
+          }
+
+          #login:hover {
+              background-color: rgb(0, 128, 0, 0.7)
+          }
+
+          #hrline1 {
+              line-height: 1em;
+              position: relative;
+              top: -10px;
+              left: -30%;
+              width: 38%  
+          }
+
+          #text1 {
+              font-size: 16px;
+              font-family: 'Roboto Slab', serif;
+              position: relative;
+              top: -40px;
+              left: 49%;
+              color: black
+          }
+
+          #hrline2 {
+              position: relative;
+              top: -68px;
+              left: 31%;
+              width: 37%
+          }
+
+          #firebaseui-auth-container {
+              top:-85px;
+              left: 10%;     
+          }
+
+          #firebaseui-auth-container {
+              position: relative;
+              left: 2%
+          }
+
+          #text2 {
+              position: relative;
+              top: -95px;
+              left: 37%;
+              font-size: 20px;
+              font-family: 'Roboto Slab', serif;
+              color: #151F32
+          }
+
+          #time {
+              position: relative;
+              top: -80px;
+              left: 5%;
+              font-size: 20px;
+              font-family: 'Roboto Slab', serif;
+              color: #010d87;
+          }
+
+          #signup {
+              width: 150px;
+              height: 45px;
+              position: relative;
+              top: -100px;
+              left: 35%;
+              color: #010d87;
+              font-size: 19px;
+              font-family: 'Roboto Slab', serif;
+              border-radius: 1px;
+              border-width: 1px;
+              border-color: gray;
+              padding: 0px 5px 5px 5px;
+              outline: none;
+              margin-bottom: 0px;
+              box-shadow: 0 0 5px black
+          }
+
+          #signup:hover {
+              background-color: gainsboro
+          }
+
+          #signup:focus {
+              box-shadow: 0 0 10px darkblue;
+              border: none
+          }   
+
+          .navbar {
+              border-bottom: #008ed6 3px solid;
+              opacity: 0.8;
+          }
+
+          #dis {
+            right: 15%;
+          }
+
+          #home-section {
+              background: url("https://static.psycom.net/wp-content/uploads/2020/07/social-media-covid-19.jpg");
+              background-repeat: repeat;
+              background-size: cover;
+              background-attachment: fixed;
+              height: 900px;
+          }
+
+          #home-section .dark-overlay {
+              position: relative;
+              width: 100%;
+              height: 900px;
+              background: rgba(0, 0, 0, 0.7);
+          }
+          
+
+          #home-section .home-inner {
+              padding-top: 200px;
+          }
+
+          #home-section .card-form {
+              opacity: 0.8;
+          }
+
+          #home-section .fas{
+              color: #008ed6;
+              background: #fff;
+              padding: 15px;
+              border-radius: 50px;
+          }
+
+          #faq .card {
+              border: #333;
+            }
+
+          #faq a {
+              color: #fff;
+              text-decoration: none;
+          }
+
+          #faq .card-body,
+          #faq .card-header {
+              position: relative;
+              background: #333;
+          }
+
+    </style>
+
+    <script>
+    $(document).ready(function() {
+     document.getElementById("cross").onclick=function() {
+        document.getElementById("formcontainer").style.display="none";
+        };
+    });
+    </script>
+
+  </body>
+</html>
