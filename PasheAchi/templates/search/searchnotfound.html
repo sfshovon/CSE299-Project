@@ -1,18 +1,18 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css bootstrap.min.css"
       integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
       crossorigin="anonymous"
     />
-
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
     <link
       rel="stylesheet"
@@ -48,6 +48,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -55,12 +56,15 @@
       crossorigin="anonymous"
     />
 
-    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
+
 {% block body %}
+<div id="loader">
+
+</div>
 
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand">Pashe Achi</a>
@@ -71,20 +75,25 @@
   </form>
 </nav>
 
-<h1 class="text-center alert alert-info"> Search Not Found {{search_not_found}}</h1>
+<div class = "parentDiv">
+ <img src = "{% static 'images/searchnotfoundbackground.gif' %}">
+</div>
 
-{% endblock body %}
 
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
 
 body {
-    font-family: 'Maven Pro', sans-serif
+    font-family: 'Maven Pro', sans-serif;
+    background-color: #fff;
+}
+.parentDiv{
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-body {
-    background-color: #eee
-}
 
 .add {
     border-radius: 20px
@@ -102,19 +111,6 @@ body {
     -webkit-box-shadow: 3px 5px 17px -4px #777777;
     box-shadow: 3px 5px 17px -4px #777777
 }
-
-.ratings i {
-    color: green
-}
-
-.profileview button {
-    border-radius: 20px;
-    background-color: #f2f9ff;
-    color: #000;
-    border-color: #f2f9ff;
-    font-size: 13px
-}
-
 
 .search {
     margin-bottom: auto;
@@ -166,9 +162,8 @@ a:link {
     text-decoration: none
 }
   
-
-
 </style>
 
+{% endblock body %}
 
 </html>

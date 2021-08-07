@@ -69,6 +69,9 @@
 
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand">Pashe Achi</a>
+
+  <a href="{% url 'news' %}" class="nav-link">COVID News</a>
+
   <form class="form-inline" action="{% url 'search_blog_post' %}" method="POST" id="s">
   {% csrf_token %}
     <input class="form-control mr-sm-2" type="search" name="search" id="search"  placeholder="Enter a keyword...">
