@@ -23,6 +23,7 @@ urlpatterns = [
     path('doc_profile/?P<keyy>[\w+]+',views.doctor_profile_view, name="doc_profile"),  
     path('search/', include('search.urls')),
     path('covidnews/', include('news.urls')),
+    path('icubed/',include('icubed.urls')),
 
 ]
 

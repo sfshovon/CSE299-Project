@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'DoctorList',
     'search',
     'news',
+    'icubed',
 ]
 
 MIDDLEWARE = [
