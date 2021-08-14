@@ -1,8 +1,7 @@
-from django.conf.urls import url
 from django.urls import path
 from . import views
 
 urlpatterns =[
-    path('news/',views.news, name="news"),
-    
+    path('BDnews/',views.news, name="BDnews"),
+    path('vaccine/',views.vaccine_news, name="vaccine_news"),   
 ]
