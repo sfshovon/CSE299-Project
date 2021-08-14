@@ -17,5 +17,35 @@ storage = firebase.storage()
 database = firebase.database()
 # Create your views here.
 
-def search_blog_post(request):
-    return render(request, "icu/icubed.html")
+def view_icu_beds(request):
+    timeStamp = database.child("ICU").get()
+    timeStampList = []
+    for i in timeStamp.each():
+        timeStampKey = i.key()
+        timeStampList.append(timeStampKey)
+    hosName = []
+    totalBeds = []
+    availableBeds = []
+    icuID = []
+    for i in timeStampList:
+        id = i
+        name = database.child("ICU").child(i).child("hosName").get().val()  
+        total = database.child("ICU").child(i).child("total").get().val()
+        available = database.child("ICU").child(i).child("available").get().val()     
+        icuID.append(id) 
+        hosName.append(name)
+        totalBeds.append(total)   
+        availableBeds.append(available)  
+    print(totalBeds)   
+    print(availableBeds)
+    results = zip(hosName, totalBeds, availableBeds, icuID)  
+        # Sending all data in zip form to icubed.html        
+    return render(request, 'icu/icubed.html',{"results": results})
+
+def icu_details(request, keyy):
+    name = database.child("ICU").child(keyy).child("hosName").get().val()  
+    location = database.child("ICU").child(keyy).child("location").get().val()  
+    hosContact = database.child("ICU").child(keyy).child("contact").get().val()
+    webLink = database.child("ICU").child(keyy).child("website").get().val() 
+    mapLink = database.child("ICU").child(keyy).child("map").get().val() 
+    return render(request, 'icu/icu_details.html', {'hosName':name, 'hosLocation':location, 'contact':hosContact, 'website':webLink, 'gMap':mapLink})

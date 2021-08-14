@@ -83,7 +83,7 @@
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand">Pashe Achi</a>
 
- <ul class="navbar-nav ml-auto">
+<ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown mr-3">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">COVID NEWS</a>
             <div class="dropdown-menu">
@@ -99,117 +99,38 @@
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </nav>
-<h1 class="text-center alert alert-info">ICU beds</h1>
+<h1 style="text-align:center">Contact</h1>
 
-        <!--<ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown mr-3">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-              <i class="fas fa-user"></i> Welcome Brad
-            </a>
-            <div class="dropdown-menu">
-              <a href="profile.html" class="dropdown-item">
-                <i class="fas fa-user-circle"></i> Profile
-              </a>
-              <a href="settings.html" class="dropdown-item">
-                <i class="fas fa-cog"></i> Settings
-              </a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a href="login.html" class="nav-link">
-              <i class="fas fa-user-times"></i> Logout
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>-->
+<div class="flex-container">
 
-  <!-- HEADER -->
-  <!--<header id="main-header" class="py-2 bg-success text-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <h1>
-            <i class="fas fa-folder"></i> Categories</h1>
-        </div>
-      </div>
-    </div>
-  </header>-->
+  <div class="flex-child white">
+    <i class="fas fa-map-pin"></i> <strong> Location: </strong>
+    <iframe src = "{{gMap}}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+  
+  <div class="flex-child white">
+  <br>
+  <p>
+  <strong>Name:</strong>
+  <br>{{hosName}}
+  </p>
+<p>
+  <strong>Address:</strong>
+  <br>{{hosLocation}}
+</p>
+<p>
+  <strong>Phone:</strong>
+  <br>{{contact}}
+</p>
+<p>
+  <!--<strong>Website:</strong>
+  <br><a> {{website}}-->
+    <a href="{{website}}" title="Click to visit website" </a> <strong> Visit {{hosName}}'s website </strong>
+</p>
+  </div>
 
-  <!-- SEARCH -->
-  <!--<section id="search" class="py-4 mb-4 bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 ml-auto">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search Categories...">
-            <div class="input-group-append">
-              <button class="btn btn-success">Search</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>-->
-
-  <!-- CATEGORIES -->
-  <section id="categories">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="card">
-            <div class="card-header">
-              <h4>ICU Beds</h4>
-            </div>
-            <table class="table table-striped">
-              <thead class="thead-light">
-              
-                <tr>
-                  <th>Hospital Name</th>
-                  <th>Total ICU beds</th>
-                  <th>Available Beds</th>
-                  <th></th>
-                </tr>
-              </thead>
-              {% for hosName, totalBeds, availableBeds, icuID in results %}
-              <tbody>
-                <tr>
-                
-                  <td>{{hosName}}</td>
-                  <td>{{totalBeds}}</td>
-                  <td>{{availableBeds}}</td>
-                  <td>
-                    <a href = "{% url 'icu_details' keyy=icuID %}" class="btn btn-info">
-                      <i class="fas fa-angle-double-right"></i> More Info
-                    </a>
-                  </td>
-                  
-                </tr>
-                
-              </tbody>
-              {% endfor %}
-            </table>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER 
-  <footer id="main-footer" class="bg-dark text-white mt-5 p-5">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <p class="lead text-center">
-            Pashe Achi 
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>-->
-
+  
+</div>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
@@ -219,7 +140,7 @@ body {
 }
 
 body {
-    background-color: #eee
+    background-color: #fff
 }
 
 .add {
@@ -275,6 +196,19 @@ body {
 
 a:link {
     text-decoration: none
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+    border: 2px solid white;
+}  
+
+.flex-child:first-child {
+    margin-right: 20px;
 }
   
 
