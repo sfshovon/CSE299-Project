@@ -1,0 +1,161 @@
+{% extends "login_register/base.html" %}
+
+{% block title %}Become Plasma Donor{% endblock title %}
+
+{% block body %}
+
+<style>
+.bg{
+    background-image: url("/static/images/doctor-stetho-edited3.png");
+    background-repeat: no-repeat;
+    background-position: center 30px;
+    background-attachment: fixed;
+    background-size: auto;
+    height: 100vh;
+}
+.field {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: #6d6875;
+}
+.uploadbutton {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #086375;
+  border-radius: 4px;
+}
+.uploadbutton:hover {
+  background-color: #086375;
+  color: white;
+}
+#modalButton{
+    position:absolute;
+    top: 185px;
+    left:820px;
+    background-color: #ffd100; 
+    color: #226239;
+    font-weight: bold;
+    border: 3px solid white;
+    border-radius: 8px;
+}
+#modalButton:hover{
+    background-color: white;
+}
+</style>
+<div class ="bg">
+    <div class="container">
+        <button id="modalButton" class="btn btn-info" data-toggle="modal" data-target="#donorModal">Click</button>
+        <div class="modal m" id="donorModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-weight-bold w-100 text-center">Donor Information</h5>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'add_donor' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-row field">
+                                <div class="form-group input col-6">
+                                    <label class="font-weight-bold" for="bloodgroup">Blood Group:</label>
+                                    <select class="form-control" id="bloodgroup" name="bloodgroup"  >
+                                        <option value="" disabled selected hidden>Select Your Blood Group</option>
+                                        <option>A+</option>
+                                        <option>A-</option>
+                                        <option>B+</option>
+                                        <option>B-</option>
+                                        <option>AB+</option>
+                                        <option>AB-</option>
+                                        <option>O+</option>
+                                        <option>O-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group input col-6">
+                                    <label class="font-weight-bold" for="district">District:</label>
+                                    <select id="district" name="district" class="form-control"  >
+                                        {% for district in districtList %}
+                                            <option value="" disabled selected hidden>Select Your District</option>
+                                            <option>{{district}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row field">
+                                <div class="form-group input col-6">
+                                    <label class="font-weight-bold" for="inputDate">Date of Tested COVID Positive:</label>
+                                    <input type="date" name="positiveDate"class="form-control" id="inputDate" placeholder="Select Date"  >
+                                </div>
+                                <div class="form-group input col-6">
+                                    <label class="font-weight-bold" for="inputDate">Date of Tested COVID Negative:</label>
+                                    <input type="date" name="negativeDate"class="form-control" id="inputDate" placeholder="Select Date"  >
+                                </div>
+                            </div>
+                            <div class="form-group input">
+                                <label style="color: #6d6875;" class="font-weight-bold" for="experience">Have you donated plasma before?</label>
+                                <select class="form-control" id="experience" name="experience"  >
+                                    <option value="" disabled selected hidden>Select Your Answer</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                            <label style="color: #6d6875;" class="font-weight-bold" for="file">Please upload your covid negative test report</label>
+                            <br>
+                            <input type="file" name="files[]" id="files"  >
+                            <br>
+                            <input type="hidden" name="url" id="url">
+                            <br>
+                            <button class="uploadbutton" type="button" data-toggle="tooltip" data-placement="right" title="Upload Picture" onclick="uploadimage()">
+                            Upload <i class="fas fa-arrow-circle-up"></i></button><br><br>
+                            <button style="color:white;" type="submit" class="btn btn-success font-weight-bold">
+                                Confirm <i class="far fa-check-circle"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-storage.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-firestore.js"></script>
+        <script>
+            var firebaseConfig = {
+                apiKey: 'AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY',
+                authDomain: 'pashe-achi-cse299.firebaseapp.com',
+                databaseURL: 'https://pashe-achi-cse299-default-rtdb.firebaseio.com/',
+                projectId: 'pashe-achi-cse299',
+                storageBucket: 'pashe-achi-cse299.appspot.com',
+                messagingSenderId: "798613820174",
+                appId: '1:798613820174:web:8d03f5cf0fbae3e9dcbd5f',
+                measurementId: 'G-TZN8WC3LJT'
+            };
+            firebase.initializeApp(firebaseConfig);
+            function uploadimage(){
+                var storage = firebase.storage();
+                var storageRef = storage.ref();
+                var file = document.getElementById("files").files[0];
+                var thisref = storageRef.child("Plasma Donor").child(file.name).put(file);
+                console.log(thisref);
+                thisref.on("state_changed",function(snapshot){
+                    console.log("file uplaoded succesfully");
+                    },
+                    function(error) {
+                    },
+                    function() {
+                        // Upload completed successfully, now we can get the download URL
+                        var starsRef = storageRef.child("Plasma Donor").child(file.name);
+                        // Get the download URL
+                        starsRef.getDownloadURL()
+                        .then((url) => {
+                            document.getElementById("url").value = url;
+                        console.log(url);
+                        alert("File uploaded successfully");
+                        })
+                    });
+            }  
+        // initialize tooltip  
+        $('[data-toggle="tooltip"]').tooltip();
+        </script>
+    </div>
+</div>
+{% endblock body %}
