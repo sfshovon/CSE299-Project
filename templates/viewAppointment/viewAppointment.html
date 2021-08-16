@@ -1,0 +1,47 @@
+{% extends "login_register/base.html" %}
+
+{% block title %}View Appointment{% endblock title %}
+
+{% block body %}
+
+<style>
+.bg{
+    background-image: url("/static/images/view-appointment2.png");
+    background-repeat: no-repeat;
+    background-position: 750px 50px;
+    background-attachment: fixed;
+    background-size: auto;
+}
+</style>
+<div class ="bg">
+    <div style="margin-top: 80px;">
+        <div style="margin-left: 100px;" class="container col-4">
+            {% for appointmentIdList,addressList,doctorNameList,appointmentDateList,appointmentTimeList in appointmentDetails %}
+                <div class="card text-black" value="{{appointmentIdList}}">
+                    <div style="background-color: #00AA9E;" class="card-header">
+                        <div class="clearfix">
+                            <h4 class="font-weight-bold card-title float-left"><i style="margin-right: 10px;" class="fas fa-user-md"></i>{{doctorNameList}}</h4>
+                            <form class="float-right" action="{% url 'cancelAppointments' appointmentIdList %}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger float-right" value="Cancel">      
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p style="text-align:justify" class="lead card-text text">
+                            <i style="margin-right: 10px;" class="far fa-clock"></i>{{appointmentTimeList}}
+                        </p>
+                        <p style="text-align:justify" class="lead card-text text">
+                            <i style="margin-right: 10px;" class="far fa-calendar-alt"></i>{{appointmentDateList}}
+                        </p>
+                        <p style="text-align:justify" class="lead card-text text">
+                            <i style="margin-right: 10px;" class="fas fa-clinic-medical"></i>{{addressList}}
+                        </p>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+ </div>
+{% endblock body %}
