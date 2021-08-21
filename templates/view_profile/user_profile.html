@@ -1,0 +1,230 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User's Profile</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+ 
+    <script type="text/javascript">
+        var firebaseConfig = {
+            apiKey: 'AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY',
+            authDomain: 'pashe-achi-cse299.firebaseapp.com',
+            databaseURL: 'https://pashe-achi-cse299-default-rtdb.firebaseio.com/',
+            projectId: 'pashe-achi-cse299',
+            storageBucket: 'pashe-achi-cse299.appspot.com',
+            messagingSenderId: "798613820174",
+            appId: '1:798613820174:web:8d03f5cf0fbae3e9dcbd5f',
+            measurementId: 'G-TZN8WC3LJT'
+        };
+        firebase.initializeApp(firebaseConfig);
+        function delprofile(){
+            const user = firebase.auth().currentUser;
+
+            user.delete().then(() => {
+            // User deleted.
+            }).catch((error) => {
+            // An error ocurred
+            // ...
+            });
+        }
+    </script>
+        
+
+</head>
+<body>
+     
+
+<div class="container emp-profile">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img" style= "width: 100%; height: 250px; overflow: hidden;">
+
+                        {% if photolink is None %}
+                          <img src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Photo%20Not%20Available.png?alt=media&token=bf96af46-58df-4002-a78a-6e78aafdc058" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                        {% else %}
+                          <img src={{photolink}} class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                        {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        {{fname}} {{lname}}
+                                    </h5>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{% url 'EP' %}">
+                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+                    </div>
+                </div>
+               
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>First Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{fname}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Last Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{lname}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Age</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{age}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Date of Birth</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{dob}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Gender</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{gender}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Occupation</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{occupation}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Contact Number</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{cnumber}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Blood Group</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{bgroup}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{email}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Delete Profile</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <form action="{% url 'DP' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="submit" class="btn btn-danger" value="Delete" onclick="return delprofile()">      
+                                                </form>
+                                            </div>
+                                        </div>
+                            </div>                   
+                    </div>
+                </div>          
+        </div>
+
+<style>
+        body{
+            background: -webkit-linear-gradient(#3931af, #00c6ff);
+        }
+        .emp-profile{
+            padding: 3%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            border-radius: 0.5rem;
+            background: #fff;
+        }
+        .profile-img{
+            text-align: center;
+        }
+        .profile-img img{
+            width: 70%;
+            height: 100%;
+        }
+        .profile-img .file {
+            position: relative;
+            overflow: hidden;
+            margin-top: -20%;
+            width: 70%;
+            border: none;
+            border-radius: 0;
+            font-size: 15px;
+            background: #212529b8;
+        }
+        .profile-img .file input {
+            position: absolute;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+        .profile-head h5{
+            color: #333;
+        }
+        .profile-head h6{
+            color: #0062cc;
+        }
+        .profile-edit-btn{
+            border: none;
+            border-radius: 1.5rem;
+            width: 70%;
+            padding: 2%;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+        } 
+        .profile-tab label{
+            font-weight: 600;
+        }
+        .profile-tab p{
+            font-weight: 600;
+            color: #0062cc;
+        }
+</style>
+</body>
+</html>
+
+
