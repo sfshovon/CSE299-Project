@@ -49,3 +49,24 @@ def view_oxygen_cylinders(request):
     cylinderList = zip(pID, name, image, priceList, litre, brand)  
 
     return render(request, 'oxygen_cylinder/view_oxygen_cylinder.html',{"results": cylinderList})
+
+def cylinder_details(request, keyy):
+    mask = database.child("OxygenCylinder").child(keyy).child("Oxygen Mask").get().val() 
+    cannula = database.child("OxygenCylinder").child(keyy).child("cannula").get().val() 
+    description = database.child("OxygenCylinder").child(keyy).child("description").get().val() 
+    flowMeter = database.child("OxygenCylinder").child(keyy).child("flowMeter").get().val()
+    trolley = database.child("OxygenCylinder").child(keyy).child("trolley").get().val() 
+    size = database.child("OxygenCylinder").child(keyy).child("small").get().val() 
+    warranty = database.child("OxygenCylinder").child(keyy).child("warranty").get().val() 
+    weight = database.child("OxygenCylinder").child(keyy).child("weight").get().val() 
+    height = database.child("OxygenCylinder").child(keyy).child("height").get().val() 
+    rate = database.child("OxygenCylinder").child(keyy).child("flowrate").get().val() 
+    madeIn = database.child("OxygenCylinder").child(keyy).child("from").get().val() 
+    title = database.child("OxygenCylinder").child(keyy).child("title").get().val() 
+    image = database.child("OxygenCylinder").child(keyy).child("image").get().val() 
+    price = database.child("OxygenCylinder").child(keyy).child("price").get().val() 
+    size = database.child("OxygenCylinder").child(keyy).child("litre").get().val() 
+    pBrand = database.child("OxygenCylinder").child(keyy).child("brand").get().val() 
+    refillPrice = database.child("OxygenCylinder").child(keyy).child("refillTk").get().val() 
+    return render(request, 'oxygen_cylinder/cylinder_details.html', {'warranty':warranty,'weight':weight,'height':height,'rate':rate,'madeIn':madeIn,'refillPrice':refillPrice,'mask':mask, 'cannula':cannula, 'description':description, 'flowMeter':flowMeter, 'trolley':trolley, 'name':title, 'image':image, 'price':price, 'size':size, 'brand':pBrand})
+

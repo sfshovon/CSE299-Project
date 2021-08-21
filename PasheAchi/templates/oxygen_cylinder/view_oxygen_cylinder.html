@@ -29,6 +29,16 @@
   
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>      
+
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand">Pashe Achi</a>
+
+  <form class="form-inline" action="{% url 'search_blog_post' %}" method="POST" id="s">
+  {% csrf_token %}
+    <input class="form-control mr-sm-2" type="search" name="search" id="search"  placeholder="Enter a keyword...">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
     <div class="page-header">
   <h1>Oxygen Cylinders</h1>
 </div>
@@ -44,7 +54,7 @@
                 </div>
                 <div class="card-body bg-light text-center">
                     <div class="mb-2">
-                        <h6 class="font-weight-semibold mb-2"> <a href="" class="text-default mb-2" data-abc="true">{{name}}</a> </h6> <a href="#" class="text-muted" data-abc="true">{{brand}}</a>
+                        <h6 class="font-weight-semibold mb-2"> <a href = "{% url 'cylinder_details' keyy=pID %}" class="text-default mb-2" data-abc="true">{{name}}</a> </h6> <a href="#" class="text-muted" data-abc="true">{{brand}}</a>
                     </div>
                     <h3 class="mb-0 font-weight-semibold">BDT {{priceList}}</h3>
                     <div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> </div>
