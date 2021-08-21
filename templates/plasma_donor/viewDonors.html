@@ -1,0 +1,64 @@
+{% extends "login_register/base.html" %}
+
+{% block title %} Plasma Donors {% endblock title %}
+
+{% block body %}
+<style>
+img {
+  object-fit: cover;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  padding: 10px;
+}
+.grid-item {
+  padding: 20px;
+}
+</style>
+<div class="container col-6 justify-content-center">
+    <div style="margin-top: 100px;" class="grid-container ">
+        <div class="grid-item">
+            <a href="{% url 'a_positive' %}">
+                <img src="/static/images/Plasma_ap.png" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="{% url 'b_positive' %}">
+                <img src="/static/images/Plasma_bp.png" alt=""> 
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="{% url 'ab_positive' %}">
+                <img src="/static/images/Plasma_abp.png" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="{% url 'o_positive' %}">
+                <img src="/static/images/Plasma_op.png" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="{% url 'a_negative' %}">
+                <img src="/static/images/Plasma_an.png" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="{% url 'b_negative' %}">
+                <img src="/static/images/Plasma_bn.png" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="{% url 'ab_negative' %}">
+                <img src="/static/images/Plasma_abn.png" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="{% url 'o_negative' %}">
+                <img src="/static/images/Plasma_on.png" alt="">
+            </a>
+        </div>        
+    </div>
+</div>
+{% endblock body %}
