@@ -23,14 +23,11 @@ a, a:hover, a:focus, a:active {
             <label for="post"></label>
             <textarea class="form-control" placeholder="Say something. . ." id="post" rows="3" name="post"></textarea>
         </div>
-        <!--<div class="form-group">
-            <label for="file">File input</label>-->
-            <input type="file" name="files[]" id="files">
-            <br>
-            <input type="hidden" name="url" id="url">
-            <br>
-            <button type="button" onclick="uploadimage()">Upload</button><br><br>
-        <!--</div>-->
+        <input type="file" name="files[]" id="files">
+        <br>
+        <input type="hidden" name="url" id="url">
+        <br>
+        <button type="button" onclick="uploadimage()">Upload</button><br><br>
         <button style="background-color:#086375;" class="mt-9 btn btn-block text-white" type="submit">Post</button>
     </form>
     <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
@@ -89,7 +86,6 @@ a, a:hover, a:focus, a:active {
                         <img style="height: 100%; width: 100%; object-fit: contain;" src={{urlList}}>
                     </center>
                     {% endif %}
-                    <!--<a href="{% url 'post_details' timeStampList  %}" class="stretched-link"></a>-->
                 </div>
                 <br>
                 <div class="clearfix">
