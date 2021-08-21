@@ -8,5 +8,5 @@ urlpatterns = [
     path('comment/<int:timeStampList>/', views.comment, name = "comment"),
     path('like/<int:timeStampList>/', views.like, name = "like"),
     path('timeline/', views.timeline, name = "timeline"),
-    path('delete_post/<int:timeStampList>/', views.delete_post, name = "delete_post"),
+    path('delete_post/<int:postIdList>/', views.delete_post, name = "delete_post"),
 ]

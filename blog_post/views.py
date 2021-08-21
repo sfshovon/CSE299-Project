@@ -42,7 +42,7 @@ def add_post(request):
     millis = int(time.mktime(timeNow.timetuple()))
     post = request.POST.get('post')
     url = request.POST.get('url')
-    idtoken= request.session['LoginId']
+    idtoken = request.session['LoginId']
     a = authe.get_account_info(idtoken)
     a = a['users']
     a = a[0]
@@ -287,6 +287,7 @@ def timeline(request):
             timeStampKey = i.key()
             timeStampList.append(timeStampKey)
         postList = []
+        postIdList = []
         userNameList = []
         dateTimeList = []
         totalLikesList = []
@@ -294,9 +295,9 @@ def timeline(request):
         urlList = []
         for i in timeStampList:
             userId = database.child("Blog Post").child(i).child("userId").get().val()
-            if (a != userId):
-                continue
-            else:
+            if (a == userId):
+                postId = i
+                postIdList.append(postId)
                 t = float(i)
                 dateTime = datetime.datetime.fromtimestamp(t).strftime('%I:%M %p %d-%m-%Y')
                 dateTimeList.append(dateTime)
@@ -326,13 +327,15 @@ def timeline(request):
                 else:
                     totalComments = 0
                     totalCommentsList.append(totalComments)
-                postDetails = zip(timeStampList,userNameList,dateTimeList,
+                postDetails = zip(postIdList,userNameList,dateTimeList,
                           postList,totalLikesList,totalCommentsList,urlList)
+            else:
+                continue
     return render(request, 'blog_post/timeline.html', {'postDetails':postDetails} )
 
-def delete_post(request,timeStampList):
+def delete_post(request,postIdList):
     """
-    This method is used to delete posts of an user.
+    This method is used to delete posts of an user from timeline.
 
     :param request: It's a HttpResponse from user.
     :param timeStampList: It's the post id clicked by user to delete the post.
@@ -344,5 +347,6 @@ def delete_post(request,timeStampList):
 
     :rtype: HttpResponse.
     """
-    database.child("Blog Post").child(timeStampList).remove()
+    if request.method == 'POST':
+        database.child("Blog Post").child(postIdList).remove()
     return redirect("timeline")
