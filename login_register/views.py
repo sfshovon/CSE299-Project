@@ -191,7 +191,7 @@ def user_post_signup(request):
             "gender":userGender, "occupation":userOccupation, 
             "cnumber":userCnumber, "bgroup":userBgroup, 
             "email":userEmail, "password":userPassword, 
-            "cpassword":userCPassword
+            "cpassword":userCPassword,"propic":0,
     }
     database.child("Users").child(uid).set(data)
     return render(request, 'login_register/login.html', {"msg1":message1})
@@ -218,7 +218,7 @@ def forget_password(request):
         message3 = "Email has been sent for password RESET. Please check your inbox"
         return render(request,'login_register/login.html',{"msg3":message3})
     else:
-        return render(request,'login_register/forgetpassword.html')
+        return render(request,'login_register/forget_password.html')
 
 #Logout
 def logout(request):
@@ -234,11 +234,9 @@ def logout(request):
 
     :rtype: HttpResponse.
     """
-    try: 
-        del request.session['uid']
-        del request.session['localId']
-        auth.logout(request)
-    except:
-        pass
+
+    del request.session['LoginId']
+    auth.logout(request)
+    
     return render(request,'login_register/login.html')
     

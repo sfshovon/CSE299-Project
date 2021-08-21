@@ -29,4 +29,5 @@ urlpatterns = [
     path('logout/', views.logout, name="logout"), 
     path('forget_password/', views.forget_password, name = "forget_password"),   
     path('scrapper/', include('scrapper.urls')),
+    path('vprofile/', include('view_profile.urls')),
 ]
