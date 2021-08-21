@@ -6,24 +6,11 @@
 
 <style>
 .bg{
-    /*background:
-    /*url("/static/images/makeAppointment.png") right top no-repeat;*/
     background-image: url("/static/images/view-appointment.png");
     background-repeat: no-repeat;
     background-position: right top;
-    /*width: 600px;
-    height: 600px;
-    /*background-blend-mode: overlay;*/
 }
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
-
-/*.card {
-    background-color: #B9F6CA;
-    width: 350px;
-    border-radius: 20px
-}*/
-
 
 .btn {
     border-radius: 15px !important
@@ -49,9 +36,11 @@
     transition: transform 0.8s;
     transform-style: preserve-3d
 }
+
 .flip-card:hover .flip-card-inner {
     transform: rotateY(180deg)
 }
+
 .flip-card-front,
 .flip-card-back {
     position: absolute;
@@ -60,6 +49,7 @@
     border-radius: 20px;
     backface-visibility: hidden
 }
+
 .flip-card-back {
     transform: rotateY(180deg);
     width: 260px;
@@ -73,7 +63,6 @@
 
 .card-title {
     color: #007b5e;
-    /*padding: 5px;*/
     margin-bottom: 5px;
 }
 
@@ -88,32 +77,37 @@
     width: 260px;
     height: 120px;
 }
+
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 10px;
-  /*background-color: #2196F3;*/
   padding: 10px;
 }
+
 .grid-item {
-  /*background-color: rgba(255, 255, 255, 0.8);*/
   padding: 20px;
 }
+
 img {
   border-radius: 50%;
 }
+
 .iconStyle{
     color:#007b5e;
     margin-right: 10px;
 }
+
 .btnStyle{
     color: white;
     background-color:#007b5e;
 }
 </style>
+
 <div style="margin-top: 100px; " class="container">
-<h1><span style="color:#ee6055;">{{bloodGroup}}</span> <span style="color:#709775;">Plasma Donors</span> </h1>
+    <h1><span style="color:#ee6055;">{{bloodGroup}}</span> <span style="color:#709775;">Plasma Donors</span> </h1>
 </div>
+
 <div class="container col-6 justify-content-center">
     <div  class="grid-container ">
         {% for nameList,ageList,emailList,genderList,occupationList,contactList,proPicList,districtList in donorDetails %}
@@ -155,4 +149,5 @@ img {
         {% endfor %}
     </div>
 </div>
+
 {% endblock body %}
