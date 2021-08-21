@@ -26,9 +26,9 @@
 </style>
 <div style="margin-bottom:600px; margin-top: 200px" class="mt-5 mb-3 col-lg-6 container">
     <br>
-    {% for timeStampList, userNameList, dateTimeList, postList, totalLikesList, totalCommentsList, urlList in postDetails %}
+    {% for postIdList, userNameList, dateTimeList, postList, totalLikesList, totalCommentsList, urlList in postDetails %}
         <div style="border-style: solid; border-color:#52b69a;" class="card mb-3">
-            <form action="{% url 'delete_post' timeStampList %}" method="POST">
+            <form action="{% url 'delete_post' postIdList %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="delete"  value=" ">    
                 <button class="delete">
@@ -53,7 +53,7 @@
                 <br>
                 <div class="clearfix">
                     <div class="d-flex flex-row float-left">
-                        <form method="POST" action="{% url 'like' timeStampList %}">
+                        <form method="POST" action="{% url 'like' postIdList %}">
                             {% csrf_token %}
                             <input type="hidden" name="next" value=" ">
                             <button style="background-color: transparent; border:none; box-shadow:none;" type= "submit">
@@ -63,11 +63,11 @@
                         <div class="position-relative">
                             <button style="background-color: transparent; border:none; box-shadow:none;">
                                 <i class="far fa-comment-dots fa-lg"><span>{{totalCommentsList}}</span></i>
-                                <a href="{% url 'post_details' timeStampList  %}" class="stretched-link"></a>
+                                <a href="{% url 'post_details' postIdList  %}" class="stretched-link"></a>
                             </button>
                         </div>
                     </div>
-                    <a style="color:#52b69a;" class="font-weight-light float-right" href="{% url 'post_details' timeStampList  %}">
+                    <a style="color:#52b69a;" class="font-weight-light float-right" href="{% url 'post_details' postIdList  %}">
                         Details<i style="margin-left: 5px;" class="fas fa-angle-double-right"></i></a> 
                 </div>
             </div>
