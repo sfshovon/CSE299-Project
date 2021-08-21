@@ -1,5 +1,4 @@
 from django.shortcuts import render,redirect
-from datetime import datetime, timezone
 import pyrebase
 
 config={
@@ -26,13 +25,12 @@ def become_donor(request):
     a = a['users']
     a = a[0]
     a = a['localId']
-    donorReort = database.child("Users").child(a).child("donor").get().val()
-    if (donorReort == "Yes"):
+    donorReport = database.child("Users").child(a).child("donor").get().val()
+    if (donorReport == "Yes"):
         userFname = database.child("Users").child(a).child("fname").get().val()
         return render(request, 'plasma_donor/alreadyDonor.html',{'userFname':userFname})
     else:
         return render(request, 'plasma_donor/becomeDonor.html')
-    return render(request, 'plasma_donor/becomeDonor.html')
 
 def eligibility(request):
     idtoken= request.session['LoginId']
@@ -44,9 +42,9 @@ def eligibility(request):
     weight = request.POST.get('weight')
     tempWeight = int(weight)
     age =  database.child("Users").child(a).child("age").get().val()
-    if (negativeAns == "Yes" and tempWeight>=50 and age>=18 and age<=65):
+    tempAge = int(age)
+    if (negativeAns == "Yes" and tempWeight>=50 and tempAge>=18 and tempAge<=65):
         database.child("Users").child(a).update({"weight": weight})
-        database.child("Users").child(a).update({"donor": "Yes"})
         districtList =["Dhaka","Faridpur","Gazipur","Gopalganj","Jamalpur","Kishoreganj","Madaripur","Manikganj",
         "Munshiganj","Mymensingh","Narayanganj","Narsingdi","Netrokona","Rajbari","Shariatpur","Sherpur","Tangail",
         "Bogra","Joypurhat","Naogaon","Natore","Nawabganj","Pabna","Rajshahi","Sirajgonj","Dinajpur","Gaibandha",
@@ -71,31 +69,15 @@ def add_donor(request):
     a = a['users']
     a = a[0]
     a = a['localId']
-    userFname = database.child("Users").child(a).child("fname").get().val()
-    userLname = database.child("Users").child(a).child("lname").get().val()
-    userFullName = userFname +" "+ userLname
-    userAge = database.child("Users").child(a).child("age").get().val()
-    userWeight = database.child("Users").child(a).child("weight").get().val()
-    userDob = database.child("Users").child(a).child("dob").get().val()
-    userGender = database.child("Users").child(a).child("gender").get().val()
-    userOccupation = database.child("Users").child(a).child("occupation").get().val()
-    userContactNumber = database.child("Users").child(a).child("cnumber").get().val()
-    userEmail = database.child("Users").child(a).child("email").get().val()
     data = {
-        'name': userFullName,
-        'age': userAge,
-        'weight':userWeight,
-        'dob': userDob,
-        'gender': userGender,
-        'district':district,
-        'occupation': userOccupation,
-        'contactNumber': userContactNumber,
-        'email': userEmail,
         'experience':experience,
         'covidReportUrl':covidReportUrl,
         'positiveDate':positiveDate,
         'negativeDate':negativeDate,
     }
+    database.child("Users").child(a).update({"bgroup": bloodGroup})
+    database.child("Users").child(a).update({"district": district})
+    database.child("Users").child(a).update({"donor": "Yes"})
     if (bloodGroup == "A+"):
         database.child("Plasma Donors").child("A+").child(a).set(data)
         return render(request, 'plasma_donor/addedDonor.html')
@@ -120,4 +102,121 @@ def add_donor(request):
     if (bloodGroup == "O-"):
         database.child("Plasma Donors").child("O-").child(a).set(data)
         return render(request, 'plasma_donor/addedDonor.html')
-    return render(request, 'plasma_donor/addedDonor.html')
+
+def donor_list(request):
+    return render(request, 'plasma_donor/viewDonors.html')
+
+def a_positive(request):
+    global donors, bloodGroup
+    donors = database.child("Plasma Donors").child("A+").get().val()
+    if donors == None:
+        return render(request, 'plasma_donor/noDonor.html')
+    else:
+        donors = database.child("Plasma Donors").child("A+").get()
+        bloodGroup = "A+"
+        return redirect('donor_details')
+
+def a_negative(request):
+    global donors, bloodGroup
+    donors = database.child("Plasma Donors").child("A-").get().val()
+    if donors == None:
+        return render(request, 'plasma_donor/noDonor.html')
+    else:
+        donors = database.child("Plasma Donors").child("A-").get()
+        bloodGroup = "A-"
+        return redirect('donor_details')
+
+def b_positive(request):
+    global donors, bloodGroup
+    donors = database.child("Plasma Donors").child("B+").get().val()
+    if donors == None:
+        return render(request, 'plasma_donor/noDonor.html')
+    else:
+        donors = database.child("Plasma Donors").child("B+").get()
+        bloodGroup = "B+"
+        return redirect('donor_details')
+
+def b_negative(request):
+    global donors, bloodGroup
+    donors = database.child("Plasma Donors").child("B-").get().val()
+    if donors == None:
+        return render(request, 'plasma_donor/noDonor.html')
+    else:
+        donors = database.child("Plasma Donors").child("B-").get()
+        bloodGroup = "B-"
+        return redirect('donor_details')
+
+def ab_positive(request):
+    global donors, bloodGroup
+    donors = database.child("Plasma Donors").child("AB+").get().val()
+    if donors == None:
+        return render(request, 'plasma_donor/noDonor.html')
+    else:
+        donors = database.child("Plasma Donors").child("AB+").get()
+        bloodGroup = "AB+"
+        return redirect('donor_details')
+
+def ab_negative(request):
+    global donors, bloodGroup
+    donors = database.child("Plasma Donors").child("AB-").get().val()
+    if donors == None:
+        return render(request, 'plasma_donor/noDonor.html')
+    else:
+        donors = database.child("Plasma Donors").child("AB-").get()
+        bloodGroup = "AB-"
+        return redirect('donor_details')
+
+def o_positive(request):
+    global donors, bloodGroup
+    donors = database.child("Plasma Donors").child("O+").get().val()
+    if donors == None:
+        return render(request, 'plasma_donor/noDonor.html')
+    else:
+        donors = database.child("Plasma Donors").child("O+").get()
+        bloodGroup = "O+"
+        return redirect('donor_details')
+
+def o_negative(request):
+    global donors, bloodGroup
+    donors = database.child("Plasma Donors").child("O-").get().val()
+    if donors == None:
+        return render(request, 'plasma_donor/noDonor.html')
+    else:
+        donors = database.child("Plasma Donors").child("O-").get()
+        bloodGroup = "O-"
+        return redirect('donor_details')
+
+def donor_details(request):
+    donorList = []
+    for i in donors.each():
+        donorKey = i.key()
+        donorList.append(donorKey)
+    nameList = []
+    ageList = []
+    emailList = []
+    contactList = []
+    genderList = []
+    occupationList = []
+    proPicList = []
+    districtList = []
+    for i in donorList:
+        fname = database.child("Users").child(i).child("fname").get().val()
+        lname = database.child("Users").child(i).child("lname").get().val()
+        fullName = fname +" "+ lname
+        nameList.append(fullName)
+        age = database.child("Users").child(i).child("age").get().val()
+        ageList.append(age)
+        email = database.child("Users").child(i).child("email").get().val()
+        emailList.append(email)
+        gender = database.child("Users").child(i).child("gender").get().val()
+        genderList.append(gender)
+        occupation = database.child("Users").child(i).child("occupation").get().val()
+        occupationList.append(occupation)
+        contact = database.child("Users").child(i).child("cnumber").get().val()
+        contactList.append(contact)
+        district = database.child("Users").child(i).child("district").get().val()
+        districtList.append(district)
+        proPic = database.child("Users").child(i).child("propic").get().val()
+        proPicList.append(proPic)
+    donorDetails = zip(nameList,ageList,emailList,genderList,occupationList,contactList,proPicList,districtList)
+    return render(request, 'plasma_donor/donorList.html',{'donorDetails':donorDetails, 'bloodGroup':bloodGroup})
