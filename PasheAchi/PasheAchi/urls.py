@@ -25,6 +25,7 @@ urlpatterns = [
     path('search/', include('search.urls')),
     path('covidnews/', include('news.urls')),
     path('icubed/',include('icubed.urls')),
+    path('oxygen_cylinder/',include('oxygen_cylinder.urls')),
 
 ]
 

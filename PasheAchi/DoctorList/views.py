@@ -24,6 +24,9 @@ storage = firebase.storage()
 database = firebase.database()
 
 # Create your views here.
+def home(request):
+    return render(request,'docList/base.html')
+
 
 def doctor_list(request):
    

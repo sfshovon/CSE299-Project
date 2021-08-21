@@ -81,6 +81,7 @@
    </ul>       
 
   <a href="{% url 'view_icu_beds' %}" class="nav-link">View available ICU Beds</a>
+    <a href="{% url 'view_oxygen_cylinders' %}" class="nav-link">View available Oxygen Cylinders</a>
 
   <form class="form-inline" action="{% url 'search_blog_post' %}" method="POST" id="s">
   {% csrf_token %}
