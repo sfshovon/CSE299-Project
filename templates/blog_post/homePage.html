@@ -2,7 +2,10 @@
 
 {% block title %}Home Page{% endblock title %}
 
-{% block body %}
+{% block chat %} {% endblock chat %}
+
+{% block style %}
+{{block.super}}
 <style>
 .text {
    overflow: hidden;
@@ -14,21 +17,48 @@
 a, a:hover, a:focus, a:active {
     text-decoration: none;
     color: inherit;
- }
+}
+#card-body-style{
+    background-color: #d8dbe2;
+    border-style: solid;
+    border-color:#52b69a;
+    border-width: medium;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+#details-style{
+    color: #bc4749;
+
+}
+.uploadbutton {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #086375;
+  border-radius: 4px;
+}
+.uploadbutton:hover {
+  background-color: #086375;
+  color: white;
+}
 </style>
-<div style="margin-bottom:600px; margin-top: 200px" class="mt-5 mb-3 col-lg-6 container">
+
+{% endblock style %}
+
+{% block body %}
+
+<div class="container col-6">
     <form action="{% url 'add_post' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
             <label for="post"></label>
             <textarea class="form-control" placeholder="Say something. . ." id="post" rows="3" name="post"></textarea>
         </div>
-        <input type="file" name="files[]" id="files">
+        <input style="color: #61a5c2;" type="file" name="files[]" id="files">
         <br>
         <input type="hidden" name="url" id="url">
-        <br>
-        <button type="button" onclick="uploadimage()">Upload</button><br><br>
-        <button style="background-color:#086375;" class="mt-9 btn btn-block text-white" type="submit">Post</button>
+        <button class="uploadbutton" type="button" data-toggle="tooltip" data-placement="right" title="Upload Picture" onclick="uploadimage()">
+        Upload <i class="fas fa-arrow-circle-up"></i></button>
+        <button style="margin-top: 10px; background-color:#67b99a;" class="mt-9 btn btn-block font-weight-bold text-black" type="submit">Post</button>
     </form>
     <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-storage.js"></script>
@@ -67,16 +97,23 @@ a, a:hover, a:focus, a:active {
                     alert("File uploaded successfully");
                     })
                 });
-        }    
+        }
+        // initialize tooltip  
+        $('[data-toggle="tooltip"]').tooltip();
     </script>
-    <br>
-    {% for timeStampList, userNameList, dateTimeList, postList, totalLikesList, totalCommentsList, urlList in postDetails %}
-        <div style="border-style: solid; border-color:#52b69a;" class="card mb-3">
+    {% for timeStampList, userNameList, dateTimeList, postList, totalLikesList, totalCommentsList, urlList, proPicList in postDetails %}
+        <div id="card-body-style" class="card mb-3">
             <div class="card-body">
                 <div class="position-relative">
                     <div class="clearfix">
-                        <h5 class="font-weight-bold card-title float-left">{{userNameList}}</h5>
-                        <h5 class="font-weight-bold card-title float-right">{{dateTimeList}}</h5>
+                        <h5 class="font-weight-bold card-title float-left">
+                        {% if proPicList == None %}
+                            <img src="/static/images/NoProfilePicture.png" class="rounded-circle" width="30" height="30" alt="avatar">
+                        {% else %}
+                            <img src={{proPicList}} class="rounded-circle" width="30" height="30" alt="">
+                        {% endif %}
+                        {{userNameList}}</h5>
+                        <h5 style="padding: 7px 0px;" class="font-weight-bold card-title float-right">{{dateTimeList}}</h5>
                     </div>
                     {% if urlList == 0 %}
                         <p style="text-align:justify" class="lead card-text text">{{postList}}</p>
@@ -106,7 +143,7 @@ a, a:hover, a:focus, a:active {
                         </div>
                     </div>
                     <a href="{% url 'post_details' timeStampList  %}">
-                        <h5 style="color:#52b69a;" class="font-weight-light float-right">Details
+                        <h5 id="details-style" class="font-weight-light float-right">Details
                             <i style="margin-left: 5px;" class="fas fa-angle-double-right"></i> 
                         </h5>
                      </a>
@@ -116,4 +153,5 @@ a, a:hover, a:focus, a:active {
     {% endfor %}
     <br>
 </div>
+
 {% endblock body %}
