@@ -47,6 +47,7 @@ def create_appointment(request):
     timeOneList = []
     timeTwoList = []
     doctorId = []
+    consultationDay = []
     for i in docIdList:
         doctorFName = database.child("Doctor").child(i).child("docFName").get().val()
         doctorLName = database.child("Doctor").child(i).child("docLName").get().val()
@@ -62,10 +63,13 @@ def create_appointment(request):
         timeTwoList.append(timeTwo)
         dId = i
         doctorId.append(dId)
+        tempConsultationDay = database.child("Doctor").child(i).child("consultationDayValue1").get().val()
+        consultationDay.append(tempConsultationDay)
     allDoctorName = zip(doctorNameList,doctorId)
     timeSlot = zip(doctorId,timeOneList,timeTwoList)
+    day = zip(doctorId,consultationDay)
     return render(request, 'makeAppointment/makeAppointment.html',
-                {'allDoctorName':allDoctorName,'timeSlot':timeSlot})
+                {'allDoctorName':allDoctorName,'timeSlot':timeSlot, 'day':day})
 
 def appointment_form(request):
     """
@@ -107,15 +111,15 @@ def appointment_form(request):
     patientLName = database.child("Users").child(a).child("lname").get().val()
     patientFullName = patientFName +" "+ patientLName
     patientEmail = database.child("Users").child(a).child("email").get().val()
-    subject = 'Pashe Achi Appointment Confirmation'
-    message = 'Hello {}, Your appointment with {} is confirmed.'.format(patientFullName,doctorFullName)
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [patientEmail,]
-    send_mail(subject, message, email_from, recipient_list)
-    subject = 'Pashe Achi Appointment Confirmation'
-    message = 'Hello {}, {} has added an appointment with you on {} at {}.'.format(doctorFullName,patientFullName,date,timeSlot)
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [doctorEmail,]
-    send_mail(subject, message, email_from, recipient_list)
+    # subject = 'Pashe Achi Appointment Confirmation'
+    # message = 'Hello {}, Your appointment with {} is confirmed.'.format(patientFullName,doctorFullName)
+    # email_from = settings.EMAIL_HOST_USER
+    # recipient_list = [patientEmail,]
+    # send_mail(subject, message, email_from, recipient_list)
+    # subject = 'Pashe Achi Appointment Confirmation'
+    # message = 'Hello {}, {} has added an appointment with you on {} at {}.'.format(doctorFullName,patientFullName,date,timeSlot)
+    # email_from = settings.EMAIL_HOST_USER
+    # recipient_list = [doctorEmail,]
+    # send_mail(subject, message, email_from, recipient_list)
     database.child("Appointments").child(millis).set(data)
     return render(request, 'makeAppointment/confirm.html', {'patientFullName':patientFullName})
