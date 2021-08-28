@@ -1,90 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangladesh Coronavirus Update</title>
-    
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>    
+{% extends "login_register/base.html" %}
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
+{% block title %}BD COVID19 Statistics{% endblock title %}
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCbKJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"crossorigin="anonymous"></script>
-  
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"crossorigin="anonymous"></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script
-   
-</head>
-<body  onload="startTime()">
-
-<df-messenger
-  chat-icon="https:&#x2F;&#x2F;firebasestorage.googleapis.com&#x2F;v0&#x2F;b&#x2F;pashe-achi-cse299.appspot.com&#x2F;o&#x2F;Home_PasheAchi_Logo.gif?alt=media&amptoken=455e2db4-b170-4a4a-b4a5-480a7045ef8c"
-  intent="WELCOME"
-  chat-title="Pashe-Achi-Bot"
-  agent-id="bc1b168d-1c59-444e-bccf-e8bfcdcedad0"
-  language-code="en"
-></df-messenger>
-
-
-<header>
-         <img class="animated-gif" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Home_PasheAchi_Logo.gif?alt=media&token=455e2db4-b170-4a4a-b4a5-480a7045ef8c">
-  
-        <div class="navigation">
-          <a href="{% url 'home' %}" class="active"><i class="fa fa-home" aria-hidden="true"></i>Home</a> 
-          
-          <a href="" class="dropdown-toggle" data-toggle="dropdown">
-          <i class="fas fa-viruses" aria-hidden="true"></i> COVID19 Updates
-          </a>
-
-          <div class="dropdown-menu">
-            <a href="{% url 'bd' %}" class="dropdown-item">
-            <i class="fas fa-globe-asia" aria-hidden="true"></i> Bangladesh COVID19 Updates
-            </a>
-
-            <a href="{% url 'world' %}" class="dropdown-item">
-            <i class="fas fa-globe" aria-hidden="true"></i> World COVID19 Updates
-            
-            </a>
-              <a href="{% url 'FAt' %}" class="dropdown-item">
-            <i class="fas fa-sync" aria-hidden="true"></i> FDA Approved Treatments
-            </a>
-
-            <a href="{% url 'FAv' %}" class="dropdown-item">
-            <i class="fas fa-sync" aria-hidden="true"></i> FDA Approved Vaccines
-
-            <a href="{% url 'AT' %}" class="dropdown-item">
-            <i class="fas fa-sync" aria-hidden="true"></i> All Covid Treatments
-            </a>
-
-            <a href="{% url 'AV' %}" class="dropdown-item">
-            <i class="fas fa-sync" aria-hidden="true"></i> All Covid Vaccines
-            </a>
-          </div>
-
-          <a href="{% url 'VP' %}">
-          <i class="fas fa-user-circle"></i> Profile
-          </a>
-          
-          <a href="{% url 'logout' %}">
-          <i class="fas fa-user-times"></i> Logout
-          </a>
-          
-    </div>
-  </header>
+{% block body %}
 
     <div class="text-center" style="opacity:0.9">
-        <h3 style="color: dark; background-color: white; opacity:0.9; position:absolute; top: 195px; " class="forgot p-3" >Bangladesh COVID19 Status
+        <h3 style="color: #130f40; background-color: #ffbd77; background-image: linear-gradient(319deg, #ffbd77 0%, #f0f4a4 37%, #acfcd9 100%); opacity:0.9; position:absolute; top: 205px; font-weight:1000;" class="forgot p-3" >Bangladesh COVID19 Statistics
         <p>Current Date - Time: <span id='ct5'></span></p>
         <script>
           function display_ct5() {
@@ -119,185 +40,113 @@
           }
           display_c5()
         </script>
-        
-<div class="card-body" style="background-color: white; opacity:0.9;" >
+
+
+
+<div class="card-body" style="background-color: #ffbd77; background-image: linear-gradient(319deg, #ffbd77 0%, #f0f4a4 37%, #acfcd9 100%);">
     <div class="text-center">
-       <div class="row justify-content-between" style="color:white;">
-                  
-          <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12">
+       <div class="row justify-content-between" style="scolor:white; ">
+
+    {% for population, tc, nc, ir, cfr, sc, tdd, nd, trr, nr, rp, ac, tt, tp in covidUpdate %}   
+
+        <div class="mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
             <div class="counter-box wow fadeInUp">
-              <h2><b>{{ all }}</b> </span></h2>
+              <h2><b>{{ tc }}</b> </span></h2>
               <h3>Total Cases</h3> 
             </div>
-          </div>
+        </div>
 
-          <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12">
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
             <div class="counter-box wow fadeInUp">
-               <h2><b>{{ tests }}</b> </span></h2>
-               <h3>Total Tests</h3> 
+              <h2><b>{{ tdd }}</b> </span></h2>
+              <h3>Total Deaths</h3> 
             </div>
-          </div>
-                    
-          <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12">
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
             <div class="counter-box wow fadeInUp">
-                <h2><b>{{ deaths }}</b> </span></h2>
-                <h3>Total Deaths</h3> 
+              <h2><b>{{ trr }}</b> </span></h2>
+              <h3>Total Recovered</h3> 
             </div>
-          </div>
-                  
-          <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12">
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
             <div class="counter-box wow fadeInUp">
-              <h2><b>{{ new }}</b> </span></h2>
+              <h2><b>{{ tt }}</b> </span></h2>
+              <h3>Total Test</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ tp }}%</b> </span></h2>
+              <h3>Test Percentage</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ ir }}%</b> </span></h2>
+              <h3>Infection Risk</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>+{{ nc }}</b> </span></h2>
               <h3>New Cases</h3> 
             </div>
-          </div>
-                
-          <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12">
-            <div class="counter-box wow fadeInUp">
-                <h2><b>{{ test }}</b> </span></h2>
-                <h3>New Tests</h3> 
-            </div>
-          </div>
-                  
-          <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12">
-            <div class="counter-box wow fadeInUp">
-              <h2><b>{{ death }}</b> </span></h2>
-              <h3>New Death Cases</h3> 
-            </div>
-          </div>
+        </div>
 
-          <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12">
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
             <div class="counter-box wow fadeInUp">
-               <h2><b>{{ active }}</b> </span></h2>
-               <h3>Active Cases</h3> 
+              <h2><b>+{{ nd }}</b> </span></h2>
+              <h3>New Deaths</h3> 
             </div>
-          </div>
+        </div>
 
-          <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12">
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
             <div class="counter-box wow fadeInUp">
-                <h2><b>{{ recovered }}</b> </span></h2>
-                <h3>Recovered Cases</h3> 
+              <h2><b>+{{ nr }}</b> </span></h2>
+              <h3>New Recovered</h3> 
             </div>
-          </div>
-                    
-          <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12">
-            <div class="counter-box wow fadeInUp">
-                <h2><b>{{ serious }}</b> </span></h2>
-                <h3>Critical Cases</h3> 
-            </div>
-         </div>
+        </div>
 
+            <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ rp }}%</b> </span></h2>
+              <h3> Recovery Rate </h3> 
+            </div>
+        </div>
+    
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ sc }}</b> </span></h2>
+              <h3>Critical Cases</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ cfr }}%</b> </span></h2>
+              <h3>Case Fatality Rate</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-12 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ ac }}</b> </span></h2>
+              <h3>Active Cases</h3> 
+            </div>
+        </div>
+
+        {% endfor %}
+  
       </div>
     </div>
   </div>
 </div>
 
-  
-
- 
-    
-
-   
-
-    
-<style>
- 
-    body {
-        background-position: center;
-        line-height: 1.5;
-        background: url("https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Background%201.gif?alt=media&token=f77ae01e-d761-426f-94c3-d20783b11628");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed; 
-              
-    }
-
-    header{
-        position: relative;
-        top: -40px;
-        width: 100%;
-        padding: 50px 50px 10px 50px;
-        display: flex;
-        font-size: 24px;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    header .logo{
-        position: relative;
-        color: #000;
-        font-size: 30px;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-weight: 800;
-        letter-spacing: 1px;
-    }
-
-    header .navigation a{
-        color: #000;
-        text-decoration: none;
-        font-weight: 500;
-        letter-spacing: 1px;
-        padding: 2px 15px;
-        border-radius: 20px;
-        transition: 0.3s;
-        transition-property: background;
-    }
-
-    header .navigation a:hover{
-        background: #226A80;
-    }
-    header .navigation .fa
-    {
-        margin-right: 8px;
-    }
-
-    /* Responsive styles */
-
-    @media (max-width: 960px){
-      header .navigation{
-        display: none;
-      }
-
-      #check:checked ~ header .navigation{
-        z-index: 2;
-        position: fixed;
-        background: rgba(114, 223, 255, 0.9);
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-
-      label .menu-btn{
-        position: absolute;
-      }
-
-      header .logo{
-        position: absolute;
-        bottom: -6px;
-      }
-
-
-      .content .info p{
-        font-size: 14px;
-      }
-    }
-      img.animated-gif{
-        width: 180px;
-        height: auto;
-    }
-     
-</style>
-
-    
-</body>
-</html>
-
+{% endblock body %}  
                     
                         

@@ -1,0 +1,245 @@
+{% extends "login_register/base.html" %}
+
+{% block title %} Ambulance List {% endblock title %}
+
+{% block body %}
+    
+<div style="background-color: #5ca0f2; background-image: linear-gradient(315deg, #5ca0f2 0%, #f5f7f6 74%);">
+<table id="myTable" class="table table-bordered" style="width:100%;">
+    <thead style="background-color: #000000;background-image: linear-gradient(147deg, #000000 0%, #04619f 74%); color:black">
+        <tr>
+            <th>Sl.</th>
+            <th>COVID-19 Test Center</th>
+            <th>Location</th>
+            <th>Contact Number</th>
+        </tr>
+    </thead>
+
+    <tfoot style="background-color: #000000;background-image: linear-gradient(147deg, #000000 0%, #04619f 74%); color:black">
+        <tr>
+            <th>Sl.</th>
+            <th>COVID-19 Test Center</th>
+            <th>Location</th>
+            <th>Contact Number</th>
+        </tr>
+    </tfoot>
+
+  <tbody style="background-color: #70a1ff;background-image: linear-gradient(315deg, #70a1ff 0%, #c2c0c0 74%); font-weight:600; color: black;">
+        <tr>
+        <td>1</td>
+        <td>Evercare Hospital</td>
+        <td>Bashundhara, Dhaka</td>
+        <td>09666-710678</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>Square Hospital</td>
+        <td>Panthapath, Dhaka</td>
+        <td>(880-2) 8144400, 8142431 &middot; Mobile: 01713141447</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Ibn Sina Medical College Hospital</td>
+        <td>Kallyanpur, Dhaka</td>
+        <td>02-9010396</td>
+        </tr>
+        <tr>
+        <td>4</td>
+        <td>Anwar Khan Modern Medical College Hospital</td>
+        <td>Dhanmondi, Dhaka</td>
+        <td>02-9670295</td>
+        </tr>
+        <tr>
+        <td>5</td>
+        <td>Enam Medical College &amp; Hospital</td>
+        <td>Savar Union, Dhaka</td>
+        <td>01716-358146</td>
+        </tr>
+        <tr>
+        <td>6</td>
+        <td>United Hospital Limited</td>
+        <td>Gulshan, Dhaka</td>
+        <td>09666-710666</td>
+        </tr>
+        <tr>
+        <td>7</td>
+        <td>Lab Aid Hospital</td>
+        <td>Kalabagan, Dhaka</td>
+        <td>09666-710606</td>
+        </tr>
+        <tr>
+        <td>8</td>
+        <td>Aichi Hospital Limited</td>
+        <td>Abdullahpur, Dhaka</td>
+        <td>02-44891001</td>
+        </tr>
+        <tr>
+        <td>9</td>
+        <td>Zainul Haque Sikder Women's Medical College &amp; Hospital (Pvt.) Ltd.</td>
+        <td>Monica Estate, Dhaka</td>
+        <td>02-8115951</td>
+        </tr>
+        <tr>
+        <td>10</td>
+        <td>AMZ Hospital Limited</td>
+        <td>Shadhinota Sarani, Dhaka</td>
+        <td>01847-331010</td>
+        </tr>
+        <tr>
+        <td>11</td>
+        <td>Universal Medical College &amp; Hospital</td>
+        <td>New Airport Road, Dhaka</td>
+        <td>01841-480000</td>
+        </tr>
+        <tr>
+        <td>12</td>
+        <td>Ahsania Mission Cancer &amp; General Hospital</td>
+        <td>Uttara, Dhaka</td>
+        <td>02-9008919</td>
+        </tr>
+        <tr>
+        <td>13</td>
+        <td>Bangladesh Institute of Health Sciences General<br />Hospital</td>
+        <td>Tongi, Dhaka</td>
+        <td>01712-238035</td>
+        </tr>
+        <tr>
+        <td>14</td>
+        <td>Imperial Hospital Limited</td>
+        <td>Zakir Hossain Rd, Chattogram</td>
+        <td>09612-247247</td>
+        </tr>
+        <tr>
+        <td>15</td>
+        <td>I S Brahmanbaria Medical College Hospital</td>
+        <td>Ghatura, Brahmanbaria</td>
+        <td>01733-382345</td>
+        </tr>
+        <tr>
+        <td>16</td>
+        <td>TMSS Medical College &amp; Rafatullah Community</td>
+        <td>Rangpur Rd, Bogura</td>
+        <td>051-73975</td>
+        </tr>
+        <tr>
+        <td>17</td>
+        <td>Dr. Farida Huq Memorial Ibrahim General Hospital COVID-19 Diagnostic Lab</td>
+        <td>Gazipur</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>18</td>
+        <td>International Medical College Hospital</td>
+        <td>Tongi, Gazipur</td>
+        <td>01313-498583</td>
+        </tr>
+        <tr>
+        <td>19</td>
+        <td>Sheikh Fazilatunnesa Mujib Memorial KPJ Specialized Hospital &amp; Nursing College</td>
+        <td>Kasimpur, Gazipur</td>
+        <td>01810-008080</td>
+        </tr>
+        <tr>
+        <td>20</td>
+        <td>Praava Health Bangladesh Ltd.</td>
+        <td>Banani Model Town, Dhaka</td>
+        <td>09666-710648</td>
+        </tr>
+        <tr>
+        <td>21</td>
+        <td>Biomed Diagnostics</td>
+        <td>Dhamondi, Dhaka</td>
+        <td>01624-812178</td>
+        </tr>
+        <tr>
+        <td>22</td>
+        <td>DMFR Molecular Lab &amp; Diagnostics</td>
+        <td>Dhanmondi, Dhaka</td>
+        <td>09606-213233</td>
+        </tr>
+        <tr>
+        <td>23</td>
+        <td>DNA Solution Limited</td>
+        <td>West Panthapath, Dhaka</td>
+        <td>01313 093 019<br />01313 093 023<br />01311 772 800</td>
+        </tr>
+        <tr>
+        <td>24</td>
+        <td>CSBF Health Centre</td>
+        <td>Bijoy Shoroni, Dhaka</td>
+        <td>01730-717009</td>
+        </tr>
+        <tr>
+        <td>25</td>
+        <td>Dr Lat Path Labs Bangladesh Pvt. Ltd.</td>
+        <td>West Pathapath, Dhaka</td>
+        <td>01885-998000</td>
+        </tr>
+        <tr>
+        <td>26</td>
+        <td>The DNA Lab Limited</td>
+        <td>Panthapath, Dhaka</td>
+        <td>01706-319181</td>
+        </tr>
+        <tr>
+        <td>27</td>
+        <td>Gulshan Clinic Limited</td>
+        <td>Bir Uttam Rafiqul Islam Ave,Dhaka</td>
+        <td>01708-800888</td>
+        </tr>
+        <tr>
+        <td>28</td>
+        <td>Authentic Diagnostics &amp; Consultation Ltd.</td>
+        <td>Hussaini Dalan Rd, Dhaka</td>
+        <td>01536-106758</td>
+        </tr>
+        <tr>
+        <td>29</td>
+        <td>CRL Diagnostics</td>
+        <td>Green rd, Dhaka</td>
+        <td>01319-632590</td>
+        </tr>
+        <tr>
+        <td>30</td>
+        <td>icddr,b Molecular Diagnostic Laboratory</td>
+        <td>Mohakhali, Dhaka</td>
+        <td>09666-771100</td>
+        </tr>
+        <tr>
+        <td>31</td>
+        <td>Aalok Healthcare Ltd.</td>
+        <td>Kachukhet Rd, Dhaka</td>
+        <td>02-8715512</td>
+        </tr>
+        <tr>
+        <td>32</td>
+        <td>Chevron Clinical Laboratory (PTE) Ltd.</td>
+        <td>Nizam Rd, Chattogram</td>
+        <td>01755-666969</td>
+        </tr>
+  </tbody>
+
+</table>
+</div>
+
+<style>
+
+    tr :hover {
+        background-color: #ffbd77;
+        background-image: linear-gradient(319deg, #ffbd77 0%, #f0f4a4 37%, #acfcd9 100%);
+    }
+
+    tr {
+        background-color: #5ca0f2; 
+        background-image: linear-gradient(315deg, #5ca0f2 0%, #f5f7f6 74%);
+    }
+
+</style>
+
+<script>
+	$(document).ready(function() {
+			$('#myTable').DataTable();
+	} );
+</script>
+
+{% endblock body %} 
