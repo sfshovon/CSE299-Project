@@ -42,6 +42,22 @@ class UserSignUp(models.Model):
     userPassword = models.CharField(max_length=50)
     userCPassword = models.CharField(max_length=50)
 
+class Contact(models.Model):
+    """
+    This LogIn class is extended from the Model class 
+    so it has all the functionality of the model class.
+
+    Attributes: userEmail, userPassword.
+
+    Functions: This LogIn class requires no functions.
+
+    This LogIn class used to create objects for database entry.
+    """
+    email = models.EmailField(max_length=50)
+    subject = models.TextField()
+    message = models.TextField()
+
+
 
 
     

@@ -20,14 +20,16 @@ from login_register import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.login, name="login"),
-    path('post_login/', views.post_login, name="post_login"),
-    path('home/', views.home, name="home"),
+    path('', views.landing, name="landing"),
+    path('login/', views.login, name="login"),
     path('google_login/', views.google_login, name="google_login"),
-    path('user_signup/', views.user_signup, name="user_signup"),
-    path('user_post_signup/', views.user_post_signup, name="user_post_signup"),
+    path('signup/', views.signup, name="signup"),
+    path('forget_password/', views.forget_password, name = "forget_password"), 
+    path('home/', views.home, name="home"),
     path('logout/', views.logout, name="logout"), 
-    path('forget_password/', views.forget_password, name = "forget_password"),   
-    path('scrapper/', include('scrapper.urls')),
-    path('vprofile/', include('view_profile.urls')),
+    path('contact_us/', views.contact_us, name="contact_us"), 
+    path('about_us/', views.about_us, name = "about_us"),  
+    path('profile/', include('view_profile.urls')), 
+    path('scrapper/', include('scrapper.urls')),  
+    
 ]

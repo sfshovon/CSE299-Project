@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from login_register.models import LogIn
 from login_register.models import UserSignUp
+from login_register.models import Contact
 from django.contrib import auth 
+from django.conf import settings
+from django.core.mail import send_mail
 import pyrebase
 import os
 
@@ -28,35 +31,35 @@ database = firebase.database()
 
 # Create your views here.
 
-#Login
-def login(request):
+#Landing
+def landing(request):
     """
-    This login method is used to display the login page. 
+    This landing method is used to display the landing page. 
 
     :param request: it's a HttpResponse from user.
 
     :type request: HttpResponse.
 
-    :return: this login method returns a login page
+    :return: this landing method returns the landing page
     which is a HTML page.
 
     :rtype: HttpResponse.
     """
-    return render(request, 'login_register/login.html')
+    return render(request, 'login_register/landing.html')
 
-#PostLogin
-def post_login(request):
+#Login
+def login(request):
     """
-    This post_login method is used to display the home page with Machine Learning API ChatBot
+    This login method is used to display the home page with Machine Learning API ChatBot
     and used to login the registered and validate user.
      
     :param request: it's a HttpResponse from user.
 
     :type request: HttpResponse.
 
-    :return: this post_login method returns a home page
+    :return: this login method returns a home page
     which is a HTML page.
-    else it will return to the log in page.
+    else it will return to the landing page.
 
     :rtype: HttpResponse.
     """
@@ -66,24 +69,23 @@ def post_login(request):
         user = authe.sign_in_with_email_and_password(userEmail,userPassword)
         new = authe.get_account_info(user['idToken'])
         for j in new['users']:
-            #print (j['emailVerified'])
             checkUser = j['emailVerified']
             if checkUser is False:
                     message = "Please check your Email Inbox and Verify your Account"
-                    return render(request,"login_register/login.html",{"message":message})
+                    return render(request,"login_register/landing.html",{"message":message})
         if user is not None:
-            #print(user['localId'])
             sessionId = user['localId']
             request.session['LoginId'] = str(sessionId)
             request.session['localId'] = sessionId       
     except:
         message0 = "Account not registered or verified!"
-        return render(request, 'login_register/login.html', {"msg0":message0})
+        return render(request, 'login_register/landing.html', {"msg0":message0})
     sessionId = user['idToken'] 
     request.session['LoginId'] = str(sessionId)
     uid = user['localId']
-    data = {"email":userEmail, "password":userPassword}
+    data = {"email":userEmail}
     database.child("Login_Details").child("User_Details").child(uid).set(data) 
+    
     return render(request, 'login_register/home.html')
 
 #Home
@@ -113,56 +115,42 @@ def google_login(request):
 
     :return: this google_login method returns the home page
     which is a HTML page.
-    else it will return to the log in page.
+    else it will return to the landing page.
 
     :rtype: HttpResponse.
     """
+
     if request.method == 'POST':
         userEmail = request.POST['email']
         userPhoto = request.POST['photo']
         uid = request.POST['uid']
-        userName = request.POST['username']   
-         
-        data = {
-                'username':userName,'uid':uid,
-                'email':userEmail, 'image_url':userPhoto
-        }
-        database.child('Google_User_Details').child(uid).set(data)
-        request.session['uid'] = str(uid)
-        request.session['localId'] = uid
+        userName = request.POST['username']
+        # userLname = request.POST.get('lname')
+        # userAge = request.POST.get('age')
+        # userDob = request.POST.get('dob')
+        # userGender = request.POST.get('gender')
+        # userOccupation = request.POST.get('occupation')
+        # userCnumber = request.POST.get('cnumber')
+        # userBgroup = request.POST.get('bgroup')
+
+        data = {"fname":userName, "email":userEmail, "propic":userPhoto}
+        database.child("Users").child(uid).set(data)
+
         return render(request,'login_register/home.html')
     else:
-        return render(request,'login_register/login.html')
-
-#UserSignup
-def user_signup(request):
+        return render(request,'login_register/landing.html')
+#Signup    
+def signup(request):
     """
-    This user_signup method is used to display the signup page for the patient.
-
-    :param request: it's a HttpResponse from user.
-
-    :type request: HttpResponse.
-
-    :return: this patient_signup method returns a signup page
-    which is a HTML page.
-
-    :rtype: HttpResponse.
-    """
-    return render(request, 'login_register/user_signup.html')
-
-
-#UserPostSignup    
-def user_post_signup(request):
-    """
-    This user_post_signup method is used to registers the user
+    This signup method is used to registers the user
     and send a verification email to the user.
 
     :param request: it's a HttpResponse from user.
 
     :type request: HttpResponse.
 
-    :return: this patient_post_signup method returns a login page after successfull registration.
-    else it will return to the patient_signup page
+    :return: this signup method returns the landing page after successfull registration.
+    else it will return to the landing page with invalid credential.
     which is a HTML page.
 
     :rtype: HttpResponse.
@@ -184,7 +172,7 @@ def user_post_signup(request):
         message1 = "A verification link has been sent to your account. Confirm to proceed!"   
     except:
         message2 = "Unable to create account. Please try again!"
-        return render(request, 'login_register/user_signup.html', {"msg2":message2})
+        return render(request, 'login_register/landing.html', {"msg2":message2})
     uid = user['localId']
     data = {"fname":userFname, "lname":userLname, 
             "age":userAge, "dob":userDob, 
@@ -194,7 +182,7 @@ def user_post_signup(request):
             "cpassword":userCPassword,"propic":0,
     }
     database.child("Users").child(uid).set(data)
-    return render(request, 'login_register/login.html', {"msg1":message1})
+    return render(request, 'login_register/landing.html', {"msg1":message1})
 
 #ForgetPassword    
 def forget_password(request):
@@ -216,7 +204,7 @@ def forget_password(request):
         userEmail = request.POST['email']
         authe.send_password_reset_email(userEmail)
         message3 = "Email has been sent for password RESET. Please check your inbox"
-        return render(request,'login_register/login.html',{"msg3":message3})
+        return render(request,'login_register/landing.html',{"msg3":message3})
     else:
         return render(request,'login_register/forget_password.html')
 
@@ -234,9 +222,44 @@ def logout(request):
 
     :rtype: HttpResponse.
     """
+    try: 
+        del request.session['LoginId']
+        auth.logout(request)
+        m1 = "Account has been logged out successfully"
+        return render(request, 'login_register/landing.html', {"m1":m1})
+    except:
+        pass
+    return redirect("login")
 
-    del request.session['LoginId']
-    auth.logout(request)
+#AboutUs
+def about_us(request):
+    """
+    This about_us method is used to show information about the developers and the website.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: this about_us method returns an about page
+    which is a HTML page.
+
+    :rtype: HttpResponse.
+    """
+    return render(request,'login_register/about_us.html')
+
+def contact_us(request):
+    """
+    This contact_us method is used to show information how to contact with the developers.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: this contact_us method returns a contact page
+    which is a HTML page.
+
+    :rtype: HttpResponse.
+    """
+    return render(request,'login_register/contact_us.html')
     
-    return render(request,'login_register/login.html')
     
