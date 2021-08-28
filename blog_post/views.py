@@ -52,13 +52,15 @@ def add_post(request):
     userFname = database.child("Users").child(a).child("fname").get().val()
     userLname = database.child("Users").child(a).child("lname").get().val()
     userFullName = userFname +" "+ userLname
+    proPic = database.child("Users").child(a).child("propic").get().val()
     data = {
         'userId': a,
         'post': post,
         'fullName': userFullName,
         'comments': 0,
         'likes':0,
-        'url':url
+        'url':url,
+        'propic':proPic,
     }
     database.child("Blog Post").child(millis).set(data)
     return redirect ("home_page")
@@ -91,6 +93,7 @@ def home_page(request):
         totalLikesList = []
         totalCommentsList = []
         urlList = []
+        proPicList = []
         for i in timeStampList:
             t = float(i)
             dateTime = datetime.datetime.fromtimestamp(t).strftime('%I:%M %p %d-%m-%Y')
@@ -101,6 +104,8 @@ def home_page(request):
             postList.append(post)
             url = database.child("Blog Post").child(i).child("url").get().val()
             urlList.append(url)
+            proPic = database.child("Blog Post").child(i).child("propic").get().val()
+            proPicList.append(proPic)
             totalLikes = 0
             likeCount = database.child("Blog Post").child(i).child("likes").get().val()
             if (likeCount != 0):
@@ -122,7 +127,7 @@ def home_page(request):
                 totalComments = 0
                 totalCommentsList.append(totalComments)
         postDetails = zip(timeStampList,userNameList,dateTimeList,
-                          postList,totalLikesList,totalCommentsList,urlList)
+                          postList,totalLikesList,totalCommentsList,urlList,proPicList)
         return render(request, 'blog_post/homePage.html', {'postDetails':postDetails} )
 
 def post_details(request,timeStampList):
@@ -144,6 +149,8 @@ def post_details(request,timeStampList):
     userName = database.child("Blog Post").child(timeStampList).child("fullName").get().val()
     post = database.child("Blog Post").child(timeStampList).child("post").get().val()
     url = database.child("Blog Post").child(timeStampList).child("url").get().val()
+    proPic = database.child("Blog Post").child(timeStampList).child("propic").get().val()
+    print(proPic)
     totalLikes = 0
     likeCount = database.child("Blog Post").child(timeStampList).child("likes").get().val()
     if (likeCount != 0):
@@ -156,7 +163,7 @@ def post_details(request,timeStampList):
     commentTimeStamp = database.child("Blog Post").child(timeStampList).child("comments").get().val()
     if (commentTimeStamp == 0):
         totalComments = 0
-        return render(request, 'blog_post/post_details.html',{'dateTime': dateTime,'userName':userName, 'url': url,
+        return render(request, 'blog_post/post_details.html',{'dateTime': dateTime,'userName':userName, 'url': url, 'proPic':proPic,
                      'post':post,'timeStampList':timeStampList,'totalLikes':totalLikes,'totalComments':totalComments})
     else:
         totalCommentsList = []
@@ -169,6 +176,7 @@ def post_details(request,timeStampList):
             totalCommentsList.append(totalComments)
         commentList = []
         commenterList = []
+        commenterProPicList = []
         commentDateTimeList = []
         for i in commentTimeStampList:
             t = float(i)
@@ -176,11 +184,14 @@ def post_details(request,timeStampList):
             commentDateTimeList.append(commentDateTime)
             commenter = database.child("Blog Post").child(timeStampList).child("comments").child(i).child("fullName").get().val()
             commenterList.append(commenter)
+            commenterId = database.child("Blog Post").child(timeStampList).child("comments").child(i).child("userId").get().val()
+            commenterProPic = database.child("Users").child(commenterId).child("propic").get().val()
+            commenterProPicList.append(commenterProPic)
             comment = database.child("Blog Post").child(timeStampList).child("comments").child(i).child("comment").get().val()
             commentList.append(comment)
-        commentDetails = zip(commentDateTimeList,commenterList,commentList)
-        return render(request, 'blog_post/post_details.html',{'commentDetails':commentDetails,'dateTime': dateTime, 'url': url,
-                     'userName':userName,'post':post,'timeStampList':timeStampList,'totalLikes':totalLikes,'totalComments':totalComments})
+        commentDetails = zip(commentDateTimeList,commenterList,commentList,commenterProPicList)
+        return render(request, 'blog_post/post_details.html',{'proPic':proPic,'userName':userName,'dateTime': dateTime,'post':post,'url': url,
+                    'totalLikes':totalLikes,'totalComments':totalComments,'commentDetails':commentDetails,'timeStampList':timeStampList,})
 
 def comment(request,timeStampList):
     """
@@ -293,6 +304,7 @@ def timeline(request):
         totalLikesList = []
         totalCommentsList = []
         urlList = []
+        proPicList = []
         for i in timeStampList:
             userId = database.child("Blog Post").child(i).child("userId").get().val()
             if (a == userId):
@@ -307,6 +319,8 @@ def timeline(request):
                 postList.append(post)
                 url = database.child("Blog Post").child(i).child("url").get().val()
                 urlList.append(url)
+                proPic = database.child("Blog Post").child(i).child("propic").get().val()
+                proPicList.append(proPic)
                 totalLikes = 0
                 likeCount = database.child("Blog Post").child(i).child("likes").get().val()
                 if (likeCount != 0):
@@ -327,7 +341,7 @@ def timeline(request):
                 else:
                     totalComments = 0
                     totalCommentsList.append(totalComments)
-                postDetails = zip(postIdList,userNameList,dateTimeList,
+                postDetails = zip(postIdList,userNameList,dateTimeList,proPicList,
                           postList,totalLikesList,totalCommentsList,urlList)
             else:
                 continue
