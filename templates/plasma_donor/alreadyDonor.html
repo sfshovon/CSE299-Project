@@ -2,10 +2,21 @@
 
 {% block title %}Donor{% endblock title %}
 
+{% block chat %} {% endblock chat %}
+
 {% block body %}
 
-<div class="container mt-5">
-    <h2 style="margin-top: 100px;" class="text-center alert alert-info">
-    Hey {{userFname}}, you are already enlisted as a plasma donor</h2>
+<style>
+#already-donor{
+    position: absolute;
+    left: 400px;
+    top: 120px;
+}
+</style>
+<div style="margin-bottom: 50px;" class="container">
+    <center>
+        <img id="already-donor" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/images%2Falready-donor.png?alt=media&token=3aa62f5e-59ae-4afe-9b29-c646421dbcc7" alt="">
+    </center>
 </div>
+
 {% endblock body %}
