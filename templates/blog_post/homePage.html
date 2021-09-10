@@ -1,17 +1,13 @@
 {% extends "login_register/base.html" %}
-
 {% block title %}Home Page{% endblock title %}
-
 {% block chat %} {% endblock chat %}
-
-{% block style %}
-{{block.super}}
+{% block body %}
 <style>
 .text {
    overflow: hidden;
    text-overflow: ellipsis;
    display: -webkit-box;
-   -webkit-line-clamp: 3; /* number of lines to show */
+   -webkit-line-clamp: 3;
    -webkit-box-orient: vertical;
 }
 a, a:hover, a:focus, a:active {
@@ -28,7 +24,6 @@ a, a:hover, a:focus, a:active {
 }
 #details-style{
     color: #bc4749;
-
 }
 .uploadbutton {
   background-color: white; 
@@ -42,11 +37,8 @@ a, a:hover, a:focus, a:active {
 }
 </style>
 
-{% endblock style %}
-
-{% block body %}
-
 <div class="container col-6">
+    <!--Create Post-->
     <form action="{% url 'add_post' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
@@ -101,6 +93,7 @@ a, a:hover, a:focus, a:active {
         // initialize tooltip  
         $('[data-toggle="tooltip"]').tooltip();
     </script>
+    <!--Home Page Posts-->
     {% for timeStampList, userNameList, dateTimeList, postList, totalLikesList, totalCommentsList, urlList, proPicList in postDetails %}
         <div id="card-body-style" class="card mb-3">
             <div class="card-body">
@@ -153,5 +146,4 @@ a, a:hover, a:focus, a:active {
     {% endfor %}
     <br>
 </div>
-
 {% endblock body %}

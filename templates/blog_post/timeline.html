@@ -1,7 +1,6 @@
 {% extends "login_register/base.html" %}
-
-{% block title %}Home Page{% endblock title %}
-
+{% block title %}Timeline{% endblock title %}
+{% block chat %} {% endblock chat %}
 {% block body %}
 <style>
 .text {
@@ -11,7 +10,6 @@
    -webkit-line-clamp: 2; /* number of lines to show */
    -webkit-box-orient: vertical;
 }
-
 .delete{
     float:right;
     margin-top:12px;
@@ -22,12 +20,20 @@
     color:#ff6873;
     font-size: 20px;
 }
-
+#card-body-style{
+    background-color: #d8dbe2;
+    border-style: solid;
+    border-color:#52b69a;
+    border-width: medium;
+    border-radius: 10px;
+}
+#details-style{
+    color: #bc4749;
+}
 </style>
-<div style="margin-bottom:600px; margin-top: 200px" class="mt-5 mb-3 col-lg-6 container">
-    <br>
-    {% for postIdList, userNameList, dateTimeList, postList, totalLikesList, totalCommentsList, urlList in postDetails %}
-        <div style="border-style: solid; border-color:#52b69a;" class="card mb-3">
+<div class="col-6 container">
+    {% for postIdList, userNameList, dateTimeList, proPicList, postList, totalLikesList, totalCommentsList, urlList in postDetails %}
+        <div id="card-body-style" class="card mb-3">
             <form action="{% url 'delete_post' postIdList %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="delete"  value=" ">    
@@ -38,8 +44,14 @@
             <div class="card-body">
                 <div class="position-relative">
                     <div class="clearfix">
-                        <h5 class="font-weight-bold card-title float-left">{{userNameList}}</h5>
-                        <h5 class="font-weight-bold card-title float-right">{{dateTimeList}}</h5>
+                        <h5 class="font-weight-bold card-title float-left">
+                        {% if proPicList == None %}
+                            <img src="/static/images/NoProfilePicture.png" class="rounded-circle" width="30" height="30" alt="avatar">
+                        {% else %}
+                            <img src={{proPicList}} class="rounded-circle" width="30" height="30" alt="">
+                        {% endif %}
+                        {{userNameList}}</h5>
+                        <h5 style="padding: 7px 0px;" class="font-weight-bold card-title float-right">{{dateTimeList}}</h5>
                     </div>
                     {% if urlList == 0 %}
                         <p style="text-align:justify" class="lead card-text text">{{postList}}</p>
@@ -67,7 +79,7 @@
                             </button>
                         </div>
                     </div>
-                    <a style="color:#52b69a;" class="font-weight-light float-right" href="{% url 'post_details' postIdList  %}">
+                    <a id="details-style" class="font-weight-light float-right" href="{% url 'post_details' postIdList  %}">
                         Details<i style="margin-left: 5px;" class="fas fa-angle-double-right"></i></a> 
                 </div>
             </div>
