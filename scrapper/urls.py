@@ -13,5 +13,6 @@ urlpatterns = [
     path('tc/', views.test_center, name="tc"),
     path('ib/', views.icu_bed, name="ib"), 
     path('ch/', views.covid_hotline, name="ch"), 
+    path('tm/', views.telemedicine, name="tm"), 
   
 ]

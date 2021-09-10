@@ -385,4 +385,19 @@ def icu_bed(request):
     """
     return render(request, 'scrapper/icu_bed_list.html')
 
+def telemedicine(request):
+    """
+    This telemedicine method is used to show information about icu_bed numbers in each hospital in Bangladesh.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: this telemedicine method returns a static page
+    which is a HTML page.
+
+    :rtype: HttpResponse.
+    """
+    return render(request, 'scrapper/telemedicine.html')
+
    
