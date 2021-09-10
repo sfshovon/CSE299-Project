@@ -10,5 +10,3 @@ class BlogPost(models.Model):
     date = models.DateField(auto_now=True)
     time = models.TimeField(auto_now=True)
     post = models.CharField(max_length=100000)
-
-    

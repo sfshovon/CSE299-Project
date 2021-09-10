@@ -150,7 +150,6 @@ def post_details(request,timeStampList):
     post = database.child("Blog Post").child(timeStampList).child("post").get().val()
     url = database.child("Blog Post").child(timeStampList).child("url").get().val()
     proPic = database.child("Blog Post").child(timeStampList).child("propic").get().val()
-    print(proPic)
     totalLikes = 0
     likeCount = database.child("Blog Post").child(timeStampList).child("likes").get().val()
     if (likeCount != 0):
@@ -237,7 +236,7 @@ def like(request,timeStampList):
     :type request: HttpResponse.
     :type timeStampList: Integer.
 
-    :return: This method returns to another method "post_details" and post id.
+    :return: This method redirects to another method "post_details" and returns post id.
 
     :rtype: HttpResponse.
     """ 
@@ -251,7 +250,6 @@ def like(request,timeStampList):
     tz = pytz.timezone('Asia/Dhaka')
     timeNow = datetime.now(timezone.utc).astimezone(tz)
     millis = int(time.mktime(timeNow.timetuple()))
-    like = request.POST.get('next')
     likeCount = database.child("Blog Post").child(timeStampList).child("likes").get().val()
     if (likeCount != 0):
         likeCountList = []
@@ -281,7 +279,17 @@ def like(request,timeStampList):
     return redirect("post_details", timeStampList)
 
 def timeline(request):
-    
+    """
+    This method is for user's timeline.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method renders a template showing all posts of a user.
+
+    :rtype: HttpResponse.
+    """ 
     idtoken= request.session['LoginId']
     a = authe.get_account_info(idtoken)
     a = a['users']
@@ -305,9 +313,11 @@ def timeline(request):
         totalCommentsList = []
         urlList = []
         proPicList = []
+        post = False
         for i in timeStampList:
             userId = database.child("Blog Post").child(i).child("userId").get().val()
             if (a == userId):
+                post = True
                 postId = i
                 postIdList.append(postId)
                 t = float(i)
@@ -345,6 +355,8 @@ def timeline(request):
                           postList,totalLikesList,totalCommentsList,urlList)
             else:
                 continue
+        if (post == False):
+            return render(request, 'blog_post/noPost.html')
     return render(request, 'blog_post/timeline.html', {'postDetails':postDetails} )
 
 def delete_post(request,postIdList):
