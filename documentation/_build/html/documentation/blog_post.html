@@ -1,0 +1,373 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>blog_post package &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="blog-post-package">
+<h1>blog_post package<a class="headerlink" href="#blog-post-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-blog_post.admin">
+<span id="blog-post-admin-module"></span><h2>blog_post.admin module<a class="headerlink" href="#module-blog_post.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-blog_post.apps">
+<span id="blog-post-apps-module"></span><h2>blog_post.apps module<a class="headerlink" href="#module-blog_post.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="blog_post.apps.BlogPostConfig">
+<em class="property">class </em><code class="descclassname">blog_post.apps.</code><code class="descname">BlogPostConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blog_post/apps.html#BlogPostConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blog_post.apps.BlogPostConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="blog_post.apps.BlogPostConfig.name">
+<code class="descname">name</code><em class="property"> = 'blog_post'</em><a class="headerlink" href="#blog_post.apps.BlogPostConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blog_post.models">
+<span id="blog-post-models-module"></span><h2>blog_post.models module<a class="headerlink" href="#module-blog_post.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="blog_post.models.BlogPost">
+<em class="property">class </em><code class="descclassname">blog_post.models.</code><code class="descname">BlogPost</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blog_post/models.html#BlogPost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blog_post.models.BlogPost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>This class is extended from the model class. So, it has all the functionality of model class.</p>
+<p>This class is used to create objects fro database entry.</p>
+<dl class="exception">
+<dt id="blog_post.models.BlogPost.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#blog_post.models.BlogPost.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="blog_post.models.BlogPost.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#blog_post.models.BlogPost.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="blog_post.models.BlogPost.date">
+<code class="descname">date</code><a class="headerlink" href="#blog_post.models.BlogPost.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="blog_post.models.BlogPost.get_next_by_date">
+<code class="descname">get_next_by_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: date&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#blog_post.models.BlogPost.get_next_by_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="blog_post.models.BlogPost.get_previous_by_date">
+<code class="descname">get_previous_by_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: date&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#blog_post.models.BlogPost.get_previous_by_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="blog_post.models.BlogPost.id">
+<code class="descname">id</code><a class="headerlink" href="#blog_post.models.BlogPost.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="blog_post.models.BlogPost.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#blog_post.models.BlogPost.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="blog_post.models.BlogPost.post">
+<code class="descname">post</code><a class="headerlink" href="#blog_post.models.BlogPost.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="blog_post.models.BlogPost.time">
+<code class="descname">time</code><a class="headerlink" href="#blog_post.models.BlogPost.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blog_post.tests">
+<span id="blog-post-tests-module"></span><h2>blog_post.tests module<a class="headerlink" href="#module-blog_post.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-blog_post.urls">
+<span id="blog-post-urls-module"></span><h2>blog_post.urls module<a class="headerlink" href="#module-blog_post.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-blog_post.views">
+<span id="blog-post-views-module"></span><h2>blog_post.views module<a class="headerlink" href="#module-blog_post.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="blog_post.views.add_post">
+<code class="descclassname">blog_post.views.</code><code class="descname">add_post</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blog_post/views.html#add_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blog_post.views.add_post" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method saves user posts.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method redirects to another method “home_page”.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="blog_post.views.comment">
+<code class="descclassname">blog_post.views.</code><code class="descname">comment</code><span class="sig-paren">(</span><em>request</em>, <em>timeStampList</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blog_post/views.html#comment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blog_post.views.comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is to add comments in a post &amp; to save details about comments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method returns to another method “post_details” and post id.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="data">
+<dt id="blog_post.views.config">
+<code class="descclassname">blog_post.views.</code><code class="descname">config</code><em class="property"> = {'apiKey': 'AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY', 'appId': '1:798613820174:web:8d03f5cf0fbae3e9dcbd5f', 'authDomain': 'pashe-achi-cse299.firebaseapp.com', 'databaseURL': 'https://pashe-achi-cse299-default-rtdb.firebaseio.com/', 'measurementId': 'G-TZN8WC3LJT', 'messagingSenderId': '798613820174', 'projectId': 'pashe-achi-cse299', 'storageBucket': 'pashe-achi-cse299.appspot.com'}</em><a class="headerlink" href="#blog_post.views.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global Variables</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="blog_post.views.delete_post">
+<code class="descclassname">blog_post.views.</code><code class="descname">delete_post</code><span class="sig-paren">(</span><em>request</em>, <em>postIdList</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blog_post/views.html#delete_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blog_post.views.delete_post" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to delete posts of an user from timeline.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> (<em>HttpResponse.</em>) – It’s a HttpResponse from user.</li>
+<li><strong>timeStampList</strong> (<em>Integer.</em>) – It’s the post id clicked by user to delete the post.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">It redirects to the timeline of the user.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">HttpResponse.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="blog_post.views.home_page">
+<code class="descclassname">blog_post.views.</code><code class="descname">home_page</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blog_post/views.html#home_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blog_post.views.home_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is for blog post home page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method renders a template.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="blog_post.views.like">
+<code class="descclassname">blog_post.views.</code><code class="descname">like</code><span class="sig-paren">(</span><em>request</em>, <em>timeStampList</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blog_post/views.html#like"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blog_post.views.like" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is to add likes in a post &amp; to save details about likes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method redirects to another method “post_details” and returns post id.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="blog_post.views.post_details">
+<code class="descclassname">blog_post.views.</code><code class="descname">post_details</code><span class="sig-paren">(</span><em>request</em>, <em>timeStampList</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blog_post/views.html#post_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blog_post.views.post_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is for showing post details of a specific post clicked by an user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method return a HTML page of post details along with some dictionary values.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="blog_post.views.timeline">
+<code class="descclassname">blog_post.views.</code><code class="descname">timeline</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blog_post/views.html#timeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blog_post.views.timeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is for user’s timeline.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method renders a template showing all posts of a user.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-blog_post">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-blog_post" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

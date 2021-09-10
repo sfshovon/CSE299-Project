@@ -1,0 +1,506 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>plasma_donor.views &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for plasma_donor.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span><span class="n">redirect</span>
+<span class="kn">import</span> <span class="nn">pyrebase</span>
+
+<span class="n">config</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="s2">&quot;AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;authDomain&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.firebaseapp.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;databaseURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://pashe-achi-cse299-default-rtdb.firebaseio.com/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;projectId&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;storageBucket&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.appspot.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;messagingSenderId&quot;</span><span class="p">:</span> <span class="s2">&quot;798613820174&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;appId&quot;</span><span class="p">:</span> <span class="s2">&quot;1:798613820174:web:8d03f5cf0fbae3e9dcbd5f&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;measurementId&quot;</span><span class="p">:</span> <span class="s2">&quot;G-TZN8WC3LJT&quot;</span>
+<span class="p">}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Global Variables</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">firebase</span> <span class="o">=</span> <span class="n">pyrebase</span><span class="o">.</span><span class="n">initialize_app</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">authe</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">auth</span><span class="p">()</span>
+<span class="n">storage</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">storage</span><span class="p">()</span>
+<span class="n">database</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
+
+<div class="viewcode-block" id="become_donor"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.become_donor">[docs]</a><span class="k">def</span> <span class="nf">become_donor</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for checking if the user is already a donor or not.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method renders a template for checking eligibility.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="n">idtoken</span><span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">idtoken</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="n">donorReport</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;donor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">donorReport</span> <span class="o">==</span> <span class="s2">&quot;Yes&quot;</span><span class="p">):</span>
+        <span class="n">userFname</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/alreadyDonor.html&#39;</span><span class="p">,{</span><span class="s1">&#39;userFname&#39;</span><span class="p">:</span><span class="n">userFname</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/becomeDonor.html&#39;</span><span class="p">)</span></div>
+        <span class="c1">#return render(request, &#39;plasma_donor/notEligible.html&#39;)</span>
+
+<div class="viewcode-block" id="eligibility"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.eligibility">[docs]</a><span class="k">def</span> <span class="nf">eligibility</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method checks if the user is eligible for donating plasma or not.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method renders a template for donor&#39;s information</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="n">idtoken</span><span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">idtoken</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="n">negativeAns</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;negative&#39;</span><span class="p">)</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">)</span>
+    <span class="n">tempWeight</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span>
+    <span class="n">age</span> <span class="o">=</span>  <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">tempAge</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">age</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">negativeAns</span> <span class="o">==</span> <span class="s2">&quot;Yes&quot;</span> <span class="ow">and</span> <span class="n">tempWeight</span><span class="o">&gt;=</span><span class="mi">50</span> <span class="ow">and</span> <span class="n">tempAge</span><span class="o">&gt;=</span><span class="mi">18</span> <span class="ow">and</span> <span class="n">tempAge</span><span class="o">&lt;=</span><span class="mi">65</span><span class="p">):</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="n">weight</span><span class="p">})</span>
+        <span class="n">districtList</span> <span class="o">=</span><span class="p">[</span><span class="s2">&quot;Dhaka&quot;</span><span class="p">,</span><span class="s2">&quot;Faridpur&quot;</span><span class="p">,</span><span class="s2">&quot;Gazipur&quot;</span><span class="p">,</span><span class="s2">&quot;Gopalganj&quot;</span><span class="p">,</span><span class="s2">&quot;Jamalpur&quot;</span><span class="p">,</span><span class="s2">&quot;Kishoreganj&quot;</span><span class="p">,</span><span class="s2">&quot;Madaripur&quot;</span><span class="p">,</span><span class="s2">&quot;Manikganj&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Munshiganj&quot;</span><span class="p">,</span><span class="s2">&quot;Mymensingh&quot;</span><span class="p">,</span><span class="s2">&quot;Narayanganj&quot;</span><span class="p">,</span><span class="s2">&quot;Narsingdi&quot;</span><span class="p">,</span><span class="s2">&quot;Netrokona&quot;</span><span class="p">,</span><span class="s2">&quot;Rajbari&quot;</span><span class="p">,</span><span class="s2">&quot;Shariatpur&quot;</span><span class="p">,</span><span class="s2">&quot;Sherpur&quot;</span><span class="p">,</span><span class="s2">&quot;Tangail&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Bogra&quot;</span><span class="p">,</span><span class="s2">&quot;Joypurhat&quot;</span><span class="p">,</span><span class="s2">&quot;Naogaon&quot;</span><span class="p">,</span><span class="s2">&quot;Natore&quot;</span><span class="p">,</span><span class="s2">&quot;Nawabganj&quot;</span><span class="p">,</span><span class="s2">&quot;Pabna&quot;</span><span class="p">,</span><span class="s2">&quot;Rajshahi&quot;</span><span class="p">,</span><span class="s2">&quot;Sirajgonj&quot;</span><span class="p">,</span><span class="s2">&quot;Dinajpur&quot;</span><span class="p">,</span><span class="s2">&quot;Gaibandha&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Kurigram&quot;</span><span class="p">,</span><span class="s2">&quot;Lalmonirhat&quot;</span><span class="p">,</span><span class="s2">&quot;Nilphamari&quot;</span><span class="p">,</span><span class="s2">&quot;Panchagarh&quot;</span><span class="p">,</span><span class="s2">&quot;Rangpur&quot;</span><span class="p">,</span><span class="s2">&quot;Thakurgaon&quot;</span><span class="p">,</span><span class="s2">&quot;Barguna&quot;</span><span class="p">,</span><span class="s2">&quot;Barisal&quot;</span><span class="p">,</span><span class="s2">&quot;Bhola&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Jhalokati&quot;</span><span class="p">,</span><span class="s2">&quot;Patuakhali&quot;</span><span class="p">,</span><span class="s2">&quot;Pirojpur&quot;</span><span class="p">,</span><span class="s2">&quot;Bandarban&quot;</span><span class="p">,</span><span class="s2">&quot;Brahmanbaria&quot;</span><span class="p">,</span><span class="s2">&quot;Chandpur&quot;</span><span class="p">,</span><span class="s2">&quot;Chittagong&quot;</span><span class="p">,</span><span class="s2">&quot;Comilla&quot;</span><span class="p">,</span><span class="s2">&quot;Cox&#39;s Bazar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Feni&quot;</span><span class="p">,</span><span class="s2">&quot;Khagrachari&quot;</span><span class="p">,</span><span class="s2">&quot;Lakshmipur&quot;</span><span class="p">,</span><span class="s2">&quot;Noakhali&quot;</span><span class="p">,</span><span class="s2">&quot;Rangamati&quot;</span><span class="p">,</span><span class="s2">&quot;Habiganj&quot;</span><span class="p">,</span><span class="s2">&quot;Maulvibazar&quot;</span><span class="p">,</span><span class="s2">&quot;Sunamganj&quot;</span><span class="p">,</span><span class="s2">&quot;Sylhet&quot;</span><span class="p">,</span><span class="s2">&quot;Bagerhat&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Chuadanga&quot;</span><span class="p">,</span><span class="s2">&quot;Jessore&quot;</span><span class="p">,</span><span class="s2">&quot;Jhenaidah&quot;</span><span class="p">,</span><span class="s2">&quot;Khulna&quot;</span><span class="p">,</span><span class="s2">&quot;Kushtia&quot;</span><span class="p">,</span><span class="s2">&quot;Magura&quot;</span><span class="p">,</span><span class="s2">&quot;Meherpur&quot;</span><span class="p">,</span><span class="s2">&quot;Narail&quot;</span><span class="p">,</span><span class="s2">&quot;Satkhira&quot;</span><span class="p">]</span>
+        <span class="n">districtList</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/addDonor.html&#39;</span><span class="p">,{</span><span class="s1">&#39;districtList&#39;</span><span class="p">:</span><span class="n">districtList</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/notEligible.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="add_donor"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.add_donor">[docs]</a><span class="k">def</span> <span class="nf">add_donor</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for storing information in the database about the donor.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method renders a static template.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="n">bloodGroup</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bloodgroup&#39;</span><span class="p">)</span>
+    <span class="n">district</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;district&#39;</span><span class="p">)</span>
+    <span class="n">positiveDate</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;positiveDate&#39;</span><span class="p">)</span>
+    <span class="n">negativeDate</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;negativeDate&#39;</span><span class="p">)</span>
+    <span class="n">experience</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;experience&#39;</span><span class="p">)</span>
+    <span class="n">posCovidReportUrl</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;urlPos&#39;</span><span class="p">)</span>
+    <span class="n">negCovidReportUrl</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;urlNeg&#39;</span><span class="p">)</span>
+    <span class="n">idtoken</span><span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">idtoken</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;experience&#39;</span><span class="p">:</span><span class="n">experience</span><span class="p">,</span>
+        <span class="s1">&#39;posCovidReportUrl&#39;</span><span class="p">:</span><span class="n">posCovidReportUrl</span><span class="p">,</span>
+        <span class="s1">&#39;negCovidReportUrl&#39;</span><span class="p">:</span><span class="n">negCovidReportUrl</span><span class="p">,</span>
+        <span class="s1">&#39;positiveDate&#39;</span><span class="p">:</span><span class="n">positiveDate</span><span class="p">,</span>
+        <span class="s1">&#39;negativeDate&#39;</span><span class="p">:</span><span class="n">negativeDate</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;bgroup&quot;</span><span class="p">:</span> <span class="n">bloodGroup</span><span class="p">})</span>
+    <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;district&quot;</span><span class="p">:</span> <span class="n">district</span><span class="p">})</span>
+    <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;donor&quot;</span><span class="p">:</span> <span class="s2">&quot;Yes&quot;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bloodGroup</span> <span class="o">==</span> <span class="s2">&quot;A+&quot;</span><span class="p">):</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;A+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/addedDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bloodGroup</span> <span class="o">==</span> <span class="s2">&quot;A-&quot;</span><span class="p">):</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;A-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/addedDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bloodGroup</span> <span class="o">==</span> <span class="s2">&quot;B+&quot;</span><span class="p">):</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;B+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/addedDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bloodGroup</span> <span class="o">==</span> <span class="s2">&quot;B-&quot;</span><span class="p">):</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;B-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/addedDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bloodGroup</span> <span class="o">==</span> <span class="s2">&quot;AB+&quot;</span><span class="p">):</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;AB+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/addedDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bloodGroup</span> <span class="o">==</span> <span class="s2">&quot;AB-&quot;</span><span class="p">):</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;AB-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/addedDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bloodGroup</span> <span class="o">==</span> <span class="s2">&quot;O+&quot;</span><span class="p">):</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;O+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/addedDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bloodGroup</span> <span class="o">==</span> <span class="s2">&quot;O-&quot;</span><span class="p">):</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;O-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/addedDonor.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="donor_list"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.donor_list">[docs]</a><span class="k">def</span> <span class="nf">donor_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing blood group types to select one.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method renders a static template with blood group types.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/viewDonors.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="a_positive"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.a_positive">[docs]</a><span class="k">def</span> <span class="nf">a_positive</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing A+ plasma donors.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to &quot;donor_details&quot; method to show all the A+ plasma donors.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">donors</span><span class="p">,</span> <span class="n">bloodGroup</span>
+    <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;A+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">donors</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/noDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;A+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">bloodGroup</span> <span class="o">=</span> <span class="s2">&quot;A+&quot;</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;donor_details&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="a_negative"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.a_negative">[docs]</a><span class="k">def</span> <span class="nf">a_negative</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing A- plasma donors.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to &quot;donor_details&quot; method to show all the A- plasma donors.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">donors</span><span class="p">,</span> <span class="n">bloodGroup</span>
+    <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;A-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">donors</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/noDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;A-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">bloodGroup</span> <span class="o">=</span> <span class="s2">&quot;A-&quot;</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;donor_details&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="b_positive"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.b_positive">[docs]</a><span class="k">def</span> <span class="nf">b_positive</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing B+ plasma donors.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to &quot;donor_details&quot; method to show all the B+ plasma donors.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">donors</span><span class="p">,</span> <span class="n">bloodGroup</span>
+    <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;B+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">donors</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/noDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;B+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">bloodGroup</span> <span class="o">=</span> <span class="s2">&quot;B+&quot;</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;donor_details&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="b_negative"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.b_negative">[docs]</a><span class="k">def</span> <span class="nf">b_negative</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing B- plasma donors.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to &quot;donor_details&quot; method to show all the B- plasma donors.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">donors</span><span class="p">,</span> <span class="n">bloodGroup</span>
+    <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;B-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">donors</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/noDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;B-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">bloodGroup</span> <span class="o">=</span> <span class="s2">&quot;B-&quot;</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;donor_details&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ab_positive"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.ab_positive">[docs]</a><span class="k">def</span> <span class="nf">ab_positive</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing AB+ plasma donors.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to &quot;donor_details&quot; method to show all the AB+ plasma donors.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">donors</span><span class="p">,</span> <span class="n">bloodGroup</span>
+    <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;AB+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">donors</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/noDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;AB+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">bloodGroup</span> <span class="o">=</span> <span class="s2">&quot;AB+&quot;</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;donor_details&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ab_negative"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.ab_negative">[docs]</a><span class="k">def</span> <span class="nf">ab_negative</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing AB- plasma donors.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to &quot;donor_details&quot; method to show all the AB- plasma donors.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">donors</span><span class="p">,</span> <span class="n">bloodGroup</span>
+    <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;AB-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">donors</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/noDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;AB-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">bloodGroup</span> <span class="o">=</span> <span class="s2">&quot;AB-&quot;</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;donor_details&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="o_positive"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.o_positive">[docs]</a><span class="k">def</span> <span class="nf">o_positive</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing O+ plasma donors.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to &quot;donor_details&quot; method to show all the O+ plasma donors.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">donors</span><span class="p">,</span> <span class="n">bloodGroup</span>
+    <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;O+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">donors</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/noDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;O+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">bloodGroup</span> <span class="o">=</span> <span class="s2">&quot;O+&quot;</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;donor_details&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="o_negative"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.o_negative">[docs]</a><span class="k">def</span> <span class="nf">o_negative</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing O- plasma donors.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to &quot;donor_details&quot; method to show all the O- plasma donors.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">donors</span><span class="p">,</span> <span class="n">bloodGroup</span>
+    <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;O-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">donors</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/noDonor.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">donors</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Plasma Donors&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;O-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">bloodGroup</span> <span class="o">=</span> <span class="s2">&quot;O-&quot;</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;donor_details&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="donor_details"><a class="viewcode-back" href="../../documentation/plasma_donor.html#plasma_donor.views.donor_details">[docs]</a><span class="k">def</span> <span class="nf">donor_details</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing details of plasma donors of a specific blood group</span>
+<span class="sd">    selected by the users.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to &quot;donor_details&quot; method to show all the A+ plasma donors.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">donorList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">donors</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+        <span class="n">donorKey</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+        <span class="n">donorList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">donorKey</span><span class="p">)</span>
+    <span class="n">nameList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ageList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">emailList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">contactList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">genderList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">occupationList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">proPicList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">districtList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">donorList</span><span class="p">:</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">lname</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;lname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">fullName</span> <span class="o">=</span> <span class="n">fname</span> <span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span> <span class="n">lname</span>
+        <span class="n">nameList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fullName</span><span class="p">)</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">ageList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">age</span><span class="p">)</span>
+        <span class="n">email</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">emailList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+        <span class="n">gender</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">genderList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gender</span><span class="p">)</span>
+        <span class="n">occupation</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;occupation&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">occupationList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">occupation</span><span class="p">)</span>
+        <span class="n">contact</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;cnumber&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">contactList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contact</span><span class="p">)</span>
+        <span class="n">district</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;district&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">districtList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">district</span><span class="p">)</span>
+        <span class="n">proPic</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;propic&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">proPicList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">proPic</span><span class="p">)</span>
+    <span class="n">donorDetails</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nameList</span><span class="p">,</span><span class="n">ageList</span><span class="p">,</span><span class="n">emailList</span><span class="p">,</span><span class="n">genderList</span><span class="p">,</span><span class="n">occupationList</span><span class="p">,</span><span class="n">contactList</span><span class="p">,</span><span class="n">proPicList</span><span class="p">,</span><span class="n">districtList</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;plasma_donor/donorList.html&#39;</span><span class="p">,{</span><span class="s1">&#39;donorDetails&#39;</span><span class="p">:</span><span class="n">donorDetails</span><span class="p">,</span> <span class="s1">&#39;bloodGroup&#39;</span><span class="p">:</span><span class="n">bloodGroup</span><span class="p">})</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

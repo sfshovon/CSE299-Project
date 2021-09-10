@@ -1,0 +1,253 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>view_appointment.views &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for view_appointment.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">make_appointment.models</span> <span class="kn">import</span> <span class="n">Appointment</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.core.mail</span> <span class="kn">import</span> <span class="n">send_mail</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span><span class="p">,</span> <span class="n">date</span>
+<span class="kn">import</span> <span class="nn">pyrebase</span>
+<span class="n">config</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="s2">&quot;AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;authDomain&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.firebaseapp.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;databaseURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://pashe-achi-cse299-default-rtdb.firebaseio.com/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;projectId&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;storageBucket&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.appspot.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;messagingSenderId&quot;</span><span class="p">:</span> <span class="s2">&quot;798613820174&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;appId&quot;</span><span class="p">:</span> <span class="s2">&quot;1:798613820174:web:8d03f5cf0fbae3e9dcbd5f&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;measurementId&quot;</span><span class="p">:</span> <span class="s2">&quot;G-TZN8WC3LJT&quot;</span>
+<span class="p">}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Global Variables</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">firebase</span> <span class="o">=</span> <span class="n">pyrebase</span><span class="o">.</span><span class="n">initialize_app</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">authe</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">auth</span><span class="p">()</span>
+<span class="n">storage</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">storage</span><span class="p">()</span>
+<span class="n">database</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
+
+<div class="viewcode-block" id="appointments"><a class="viewcode-back" href="../../documentation/view_appointment.html#view_appointment.views.appointments">[docs]</a><span class="k">def</span> <span class="nf">appointments</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is used to retrieve appointments details from database to display users upcoming appointments.</span>
+
+<span class="sd">    :param request: It&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: If the database doesn&#39;t contain any appointments, it returns a HTML page showing text.</span>
+<span class="sd">             Else,</span>
+<span class="sd">                If the user has no appointment, it returns a HTML page showing text.</span>
+<span class="sd">                If the user has appointments, it returns a HTML page that displays users upcoming appointments.</span>
+<span class="sd">   </span>
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">idtoken</span><span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">idtoken</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="n">timeStamp</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">timeStamp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;viewAppointment/noAppointment.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">timeStampList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStamp</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+            <span class="n">timeStampKey</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+            <span class="n">timeStampList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timeStampKey</span><span class="p">)</span>
+        <span class="n">doctorNameList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">addressList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">appointmentDateList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">appointmentTimeList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">appointmentIdList</span> <span class="o">=</span> <span class="p">[]</span>     
+        <span class="n">appointment</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStampList</span><span class="p">:</span>           
+            <span class="n">patientId</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;patientId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">patientId</span> <span class="o">==</span> <span class="n">a</span><span class="p">):</span>
+                <span class="n">appointment</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">tempDate</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">tempDate</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">datetimeobject</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">appDate</span> <span class="o">=</span> <span class="n">datetimeobject</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> %b %Y&#39;</span><span class="p">)</span>
+                <span class="n">appointmentDateList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">appDate</span><span class="p">)</span>
+                <span class="n">tempTime</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;timeSlot&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">appointmentTimeList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempTime</span><span class="p">)</span>
+                <span class="n">doctorId</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;doctorId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">tempDoctorFName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">doctorId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docFName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">tempDoctorLName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">doctorId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docLName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">doctorFullName</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tempDoctorFName</span><span class="p">,</span><span class="n">tempDoctorLName</span><span class="p">)</span>
+                <span class="n">doctorNameList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doctorFullName</span><span class="p">)</span>            
+                <span class="n">tempAddress</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">doctorId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docWorkingPlace&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">addressList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempAddress</span><span class="p">)</span>
+                <span class="n">appointmentId</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="n">appointmentIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">appointmentId</span><span class="p">)</span>
+        <span class="n">appointmentDetails</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">appointmentIdList</span><span class="p">,</span><span class="n">addressList</span><span class="p">,</span><span class="n">doctorNameList</span><span class="p">,</span><span class="n">appointmentDateList</span><span class="p">,</span><span class="n">appointmentTimeList</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">appointment</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+           <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;viewAppointment/noAppointment.html&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;viewAppointment/viewAppointment.html&#39;</span><span class="p">,</span>
+                        <span class="p">{</span><span class="s1">&#39;appointmentDetails&#39;</span><span class="p">:</span><span class="n">appointmentDetails</span><span class="p">,</span><span class="s1">&#39;appointmentIdList&#39;</span><span class="p">:</span><span class="n">appointmentIdList</span><span class="p">,})</span> </div>
+
+<div class="viewcode-block" id="cancel_appointment"><a class="viewcode-back" href="../../documentation/view_appointment.html#view_appointment.views.cancel_appointment">[docs]</a><span class="k">def</span> <span class="nf">cancel_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">appointmentIdList</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is used to cancel appointments and send email after cancellation.</span>
+
+<span class="sd">    :param request: It&#39;s a HttpResponse from user.</span>
+<span class="sd">    :param timeStampList: It&#39;s the appointment id clicked by a user to cancel appointment.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+<span class="sd">    :type timeStampList: Integer.</span>
+
+<span class="sd">    :return: This method redirects to the viewAppointments method.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">patientId</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">appointmentIdList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;patientId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">doctorId</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">appointmentIdList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;doctorId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">appointmentDate</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">appointmentIdList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">appointmentTime</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">appointmentIdList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;timeSlot&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">doctorFName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">doctorId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docFName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">doctorLName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">doctorId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docLName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">doctorName</span> <span class="o">=</span> <span class="n">doctorFName</span> <span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span> <span class="n">doctorLName</span>
+    <span class="n">patientName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">patientId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">doctorEmail</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">doctorId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docEmail&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Appointments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">appointmentIdList</span><span class="p">)</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="s1">&#39;Pashe Achi Appointment Cancellation&#39;</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Hello </span><span class="si">{}</span><span class="s1">, Your appointment on </span><span class="si">{}</span><span class="s1"> at </span><span class="si">{}</span><span class="s1"> with </span><span class="si">{}</span><span class="s1"> has been cancelled.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">doctorName</span><span class="p">,</span><span class="n">appointmentDate</span><span class="p">,</span><span class="n">appointmentTime</span><span class="p">,</span><span class="n">patientName</span><span class="p">)</span>
+    <span class="n">email_from</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">EMAIL_HOST_USER</span>
+    <span class="n">recipient_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">doctorEmail</span><span class="p">,]</span>
+    <span class="n">send_mail</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">email_from</span><span class="p">,</span> <span class="n">recipient_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;viewAppointments&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

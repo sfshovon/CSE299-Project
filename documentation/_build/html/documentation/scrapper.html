@@ -1,0 +1,472 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>scrapper package &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="scrapper-package">
+<h1>scrapper package<a class="headerlink" href="#scrapper-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-scrapper.admin">
+<span id="scrapper-admin-module"></span><h2>scrapper.admin module<a class="headerlink" href="#module-scrapper.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-scrapper.apps">
+<span id="scrapper-apps-module"></span><h2>scrapper.apps module<a class="headerlink" href="#module-scrapper.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scrapper.apps.MainConfig">
+<em class="property">class </em><code class="descclassname">scrapper.apps.</code><code class="descname">MainConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/apps.html#MainConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.apps.MainConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="scrapper.apps.MainConfig.name">
+<code class="descname">name</code><em class="property"> = 'main'</em><a class="headerlink" href="#scrapper.apps.MainConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-scrapper.models">
+<span id="scrapper-models-module"></span><h2>scrapper.models module<a class="headerlink" href="#module-scrapper.models" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-scrapper.tests">
+<span id="scrapper-tests-module"></span><h2>scrapper.tests module<a class="headerlink" href="#module-scrapper.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-scrapper.urls">
+<span id="scrapper-urls-module"></span><h2>scrapper.urls module<a class="headerlink" href="#module-scrapper.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-scrapper.views">
+<span id="scrapper-views-module"></span><h2>scrapper.views module<a class="headerlink" href="#module-scrapper.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="scrapper.views.all_treatments">
+<code class="descclassname">scrapper.views.</code><code class="descname">all_treatments</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#all_treatments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.all_treatments" title="Permalink to this definition">¶</a></dt>
+<dd><p>This all_treatments method is used to scrap real time information about all the treatments for COVID19 from an API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this all_treatments method returns all COVID19 treatment list page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.all_vaccines">
+<code class="descclassname">scrapper.views.</code><code class="descname">all_vaccines</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#all_vaccines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.all_vaccines" title="Permalink to this definition">¶</a></dt>
+<dd><p>This all_vaccines method is used to scrap real time information about all the vaccines for COVID19 from an API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this all_vaccines method returns all COVID19 vaccines list page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.ambulance">
+<code class="descclassname">scrapper.views.</code><code class="descname">ambulance</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#ambulance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.ambulance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This ambulance method is used to show information about ambulance services name and contact of Bangladesh.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this ambulance method returns a static page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.country_cases">
+<code class="descclassname">scrapper.views.</code><code class="descname">country_cases</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#country_cases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.country_cases" title="Permalink to this definition">¶</a></dt>
+<dd><p>This country_cases method is used to scrap real time information aboutt All Countries COVID19 Statistics from an API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this country_cases method returns COVID19 cases by countries page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.covid19_bd">
+<code class="descclassname">scrapper.views.</code><code class="descname">covid19_bd</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#covid19_bd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.covid19_bd" title="Permalink to this definition">¶</a></dt>
+<dd><p>This covid19_bd method is used to scrap real time information about Bangladesh COVID19 Statistics from an API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this covid19_bd method returns Bangladesh COVID19 statistics page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.covid19_world">
+<code class="descclassname">scrapper.views.</code><code class="descname">covid19_world</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#covid19_world"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.covid19_world" title="Permalink to this definition">¶</a></dt>
+<dd><p>This covid19_world method is used to scrap real time information about World COVID19 Statistics from an API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this covid19_world method returns World COVID19 statistics page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.covid_hotline">
+<code class="descclassname">scrapper.views.</code><code class="descname">covid_hotline</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#covid_hotline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.covid_hotline" title="Permalink to this definition">¶</a></dt>
+<dd><p>This covid_hotline method is used to show information about Bangladesh COVID19 Hotline services.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this covid_hotline method returns a static page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.icu_bed">
+<code class="descclassname">scrapper.views.</code><code class="descname">icu_bed</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#icu_bed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.icu_bed" title="Permalink to this definition">¶</a></dt>
+<dd><p>This icu_bed method is used to show information about icu_bed numbers in each hospital in Bangladesh.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this icu_bed method returns a static page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.oxygen_cylinder">
+<code class="descclassname">scrapper.views.</code><code class="descname">oxygen_cylinder</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#oxygen_cylinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.oxygen_cylinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>This oxygen_cylinder method is used to show information about oxygen cylinder services in Bangladesh.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this oxygen_cylinder method returns a static page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.telemedicine">
+<code class="descclassname">scrapper.views.</code><code class="descname">telemedicine</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#telemedicine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.telemedicine" title="Permalink to this definition">¶</a></dt>
+<dd><p>This telemedicine method is used to show information about icu_bed numbers in each hospital in Bangladesh.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this telemedicine method returns a static page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.test_center">
+<code class="descclassname">scrapper.views.</code><code class="descname">test_center</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#test_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.test_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test_center method is used to show information about Bangladesh COVID19 Test Centers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this test_center method returns a static page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scrapper.views.test_place">
+<code class="descclassname">scrapper.views.</code><code class="descname">test_place</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scrapper/views.html#test_place"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scrapper.views.test_place" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test_place method is used to show information about Bangladesh COVID19 Test Instituitions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this test_place method returns a static page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scrapper">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scrapper" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

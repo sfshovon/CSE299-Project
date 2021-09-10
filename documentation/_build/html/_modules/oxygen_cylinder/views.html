@@ -1,0 +1,298 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>oxygen_cylinder.views &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for oxygen_cylinder.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">oxygen_cylinder.models</span> <span class="kn">import</span> <span class="n">Cylinder_Request</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.core.mail</span> <span class="kn">import</span> <span class="n">send_mail</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<span class="kn">import</span> <span class="nn">pyrebase</span>
+<span class="n">config</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="s2">&quot;AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;authDomain&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.firebaseapp.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;databaseURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://pashe-achi-cse299-default-rtdb.firebaseio.com/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;projectId&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;storageBucket&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.appspot.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;messagingSenderId&quot;</span><span class="p">:</span> <span class="s2">&quot;798613820174&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;appId&quot;</span><span class="p">:</span> <span class="s2">&quot;1:798613820174:web:8d03f5cf0fbae3e9dcbd5f&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;measurementId&quot;</span><span class="p">:</span> <span class="s2">&quot;G-TZN8WC3LJT&quot;</span>
+<span class="p">}</span>
+<span class="n">firebase</span> <span class="o">=</span> <span class="n">pyrebase</span><span class="o">.</span><span class="n">initialize_app</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">authe</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">auth</span><span class="p">()</span>
+<span class="n">storage</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">storage</span><span class="p">()</span>
+<span class="n">database</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
+<span class="c1"># Create your views here.</span>
+<div class="viewcode-block" id="view_oxygen_cylinders"><a class="viewcode-back" href="../../documentation/oxygen_cylinder.html#oxygen_cylinder.views.view_oxygen_cylinders">[docs]</a><span class="k">def</span> <span class="nf">view_oxygen_cylinders</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is used to display the list of available oxygen cylinders.</span>
+
+<span class="sd">        :param request: It is a HttpResponse from user.</span>
+
+<span class="sd">        :type request: HttpResponse.</span>
+
+<span class="sd">        :return: This method returns a html page. It returns the list of oxygen cylinders in a single page.</span>
+
+<span class="sd">        :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="n">name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">priceList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">pID</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">litre</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">brand</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">timeStamp</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">timeStampList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStamp</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+        <span class="n">timeStampKey</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+        <span class="n">timeStampList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timeStampKey</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStampList</span><span class="p">:</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+        <span class="n">img</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+        <span class="n">price</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;price&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+        <span class="n">size</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;litre&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+        <span class="n">pBrand</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;brand&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>    
+        <span class="n">pID</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> 
+        <span class="n">name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> 
+        <span class="n">image</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> 
+        <span class="n">priceList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>  
+        <span class="n">litre</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>  
+        <span class="n">brand</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pBrand</span><span class="p">)</span>     
+    <span class="n">cylinderList</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pID</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">priceList</span><span class="p">,</span> <span class="n">litre</span><span class="p">,</span> <span class="n">brand</span><span class="p">)</span>  
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;oxygen_cylinder/view_oxygen_cylinder.html&#39;</span><span class="p">,{</span><span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="n">cylinderList</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="cylinder_details"><a class="viewcode-back" href="../../documentation/oxygen_cylinder.html#oxygen_cylinder.views.cylinder_details">[docs]</a><span class="k">def</span> <span class="nf">cylinder_details</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">keyy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is used to display the details of a specific cylinder.</span>
+
+<span class="sd">        :param request: It is a HttpResponse from user.</span>
+
+<span class="sd">        :type request: HttpResponse.</span>
+
+<span class="sd">        :return: This method returns a html page. It returns the specific cylinder information in a page.</span>
+
+<span class="sd">        :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pID</span> <span class="o">=</span> <span class="n">keyy</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Oxygen Mask&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">cannula</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;cannula&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">description</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">flowMeter</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;flowMeter&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">trolley</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;trolley&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">size</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">warranty</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;warranty&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">height</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;flowrate&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">madeIn</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;from&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">title</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">image</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">price</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;price&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">size</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;litre&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">pBrand</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;brand&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="n">refillPrice</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;refillTk&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;oxygen_cylinder/cylinder_details.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;pID&#39;</span><span class="p">:</span><span class="n">pID</span><span class="p">,</span> <span class="s1">&#39;warranty&#39;</span><span class="p">:</span><span class="n">warranty</span><span class="p">,</span><span class="s1">&#39;weight&#39;</span><span class="p">:</span><span class="n">weight</span><span class="p">,</span><span class="s1">&#39;height&#39;</span><span class="p">:</span><span class="n">height</span><span class="p">,</span><span class="s1">&#39;rate&#39;</span><span class="p">:</span><span class="n">rate</span><span class="p">,</span><span class="s1">&#39;madeIn&#39;</span><span class="p">:</span><span class="n">madeIn</span><span class="p">,</span><span class="s1">&#39;refillPrice&#39;</span><span class="p">:</span><span class="n">refillPrice</span><span class="p">,</span><span class="s1">&#39;mask&#39;</span><span class="p">:</span><span class="n">mask</span><span class="p">,</span> <span class="s1">&#39;cannula&#39;</span><span class="p">:</span><span class="n">cannula</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">:</span><span class="n">description</span><span class="p">,</span> <span class="s1">&#39;flowMeter&#39;</span><span class="p">:</span><span class="n">flowMeter</span><span class="p">,</span> <span class="s1">&#39;trolley&#39;</span><span class="p">:</span><span class="n">trolley</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">title</span><span class="p">,</span> <span class="s1">&#39;image&#39;</span><span class="p">:</span><span class="n">image</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">:</span><span class="n">price</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">:</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;brand&#39;</span><span class="p">:</span><span class="n">pBrand</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="request_form"><a class="viewcode-back" href="../../documentation/oxygen_cylinder.html#oxygen_cylinder.views.request_form">[docs]</a><span class="k">def</span> <span class="nf">request_form</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">keyy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is used to display the oxygen request form.</span>
+
+<span class="sd">        :param request: It is a HttpResponse from user.</span>
+
+<span class="sd">        :type request: HttpResponse.</span>
+
+<span class="sd">        :return: This method returns a html page. It returns the form for inserting relevant recipient information.</span>
+
+<span class="sd">        :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pID</span> <span class="o">=</span> <span class="n">keyy</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pID</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">pID</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span> 
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;oxygen_cylinder/request_form.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> <span class="s1">&#39;pID&#39;</span><span class="p">:</span><span class="n">pID</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="oxygen_request"><a class="viewcode-back" href="../../documentation/oxygen_cylinder.html#oxygen_cylinder.views.oxygen_request">[docs]</a><span class="k">def</span> <span class="nf">oxygen_request</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is used to retrieve the relevant user inserted value from the request for oxygen cylinder form.</span>
+
+<span class="sd">        It stores the retrieved data in the database.</span>
+
+<span class="sd">        It sends an email confirmation about receiving of the request form.</span>
+
+<span class="sd">        :param request: It is a HttpResponse from user.</span>
+
+<span class="sd">        :type request: HttpResponse.</span>
+
+<span class="sd">        :return: This method returns a html page which displays the request received confirmation message.</span>
+
+<span class="sd">        :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="kn">import</span> <span class="nn">pytz</span>
+    <span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Asia/Dhaka&#39;</span><span class="p">)</span>
+    <span class="n">timeNow</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
+    <span class="n">millis</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">timeNow</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()))</span>
+    <span class="n">idtoken</span><span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">idtoken</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="n">pID</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span>
+    <span class="n">pName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;OxygenCylinder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">pID</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">firstName</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firstName&#39;</span><span class="p">)</span>
+    <span class="n">lastName</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lastName&#39;</span><span class="p">)</span>
+    <span class="n">contactNum</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;contact&#39;</span><span class="p">)</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;address&#39;</span><span class="p">)</span>
+    <span class="n">city</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;city&#39;</span><span class="p">)</span>
+    <span class="n">postalCode</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;zip&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">,</span> <span class="n">contactNum</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">postalCode</span><span class="p">,</span> <span class="n">pID</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;pID&#39;</span><span class="p">:</span><span class="n">pID</span><span class="p">,</span><span class="s1">&#39;pName&#39;</span><span class="p">:</span><span class="n">pName</span><span class="p">,</span>
+            <span class="s1">&#39;firstName&#39;</span><span class="p">:</span><span class="n">firstName</span><span class="p">,</span> <span class="s1">&#39;lastName&#39;</span><span class="p">:</span><span class="n">lastName</span><span class="p">,</span>
+            <span class="s1">&#39;contactNum&#39;</span><span class="p">:</span><span class="n">contactNum</span><span class="p">,</span><span class="s1">&#39;address&#39;</span><span class="p">:</span><span class="n">address</span><span class="p">,</span>
+            <span class="s1">&#39;city&#39;</span><span class="p">:</span><span class="n">city</span><span class="p">,</span> <span class="s1">&#39;postalCode&#39;</span><span class="p">:</span><span class="n">postalCode</span>
+     <span class="p">}</span>
+    <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Cylinder_Request&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">millis</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">fName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">lName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;lname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">name</span> <span class="o">=</span><span class="n">fName</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span><span class="n">lName</span> 
+    <span class="n">email</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="s1">&#39;Oxygen Cylinder Request&#39;</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Hello </span><span class="si">{}</span><span class="s1">. Team Pashe Achi has received your request for purchasing </span><span class="si">{}</span><span class="s1">. Our customer support team will reach out to you shortly to answer to your request. Thank you.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pName</span><span class="p">)</span>
+    <span class="n">email_from</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">EMAIL_HOST_USER</span>
+    <span class="n">recipient_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">email</span><span class="p">,]</span>
+    <span class="n">send_mail</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">email_from</span><span class="p">,</span> <span class="n">recipient_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span> <span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;oxygen_cylinder/confirmation.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">name</span><span class="p">})</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

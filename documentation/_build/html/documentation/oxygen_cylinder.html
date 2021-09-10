@@ -1,0 +1,349 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>oxygen_cylinder package &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="oxygen-cylinder-package">
+<h1>oxygen_cylinder package<a class="headerlink" href="#oxygen-cylinder-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-oxygen_cylinder.admin">
+<span id="oxygen-cylinder-admin-module"></span><h2>oxygen_cylinder.admin module<a class="headerlink" href="#module-oxygen_cylinder.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-oxygen_cylinder.apps">
+<span id="oxygen-cylinder-apps-module"></span><h2>oxygen_cylinder.apps module<a class="headerlink" href="#module-oxygen_cylinder.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="oxygen_cylinder.apps.OxygenCylinderConfig">
+<em class="property">class </em><code class="descclassname">oxygen_cylinder.apps.</code><code class="descname">OxygenCylinderConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/oxygen_cylinder/apps.html#OxygenCylinderConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oxygen_cylinder.apps.OxygenCylinderConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="oxygen_cylinder.apps.OxygenCylinderConfig.default_auto_field">
+<code class="descname">default_auto_field</code><em class="property"> = 'django.db.models.BigAutoField'</em><a class="headerlink" href="#oxygen_cylinder.apps.OxygenCylinderConfig.default_auto_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.apps.OxygenCylinderConfig.name">
+<code class="descname">name</code><em class="property"> = 'oxygen_cylinder'</em><a class="headerlink" href="#oxygen_cylinder.apps.OxygenCylinderConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-oxygen_cylinder.models">
+<span id="oxygen-cylinder-models-module"></span><h2>oxygen_cylinder.models module<a class="headerlink" href="#module-oxygen_cylinder.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="oxygen_cylinder.models.Cylinder_Request">
+<em class="property">class </em><code class="descclassname">oxygen_cylinder.models.</code><code class="descname">Cylinder_Request</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/oxygen_cylinder/models.html#Cylinder_Request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>This Cylinder_Request class is extended from the model class.</p>
+<p>So, it has all the functionality of the model class.</p>
+<p>Attributes: pID, pName, firstName, lastName, email, contactNum, address, city, postalCode</p>
+<p>Functions: This class requires no functions.</p>
+<p>This class is used to create objects for database entry of oxygen cylinder requests.</p>
+<dl class="exception">
+<dt id="oxygen_cylinder.models.Cylinder_Request.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="oxygen_cylinder.models.Cylinder_Request.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.address">
+<code class="descname">address</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.address" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.city">
+<code class="descname">city</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.city" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.contactNum">
+<code class="descname">contactNum</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.contactNum" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.email">
+<code class="descname">email</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.email" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.firstName">
+<code class="descname">firstName</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.firstName" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.id">
+<code class="descname">id</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.lastName">
+<code class="descname">lastName</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.lastName" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.pID">
+<code class="descname">pID</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.pID" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.pName">
+<code class="descname">pName</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.pName" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oxygen_cylinder.models.Cylinder_Request.postalCode">
+<code class="descname">postalCode</code><a class="headerlink" href="#oxygen_cylinder.models.Cylinder_Request.postalCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-oxygen_cylinder.tests">
+<span id="oxygen-cylinder-tests-module"></span><h2>oxygen_cylinder.tests module<a class="headerlink" href="#module-oxygen_cylinder.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-oxygen_cylinder.urls">
+<span id="oxygen-cylinder-urls-module"></span><h2>oxygen_cylinder.urls module<a class="headerlink" href="#module-oxygen_cylinder.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-oxygen_cylinder.views">
+<span id="oxygen-cylinder-views-module"></span><h2>oxygen_cylinder.views module<a class="headerlink" href="#module-oxygen_cylinder.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="oxygen_cylinder.views.cylinder_details">
+<code class="descclassname">oxygen_cylinder.views.</code><code class="descname">cylinder_details</code><span class="sig-paren">(</span><em>request</em>, <em>keyy</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/oxygen_cylinder/views.html#cylinder_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oxygen_cylinder.views.cylinder_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to display the details of a specific cylinder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – It is a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method returns a html page. It returns the specific cylinder information in a page.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="oxygen_cylinder.views.oxygen_request">
+<code class="descclassname">oxygen_cylinder.views.</code><code class="descname">oxygen_request</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/oxygen_cylinder/views.html#oxygen_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oxygen_cylinder.views.oxygen_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to retrieve the relevant user inserted value from the request for oxygen cylinder form.</p>
+<p>It stores the retrieved data in the database.</p>
+<p>It sends an email confirmation about receiving of the request form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – It is a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method returns a html page which displays the request received confirmation message.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="oxygen_cylinder.views.request_form">
+<code class="descclassname">oxygen_cylinder.views.</code><code class="descname">request_form</code><span class="sig-paren">(</span><em>request</em>, <em>keyy</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/oxygen_cylinder/views.html#request_form"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oxygen_cylinder.views.request_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to display the oxygen request form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – It is a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method returns a html page. It returns the form for inserting relevant recipient information.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="oxygen_cylinder.views.view_oxygen_cylinders">
+<code class="descclassname">oxygen_cylinder.views.</code><code class="descname">view_oxygen_cylinders</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/oxygen_cylinder/views.html#view_oxygen_cylinders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oxygen_cylinder.views.view_oxygen_cylinders" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to display the list of available oxygen cylinders.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – It is a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method returns a html page. It returns the list of oxygen cylinders in a single page.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-oxygen_cylinder">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-oxygen_cylinder" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

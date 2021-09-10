@@ -1,0 +1,636 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>login_register package &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="login-register-package">
+<h1>login_register package<a class="headerlink" href="#login-register-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-login_register.admin">
+<span id="login-register-admin-module"></span><h2>login_register.admin module<a class="headerlink" href="#module-login_register.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-login_register.apps">
+<span id="login-register-apps-module"></span><h2>login_register.apps module<a class="headerlink" href="#module-login_register.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="login_register.apps.LoginRegisterConfig">
+<em class="property">class </em><code class="descclassname">login_register.apps.</code><code class="descname">LoginRegisterConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/apps.html#LoginRegisterConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.apps.LoginRegisterConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="login_register.apps.LoginRegisterConfig.name">
+<code class="descname">name</code><em class="property"> = 'login_register'</em><a class="headerlink" href="#login_register.apps.LoginRegisterConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-login_register.models">
+<span id="login-register-models-module"></span><h2>login_register.models module<a class="headerlink" href="#module-login_register.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="login_register.models.Contact">
+<em class="property">class </em><code class="descclassname">login_register.models.</code><code class="descname">Contact</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/models.html#Contact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.models.Contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>This LogIn class is extended from the Model class 
+so it has all the functionality of the model class.</p>
+<p>Attributes: userEmail, userPassword.</p>
+<p>Functions: This LogIn class requires no functions.</p>
+<p>This LogIn class used to create objects for database entry.</p>
+<dl class="exception">
+<dt id="login_register.models.Contact.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#login_register.models.Contact.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="login_register.models.Contact.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#login_register.models.Contact.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.Contact.email">
+<code class="descname">email</code><a class="headerlink" href="#login_register.models.Contact.email" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.Contact.id">
+<code class="descname">id</code><a class="headerlink" href="#login_register.models.Contact.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.Contact.message">
+<code class="descname">message</code><a class="headerlink" href="#login_register.models.Contact.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.Contact.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#login_register.models.Contact.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.Contact.subject">
+<code class="descname">subject</code><a class="headerlink" href="#login_register.models.Contact.subject" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="login_register.models.LogIn">
+<em class="property">class </em><code class="descclassname">login_register.models.</code><code class="descname">LogIn</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/models.html#LogIn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.models.LogIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>This LogIn class is extended from the Model class 
+so it has all the functionality of the model class.</p>
+<p>Attributes: userEmail, userPassword.</p>
+<p>Functions: This LogIn class requires no functions.</p>
+<p>This LogIn class used to create objects for database entry.</p>
+<dl class="exception">
+<dt id="login_register.models.LogIn.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#login_register.models.LogIn.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="login_register.models.LogIn.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#login_register.models.LogIn.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.LogIn.id">
+<code class="descname">id</code><a class="headerlink" href="#login_register.models.LogIn.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.LogIn.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#login_register.models.LogIn.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.LogIn.userEmail">
+<code class="descname">userEmail</code><a class="headerlink" href="#login_register.models.LogIn.userEmail" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.LogIn.userPassword">
+<code class="descname">userPassword</code><a class="headerlink" href="#login_register.models.LogIn.userPassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="login_register.models.UserSignUp">
+<em class="property">class </em><code class="descclassname">login_register.models.</code><code class="descname">UserSignUp</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/models.html#UserSignUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.models.UserSignUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>This UserSignUp class is extended from the Model class 
+so it has all the functionality of the model class.</p>
+<p>Attributes: userFname, userLname, userAge, userDob,  
+userGender, userOccupation, userCnumber, userBgroup, 
+userEmail, userPassword, userCPassword.</p>
+<p>Functions: This UserSignUp class requires no functions.</p>
+<p>This UserSignUp class used to create objects for database entry.</p>
+<dl class="exception">
+<dt id="login_register.models.UserSignUp.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#login_register.models.UserSignUp.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="login_register.models.UserSignUp.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#login_register.models.UserSignUp.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="login_register.models.UserSignUp.get_next_by_userDob">
+<code class="descname">get_next_by_userDob</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: userDob&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#login_register.models.UserSignUp.get_next_by_userDob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="login_register.models.UserSignUp.get_previous_by_userDob">
+<code class="descname">get_previous_by_userDob</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: userDob&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#login_register.models.UserSignUp.get_previous_by_userDob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.id">
+<code class="descname">id</code><a class="headerlink" href="#login_register.models.UserSignUp.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#login_register.models.UserSignUp.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userAge">
+<code class="descname">userAge</code><a class="headerlink" href="#login_register.models.UserSignUp.userAge" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userBgroup">
+<code class="descname">userBgroup</code><a class="headerlink" href="#login_register.models.UserSignUp.userBgroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userCPassword">
+<code class="descname">userCPassword</code><a class="headerlink" href="#login_register.models.UserSignUp.userCPassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userCnumber">
+<code class="descname">userCnumber</code><a class="headerlink" href="#login_register.models.UserSignUp.userCnumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userDob">
+<code class="descname">userDob</code><a class="headerlink" href="#login_register.models.UserSignUp.userDob" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userEmail">
+<code class="descname">userEmail</code><a class="headerlink" href="#login_register.models.UserSignUp.userEmail" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userFname">
+<code class="descname">userFname</code><a class="headerlink" href="#login_register.models.UserSignUp.userFname" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userGender">
+<code class="descname">userGender</code><a class="headerlink" href="#login_register.models.UserSignUp.userGender" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userLname">
+<code class="descname">userLname</code><a class="headerlink" href="#login_register.models.UserSignUp.userLname" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userOccupation">
+<code class="descname">userOccupation</code><a class="headerlink" href="#login_register.models.UserSignUp.userOccupation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="login_register.models.UserSignUp.userPassword">
+<code class="descname">userPassword</code><a class="headerlink" href="#login_register.models.UserSignUp.userPassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-login_register.tests">
+<span id="login-register-tests-module"></span><h2>login_register.tests module<a class="headerlink" href="#module-login_register.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-login_register.views">
+<span id="login-register-views-module"></span><h2>login_register.views module<a class="headerlink" href="#module-login_register.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="login_register.views.about_us">
+<code class="descclassname">login_register.views.</code><code class="descname">about_us</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/views.html#about_us"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.views.about_us" title="Permalink to this definition">¶</a></dt>
+<dd><p>This about_us method is used to show information about the developers and the website.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this about_us method returns an about page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="data">
+<dt id="login_register.views.config">
+<code class="descclassname">login_register.views.</code><code class="descname">config</code><em class="property"> = {'apiKey': 'AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY', 'appId': '1:798613820174:web:8d03f5cf0fbae3e9dcbd5f', 'authDomain': 'pashe-achi-cse299.firebaseapp.com', 'databaseURL': 'https://pashe-achi-cse299-default-rtdb.firebaseio.com/', 'measurementId': 'G-TZN8WC3LJT', 'messagingSenderId': '798613820174', 'projectId': 'pashe-achi-cse299', 'storageBucket': 'pashe-achi-cse299.appspot.com'}</em><a class="headerlink" href="#login_register.views.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global Variables</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="login_register.views.contact_us">
+<code class="descclassname">login_register.views.</code><code class="descname">contact_us</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/views.html#contact_us"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.views.contact_us" title="Permalink to this definition">¶</a></dt>
+<dd><p>This contact_us method is used to show information how to contact with the developers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this contact_us method returns a contact page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="login_register.views.forget_password">
+<code class="descclassname">login_register.views.</code><code class="descname">forget_password</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/views.html#forget_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.views.forget_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>This forget_password method is used to recover the forgotten password of a user
+and send a recovery email to the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this forget_password method returns the login page after successfully sending a password recovery email to a user.</td>
+</tr>
+</tbody>
+</table>
+<p>else it will return to the forgetpassword page
+which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="login_register.views.google_login">
+<code class="descclassname">login_register.views.</code><code class="descname">google_login</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/views.html#google_login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.views.google_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>This google_login method is used to login the user using Google Signin API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this google_login method returns the home page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.
+else it will return to the landing page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="login_register.views.home">
+<code class="descclassname">login_register.views.</code><code class="descname">home</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/views.html#home"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.views.home" title="Permalink to this definition">¶</a></dt>
+<dd><p>This home method is used to display the home page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this home method returns a home page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="login_register.views.landing">
+<code class="descclassname">login_register.views.</code><code class="descname">landing</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/views.html#landing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.views.landing" title="Permalink to this definition">¶</a></dt>
+<dd><p>This landing method is used to display the landing page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this landing method returns the landing page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="login_register.views.login">
+<code class="descclassname">login_register.views.</code><code class="descname">login</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/views.html#login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.views.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>This login method is used to display the home page with Machine Learning API ChatBot
+and used to login the registered and validate user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this login method returns a home page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.
+else it will return to the landing page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="login_register.views.logout">
+<code class="descclassname">login_register.views.</code><code class="descname">logout</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/views.html#logout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.views.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>This logout method is used to logout the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this logout method returns the login page</td>
+</tr>
+</tbody>
+</table>
+<p>which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="login_register.views.signup">
+<code class="descclassname">login_register.views.</code><code class="descname">signup</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/login_register/views.html#signup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#login_register.views.signup" title="Permalink to this definition">¶</a></dt>
+<dd><p>This signup method is used to registers the user
+and send a verification email to the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">this signup method returns the landing page after successfull registration.</td>
+</tr>
+</tbody>
+</table>
+<p>else it will return to the landing page with invalid credential.
+which is a HTML page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-login_register">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-login_register" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

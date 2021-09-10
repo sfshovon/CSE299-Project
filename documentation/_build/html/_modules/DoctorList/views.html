@@ -1,0 +1,239 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>DoctorList.views &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for DoctorList.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="c1">#from django.views.decorators.http import require_http_methods</span>
+<span class="kn">from</span> <span class="nn">django.views.decorators.csrf</span> <span class="kn">import</span> <span class="n">csrf_exempt</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+<span class="kn">import</span> <span class="nn">pyrebase</span>
+<span class="n">config</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="s2">&quot;AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;authDomain&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.firebaseapp.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;databaseURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://pashe-achi-cse299-default-rtdb.firebaseio.com/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;projectId&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;storageBucket&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.appspot.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;messagingSenderId&quot;</span><span class="p">:</span> <span class="s2">&quot;798613820174&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;appId&quot;</span><span class="p">:</span> <span class="s2">&quot;1:798613820174:web:8d03f5cf0fbae3e9dcbd5f&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;measurementId&quot;</span><span class="p">:</span> <span class="s2">&quot;G-TZN8WC3LJT&quot;</span>
+<span class="p">}</span>
+<span class="n">firebase</span> <span class="o">=</span> <span class="n">pyrebase</span><span class="o">.</span><span class="n">initialize_app</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">authe</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">auth</span><span class="p">()</span>
+<span class="n">storage</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">storage</span><span class="p">()</span>
+<span class="n">database</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
+<span class="c1"># Create your views here.</span>
+<div class="viewcode-block" id="doctor_list"><a class="viewcode-back" href="../../documentation/DoctorList.html#DoctorList.views.doctor_list">[docs]</a><span class="k">def</span> <span class="nf">doctor_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is used to display the list of available doctors.</span>
+
+<span class="sd">        :param request: It is a HttpResponse from user.</span>
+
+<span class="sd">        :type request: HttpResponse.</span>
+
+<span class="sd">        :return: This method returns a html page. It returns the list of doctors in a single page.</span>
+
+<span class="sd">        :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  
+    <span class="n">timeStamp</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">timeStampList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStamp</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+        <span class="n">timeStampKey</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+        <span class="n">timeStampList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timeStampKey</span><span class="p">)</span>
+    <span class="n">docName</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">docSpecialty</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">docEmail</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">docImage</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">docID</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStampList</span><span class="p">:</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">fName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docFName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">lName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docLName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">fName</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span><span class="n">lName</span>        
+        <span class="n">email</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docEmail&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">specialty</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docSpecializedField&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docImage&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+        <span class="n">docID</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">docName</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">docSpecialty</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">specialty</span><span class="p">)</span>   
+        <span class="n">docEmail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>  
+        <span class="n">docImage</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">docName</span><span class="p">,</span> <span class="n">docSpecialty</span><span class="p">,</span> <span class="n">docEmail</span><span class="p">,</span> <span class="n">docImage</span><span class="p">,</span> <span class="n">docID</span><span class="p">)</span>  
+        <span class="c1"># Sending all data in zip form to doclist.html        </span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;docList/doclist.html&#39;</span><span class="p">,{</span><span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="doctor_profile_view"><a class="viewcode-back" href="../../documentation/DoctorList.html#DoctorList.views.doctor_profile_view">[docs]</a><span class="k">def</span> <span class="nf">doctor_profile_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">keyy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is used to display the individual doctor profile along with their information.</span>
+
+<span class="sd">        :param request: It is a HttpResponse from user.</span>
+
+<span class="sd">        :type request: HttpResponse.</span>
+
+<span class="sd">        :return: This method returns a html page. It returns the doctor profile in a single page.</span>
+
+<span class="sd">        :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="n">fName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docFName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">lName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docLName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">Name</span><span class="o">=</span><span class="n">fName</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span><span class="n">lName</span> 
+    <span class="n">image</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docImage&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">qualification</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docQualification&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">about</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;About&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">designation</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docDesignation&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docEmail&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">workPlace</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docWorkingPlace&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">specialty</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docSpecializedField&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">consultationDays</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docConsultationDays&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">cNumber</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docNumber&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">hourOne</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docWorkingHour1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">hourTwo</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docWorkingHour2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">fees</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Doctor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">keyy</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;docConsultationFees&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;docList/docprofile.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;docName&#39;</span><span class="p">:</span><span class="n">Name</span><span class="p">,</span> <span class="s1">&#39;docEmail&#39;</span><span class="p">:</span><span class="n">email</span><span class="p">,</span> <span class="s1">&#39;docImage&#39;</span><span class="p">:</span><span class="n">image</span><span class="p">,</span> <span class="s1">&#39;dWorkPlace&#39;</span><span class="p">:</span><span class="n">workPlace</span><span class="p">,</span> <span class="s1">&#39;dQualification&#39;</span><span class="p">:</span><span class="n">qualification</span><span class="p">,</span> <span class="s1">&#39;dAbout&#39;</span><span class="p">:</span><span class="n">about</span><span class="p">,</span> <span class="s1">&#39;dDesignation&#39;</span><span class="p">:</span><span class="n">designation</span><span class="p">,</span> <span class="s1">&#39;specializedField&#39;</span><span class="p">:</span><span class="n">specialty</span><span class="p">,</span> <span class="s1">&#39;cDays&#39;</span><span class="p">:</span><span class="n">consultationDays</span><span class="p">,</span> <span class="s1">&#39;timeOne&#39;</span><span class="p">:</span><span class="n">hourOne</span><span class="p">,</span> <span class="s1">&#39;timeTwo&#39;</span><span class="p">:</span><span class="n">hourTwo</span><span class="p">,</span> <span class="s1">&#39;CFees&#39;</span><span class="p">:</span><span class="n">fees</span><span class="p">,</span> <span class="s1">&#39;contact&#39;</span><span class="p">:</span><span class="n">cNumber</span> <span class="p">})</span></div>
+    
+    
+
+
+
+
+   
+
+
+
+    
+
+
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

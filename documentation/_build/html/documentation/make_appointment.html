@@ -1,0 +1,282 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>make_appointment package &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="make-appointment-package">
+<h1>make_appointment package<a class="headerlink" href="#make-appointment-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-make_appointment.admin">
+<span id="make-appointment-admin-module"></span><h2>make_appointment.admin module<a class="headerlink" href="#module-make_appointment.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-make_appointment.apps">
+<span id="make-appointment-apps-module"></span><h2>make_appointment.apps module<a class="headerlink" href="#module-make_appointment.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="make_appointment.apps.MakeappointmentConfig">
+<em class="property">class </em><code class="descclassname">make_appointment.apps.</code><code class="descname">MakeappointmentConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/make_appointment/apps.html#MakeappointmentConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#make_appointment.apps.MakeappointmentConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="make_appointment.apps.MakeappointmentConfig.name">
+<code class="descname">name</code><em class="property"> = 'makeAppointment'</em><a class="headerlink" href="#make_appointment.apps.MakeappointmentConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-make_appointment.models">
+<span id="make-appointment-models-module"></span><h2>make_appointment.models module<a class="headerlink" href="#module-make_appointment.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="make_appointment.models.Appointment">
+<em class="property">class </em><code class="descclassname">make_appointment.models.</code><code class="descname">Appointment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/make_appointment/models.html#Appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#make_appointment.models.Appointment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>This class is extended from the model class. So, it has all the functionality of model class.</p>
+<p>This class is used to create objects fro database entry.</p>
+<dl class="exception">
+<dt id="make_appointment.models.Appointment.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#make_appointment.models.Appointment.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="make_appointment.models.Appointment.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#make_appointment.models.Appointment.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="make_appointment.models.Appointment.date">
+<code class="descname">date</code><a class="headerlink" href="#make_appointment.models.Appointment.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="make_appointment.models.Appointment.doctorId">
+<code class="descname">doctorId</code><a class="headerlink" href="#make_appointment.models.Appointment.doctorId" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="make_appointment.models.Appointment.get_next_by_date">
+<code class="descname">get_next_by_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: date&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#make_appointment.models.Appointment.get_next_by_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="make_appointment.models.Appointment.get_previous_by_date">
+<code class="descname">get_previous_by_date</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: date&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#make_appointment.models.Appointment.get_previous_by_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="make_appointment.models.Appointment.id">
+<code class="descname">id</code><a class="headerlink" href="#make_appointment.models.Appointment.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="make_appointment.models.Appointment.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#make_appointment.models.Appointment.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="make_appointment.models.Appointment.patientId">
+<code class="descname">patientId</code><a class="headerlink" href="#make_appointment.models.Appointment.patientId" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="make_appointment.models.Appointment.timeSlot">
+<code class="descname">timeSlot</code><a class="headerlink" href="#make_appointment.models.Appointment.timeSlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-make_appointment.urls">
+<span id="make-appointment-urls-module"></span><h2>make_appointment.urls module<a class="headerlink" href="#module-make_appointment.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-make_appointment.views">
+<span id="make-appointment-views-module"></span><h2>make_appointment.views module<a class="headerlink" href="#module-make_appointment.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="make_appointment.views.appointment_form">
+<code class="descclassname">make_appointment.views.</code><code class="descname">appointment_form</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/make_appointment/views.html#appointment_form"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#make_appointment.views.appointment_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to get the values from the appointment form to store data of appointments in the database.
+And it sends the confirmation email of appointment to the doctor and patient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method redirects to another method.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="data">
+<dt id="make_appointment.views.config">
+<code class="descclassname">make_appointment.views.</code><code class="descname">config</code><em class="property"> = {'apiKey': 'AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY', 'appId': '1:798613820174:web:8d03f5cf0fbae3e9dcbd5f', 'authDomain': 'pashe-achi-cse299.firebaseapp.com', 'databaseURL': 'https://pashe-achi-cse299-default-rtdb.firebaseio.com/', 'measurementId': 'G-TZN8WC3LJT', 'messagingSenderId': '798613820174', 'projectId': 'pashe-achi-cse299', 'storageBucket': 'pashe-achi-cse299.appspot.com'}</em><a class="headerlink" href="#make_appointment.views.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global Variables</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="make_appointment.views.create_appointment">
+<code class="descclassname">make_appointment.views.</code><code class="descname">create_appointment</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/make_appointment/views.html#create_appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#make_appointment.views.create_appointment" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to retrieve doctor’s name,id,timeslot from database to display in the appointment form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>HttpResponse.</em>) – it’s a HttpResponse from user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This method redirects to another method.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">HttpResponse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-make_appointment">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-make_appointment" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

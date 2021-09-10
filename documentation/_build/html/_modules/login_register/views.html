@@ -1,0 +1,402 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>login_register.views &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for login_register.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span><span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">login_register.models</span> <span class="kn">import</span> <span class="n">LogIn</span>
+<span class="kn">from</span> <span class="nn">login_register.models</span> <span class="kn">import</span> <span class="n">UserSignUp</span>
+<span class="kn">from</span> <span class="nn">login_register.models</span> <span class="kn">import</span> <span class="n">Contact</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">auth</span> 
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.core.mail</span> <span class="kn">import</span> <span class="n">send_mail</span>
+<span class="kn">import</span> <span class="nn">pyrebase</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Global Variables</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">config</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="s2">&quot;AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;authDomain&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.firebaseapp.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;databaseURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://pashe-achi-cse299-default-rtdb.firebaseio.com/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;projectId&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;storageBucket&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.appspot.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;messagingSenderId&quot;</span><span class="p">:</span> <span class="s2">&quot;798613820174&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;appId&quot;</span><span class="p">:</span> <span class="s2">&quot;1:798613820174:web:8d03f5cf0fbae3e9dcbd5f&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;measurementId&quot;</span><span class="p">:</span> <span class="s2">&quot;G-TZN8WC3LJT&quot;</span>
+<span class="p">}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Global Variables</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">firebase</span> <span class="o">=</span> <span class="n">pyrebase</span><span class="o">.</span><span class="n">initialize_app</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">authe</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">auth</span><span class="p">()</span>
+<span class="n">storage</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">storage</span><span class="p">()</span>
+<span class="n">database</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
+
+<span class="c1"># Create your views here.</span>
+
+<span class="c1">#Landing</span>
+<div class="viewcode-block" id="landing"><a class="viewcode-back" href="../../documentation/login_register.html#login_register.views.landing">[docs]</a><span class="k">def</span> <span class="nf">landing</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This landing method is used to display the landing page. </span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this landing method returns the landing page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;login_register/landing.html&#39;</span><span class="p">)</span></div>
+
+<span class="c1">#Login</span>
+<div class="viewcode-block" id="login"><a class="viewcode-back" href="../../documentation/login_register.html#login_register.views.login">[docs]</a><span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This login method is used to display the home page with Machine Learning API ChatBot</span>
+<span class="sd">    and used to login the registered and validate user.</span>
+<span class="sd">     </span>
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this login method returns a home page</span>
+<span class="sd">    which is a HTML page.</span>
+<span class="sd">    else it will return to the landing page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">userEmail</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span>
+    <span class="n">userPassword</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">sign_in_with_email_and_password</span><span class="p">(</span><span class="n">userEmail</span><span class="p">,</span><span class="n">userPassword</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s1">&#39;idToken&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">new</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]:</span>
+            <span class="n">checkUser</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;emailVerified&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">checkUser</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Please check your Email Inbox and Verify your Account&quot;</span>
+                    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&quot;login_register/landing.html&quot;</span><span class="p">,{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="n">message</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sessionId</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sessionId</span><span class="p">)</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessionId</span>       
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">message0</span> <span class="o">=</span> <span class="s2">&quot;Account not registered or verified!&quot;</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;login_register/landing.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;msg0&quot;</span><span class="p">:</span><span class="n">message0</span><span class="p">})</span>
+    <span class="n">sessionId</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;idToken&#39;</span><span class="p">]</span> 
+    <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sessionId</span><span class="p">)</span>
+    <span class="n">uid</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;email&quot;</span><span class="p">:</span><span class="n">userEmail</span><span class="p">}</span>
+    <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Login_Details&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;User_Details&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> 
+    
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;login_register/home.html&#39;</span><span class="p">)</span></div>
+
+<span class="c1">#Home</span>
+<div class="viewcode-block" id="home"><a class="viewcode-back" href="../../documentation/login_register.html#login_register.views.home">[docs]</a><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This home method is used to display the home page. </span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this home method returns a home page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;login_register/home.html&#39;</span><span class="p">)</span></div>
+
+<span class="c1">#GoogleLogin</span>
+<div class="viewcode-block" id="google_login"><a class="viewcode-back" href="../../documentation/login_register.html#login_register.views.google_login">[docs]</a><span class="k">def</span> <span class="nf">google_login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This google_login method is used to login the user using Google Signin API.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this google_login method returns the home page</span>
+<span class="sd">    which is a HTML page.</span>
+<span class="sd">    else it will return to the landing page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">userEmail</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span>
+        <span class="n">userPhoto</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;photo&#39;</span><span class="p">]</span>
+        <span class="n">uid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]</span>
+        <span class="n">userName</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+        <span class="c1"># userLname = request.POST.get(&#39;lname&#39;)</span>
+        <span class="c1"># userAge = request.POST.get(&#39;age&#39;)</span>
+        <span class="c1"># userDob = request.POST.get(&#39;dob&#39;)</span>
+        <span class="c1"># userGender = request.POST.get(&#39;gender&#39;)</span>
+        <span class="c1"># userOccupation = request.POST.get(&#39;occupation&#39;)</span>
+        <span class="c1"># userCnumber = request.POST.get(&#39;cnumber&#39;)</span>
+        <span class="c1"># userBgroup = request.POST.get(&#39;bgroup&#39;)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fname&quot;</span><span class="p">:</span><span class="n">userName</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">:</span><span class="n">userEmail</span><span class="p">,</span> <span class="s2">&quot;propic&quot;</span><span class="p">:</span><span class="n">userPhoto</span><span class="p">}</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;login_register/home.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;login_register/landing.html&#39;</span><span class="p">)</span></div>
+<span class="c1">#Signup    </span>
+<div class="viewcode-block" id="signup"><a class="viewcode-back" href="../../documentation/login_register.html#login_register.views.signup">[docs]</a><span class="k">def</span> <span class="nf">signup</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This signup method is used to registers the user</span>
+<span class="sd">    and send a verification email to the user.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this signup method returns the landing page after successfull registration.</span>
+<span class="sd">    else it will return to the landing page with invalid credential.</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">userFname</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fname&#39;</span><span class="p">)</span>
+    <span class="n">userLname</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lname&#39;</span><span class="p">)</span>
+    <span class="n">userAge</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span>
+    <span class="n">userDob</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dob&#39;</span><span class="p">)</span>
+    <span class="n">userGender</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;gender&#39;</span><span class="p">)</span>
+    <span class="n">userOccupation</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;occupation&#39;</span><span class="p">)</span>
+    <span class="n">userCnumber</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cnumber&#39;</span><span class="p">)</span>
+    <span class="n">userBgroup</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bgroup&#39;</span><span class="p">)</span>
+    <span class="n">userEmail</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span>
+    <span class="n">userPassword</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+    <span class="n">userCPassword</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cpassword&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">create_user_with_email_and_password</span><span class="p">(</span><span class="n">userEmail</span><span class="p">,</span><span class="n">userPassword</span><span class="p">)</span>
+        <span class="n">authe</span><span class="o">.</span><span class="n">send_email_verification</span><span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s1">&#39;idToken&#39;</span><span class="p">])</span>
+        <span class="n">message1</span> <span class="o">=</span> <span class="s2">&quot;A verification link has been sent to your account. Confirm to proceed!&quot;</span>   
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">message2</span> <span class="o">=</span> <span class="s2">&quot;Unable to create account. Please try again!&quot;</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;login_register/landing.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;msg2&quot;</span><span class="p">:</span><span class="n">message2</span><span class="p">})</span>
+    <span class="n">uid</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fname&quot;</span><span class="p">:</span><span class="n">userFname</span><span class="p">,</span> <span class="s2">&quot;lname&quot;</span><span class="p">:</span><span class="n">userLname</span><span class="p">,</span> 
+            <span class="s2">&quot;age&quot;</span><span class="p">:</span><span class="n">userAge</span><span class="p">,</span> <span class="s2">&quot;dob&quot;</span><span class="p">:</span><span class="n">userDob</span><span class="p">,</span> 
+            <span class="s2">&quot;gender&quot;</span><span class="p">:</span><span class="n">userGender</span><span class="p">,</span> <span class="s2">&quot;occupation&quot;</span><span class="p">:</span><span class="n">userOccupation</span><span class="p">,</span> 
+            <span class="s2">&quot;cnumber&quot;</span><span class="p">:</span><span class="n">userCnumber</span><span class="p">,</span> <span class="s2">&quot;bgroup&quot;</span><span class="p">:</span><span class="n">userBgroup</span><span class="p">,</span> 
+            <span class="s2">&quot;email&quot;</span><span class="p">:</span><span class="n">userEmail</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">:</span><span class="n">userPassword</span><span class="p">,</span> 
+            <span class="s2">&quot;cpassword&quot;</span><span class="p">:</span><span class="n">userCPassword</span><span class="p">,</span><span class="s2">&quot;propic&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;login_register/landing.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;msg1&quot;</span><span class="p">:</span><span class="n">message1</span><span class="p">})</span></div>
+
+<span class="c1">#ForgetPassword    </span>
+<div class="viewcode-block" id="forget_password"><a class="viewcode-back" href="../../documentation/login_register.html#login_register.views.forget_password">[docs]</a><span class="k">def</span> <span class="nf">forget_password</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This forget_password method is used to recover the forgotten password of a user</span>
+<span class="sd">    and send a recovery email to the user.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this forget_password method returns the login page after successfully sending a password recovery email to a user.</span>
+<span class="sd">    else it will return to the forgetpassword page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">userEmail</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span>
+        <span class="n">authe</span><span class="o">.</span><span class="n">send_password_reset_email</span><span class="p">(</span><span class="n">userEmail</span><span class="p">)</span>
+        <span class="n">message3</span> <span class="o">=</span> <span class="s2">&quot;Email has been sent for password RESET. Please check your inbox&quot;</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;login_register/landing.html&#39;</span><span class="p">,{</span><span class="s2">&quot;msg3&quot;</span><span class="p">:</span><span class="n">message3</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;login_register/forget_password.html&#39;</span><span class="p">)</span></div>
+
+<span class="c1">#Logout</span>
+<div class="viewcode-block" id="logout"><a class="viewcode-back" href="../../documentation/login_register.html#login_register.views.logout">[docs]</a><span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This logout method is used to logout the user.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this logout method returns the login page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span> 
+        <span class="k">del</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+        <span class="n">auth</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">m1</span> <span class="o">=</span> <span class="s2">&quot;Account has been logged out successfully&quot;</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;login_register/landing.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;m1&quot;</span><span class="p">:</span><span class="n">m1</span><span class="p">})</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;login&quot;</span><span class="p">)</span></div>
+
+<span class="c1">#AboutUs</span>
+<div class="viewcode-block" id="about_us"><a class="viewcode-back" href="../../documentation/login_register.html#login_register.views.about_us">[docs]</a><span class="k">def</span> <span class="nf">about_us</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This about_us method is used to show information about the developers and the website.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this about_us method returns an about page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;login_register/about_us.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="contact_us"><a class="viewcode-back" href="../../documentation/login_register.html#login_register.views.contact_us">[docs]</a><span class="k">def</span> <span class="nf">contact_us</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This contact_us method is used to show information how to contact with the developers.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this contact_us method returns a contact page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;login_register/contact_us.html&#39;</span><span class="p">)</span></div>
+    
+    
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

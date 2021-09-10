@@ -1,0 +1,515 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>blog_post.views &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for blog_post.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">blog_post.models</span> <span class="kn">import</span> <span class="n">BlogPost</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<span class="kn">import</span> <span class="nn">pyrebase</span>
+
+<span class="n">config</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="s2">&quot;AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;authDomain&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.firebaseapp.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;databaseURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://pashe-achi-cse299-default-rtdb.firebaseio.com/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;projectId&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;storageBucket&quot;</span><span class="p">:</span> <span class="s2">&quot;pashe-achi-cse299.appspot.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;messagingSenderId&quot;</span><span class="p">:</span> <span class="s2">&quot;798613820174&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;appId&quot;</span><span class="p">:</span> <span class="s2">&quot;1:798613820174:web:8d03f5cf0fbae3e9dcbd5f&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;measurementId&quot;</span><span class="p">:</span> <span class="s2">&quot;G-TZN8WC3LJT&quot;</span>
+<span class="p">}</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Global Variables</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">firebase</span> <span class="o">=</span> <span class="n">pyrebase</span><span class="o">.</span><span class="n">initialize_app</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">authe</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">auth</span><span class="p">()</span>
+<span class="n">storage</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">storage</span><span class="p">()</span>
+<span class="n">database</span> <span class="o">=</span> <span class="n">firebase</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="add_post"><a class="viewcode-back" href="../../documentation/blog_post.html#blog_post.views.add_post">[docs]</a><span class="k">def</span> <span class="nf">add_post</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method saves user posts.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method redirects to another method &quot;home_page&quot;.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="kn">import</span> <span class="nn">pytz</span>
+    <span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Asia/Dhaka&#39;</span><span class="p">)</span>
+    <span class="n">timeNow</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
+    <span class="n">millis</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">timeNow</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()))</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">)</span>
+    <span class="n">idtoken</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">idtoken</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">url</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">userFname</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">userLname</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;lname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">userFullName</span> <span class="o">=</span> <span class="n">userFname</span> <span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span> <span class="n">userLname</span>
+    <span class="n">proPic</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;propic&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;userId&#39;</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span>
+        <span class="s1">&#39;post&#39;</span><span class="p">:</span> <span class="n">post</span><span class="p">,</span>
+        <span class="s1">&#39;fullName&#39;</span><span class="p">:</span> <span class="n">userFullName</span><span class="p">,</span>
+        <span class="s1">&#39;comments&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;likes&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span><span class="n">url</span><span class="p">,</span>
+        <span class="s1">&#39;propic&#39;</span><span class="p">:</span><span class="n">proPic</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">millis</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span> <span class="p">(</span><span class="s2">&quot;home_page&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="home_page"><a class="viewcode-back" href="../../documentation/blog_post.html#blog_post.views.home_page">[docs]</a><span class="k">def</span> <span class="nf">home_page</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for blog post home page.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method renders a template.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="kn">import</span> <span class="nn">datetime</span>
+    <span class="n">timeStamp</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">timeStamp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;blog_post/homePage.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">timeStamp</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">timeStampList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStamp</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+            <span class="n">timeStampKey</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+            <span class="n">timeStampList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timeStampKey</span><span class="p">)</span>
+        <span class="n">postList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">userNameList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dateTimeList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">totalLikesList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">totalCommentsList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">urlList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">proPicList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStampList</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">dateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%I:%M %p </span><span class="si">%d</span><span class="s1">-%m-%Y&#39;</span><span class="p">)</span>
+            <span class="n">dateTimeList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dateTime</span><span class="p">)</span>
+            <span class="n">userName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fullName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="n">userNameList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">userName</span><span class="p">)</span>
+            <span class="n">post</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="n">postList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="n">urlList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">proPic</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;propic&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="n">proPicList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">proPic</span><span class="p">)</span>
+            <span class="n">totalLikes</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">likeCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">likeCount</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">likeCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">likeCount</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+                    <span class="n">totalLikes</span> <span class="o">=</span> <span class="n">totalLikes</span><span class="o">+</span><span class="mi">1</span>
+                <span class="n">totalLikesList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totalLikes</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">totalLikes</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">totalLikesList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totalLikes</span><span class="p">)</span>  
+            <span class="n">totalComments</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">commentCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">commentCount</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">commentCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">commentCount</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+                    <span class="n">totalComments</span> <span class="o">=</span> <span class="n">totalComments</span><span class="o">+</span><span class="mi">1</span>
+                <span class="n">totalCommentsList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totalComments</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">totalComments</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">totalCommentsList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totalComments</span><span class="p">)</span>
+        <span class="n">postDetails</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">,</span><span class="n">userNameList</span><span class="p">,</span><span class="n">dateTimeList</span><span class="p">,</span>
+                          <span class="n">postList</span><span class="p">,</span><span class="n">totalLikesList</span><span class="p">,</span><span class="n">totalCommentsList</span><span class="p">,</span><span class="n">urlList</span><span class="p">,</span><span class="n">proPicList</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;blog_post/homePage.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;postDetails&#39;</span><span class="p">:</span><span class="n">postDetails</span><span class="p">}</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="post_details"><a class="viewcode-back" href="../../documentation/blog_post.html#blog_post.views.post_details">[docs]</a><span class="k">def</span> <span class="nf">post_details</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">timeStampList</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for showing post details of a specific post clicked by an user.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+<span class="sd">    :type timeStampList: Integer.</span>
+
+<span class="sd">    :return: This method return a HTML page of post details along with some dictionary values.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="kn">import</span> <span class="nn">datetime</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span>
+    <span class="n">dateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%I:%M %p </span><span class="si">%d</span><span class="s1">-%m-%Y&#39;</span><span class="p">)</span>
+    <span class="n">userName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fullName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">proPic</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;propic&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">totalLikes</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">likeCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">likeCount</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">likeCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">likeCount</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+            <span class="n">totalLikes</span> <span class="o">=</span> <span class="n">totalLikes</span><span class="o">+</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">totalLikes</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">totalComments</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">commentTimeStamp</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">commentTimeStamp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">totalComments</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;blog_post/post_details.html&#39;</span><span class="p">,{</span><span class="s1">&#39;dateTime&#39;</span><span class="p">:</span> <span class="n">dateTime</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">userName</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="s1">&#39;proPic&#39;</span><span class="p">:</span><span class="n">proPic</span><span class="p">,</span>
+                     <span class="s1">&#39;post&#39;</span><span class="p">:</span><span class="n">post</span><span class="p">,</span><span class="s1">&#39;timeStampList&#39;</span><span class="p">:</span><span class="n">timeStampList</span><span class="p">,</span><span class="s1">&#39;totalLikes&#39;</span><span class="p">:</span><span class="n">totalLikes</span><span class="p">,</span><span class="s1">&#39;totalComments&#39;</span><span class="p">:</span><span class="n">totalComments</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">totalCommentsList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">commentTimeStampList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">commentTimeStamp</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">commentTimeStamp</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+            <span class="n">commentTimeStampKey</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+            <span class="n">commentTimeStampList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commentTimeStampKey</span><span class="p">)</span>
+            <span class="n">totalComments</span> <span class="o">=</span> <span class="n">totalComments</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">totalCommentsList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totalComments</span><span class="p">)</span>
+        <span class="n">commentList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">commenterList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">commenterProPicList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">commentDateTimeList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">commentTimeStampList</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">commentDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%I:%M %p </span><span class="si">%d</span><span class="s1">-%m-%Y&#39;</span><span class="p">)</span>
+            <span class="n">commentDateTimeList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commentDateTime</span><span class="p">)</span>
+            <span class="n">commenter</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fullName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="n">commenterList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commenter</span><span class="p">)</span>
+            <span class="n">commenterId</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;userId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="n">commenterProPic</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">commenterId</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;propic&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="n">commenterProPicList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commenterProPic</span><span class="p">)</span>
+            <span class="n">comment</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comment&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="n">commentList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+        <span class="n">commentDetails</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">commentDateTimeList</span><span class="p">,</span><span class="n">commenterList</span><span class="p">,</span><span class="n">commentList</span><span class="p">,</span><span class="n">commenterProPicList</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;blog_post/post_details.html&#39;</span><span class="p">,{</span><span class="s1">&#39;proPic&#39;</span><span class="p">:</span><span class="n">proPic</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">userName</span><span class="p">,</span><span class="s1">&#39;dateTime&#39;</span><span class="p">:</span> <span class="n">dateTime</span><span class="p">,</span><span class="s1">&#39;post&#39;</span><span class="p">:</span><span class="n">post</span><span class="p">,</span><span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+                    <span class="s1">&#39;totalLikes&#39;</span><span class="p">:</span><span class="n">totalLikes</span><span class="p">,</span><span class="s1">&#39;totalComments&#39;</span><span class="p">:</span><span class="n">totalComments</span><span class="p">,</span><span class="s1">&#39;commentDetails&#39;</span><span class="p">:</span><span class="n">commentDetails</span><span class="p">,</span><span class="s1">&#39;timeStampList&#39;</span><span class="p">:</span><span class="n">timeStampList</span><span class="p">,})</span></div>
+
+<div class="viewcode-block" id="comment"><a class="viewcode-back" href="../../documentation/blog_post.html#blog_post.views.comment">[docs]</a><span class="k">def</span> <span class="nf">comment</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">timeStampList</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is to add comments in a post &amp; to save details about comments.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+<span class="sd">    :type timeStampList: Integer.</span>
+
+<span class="sd">    :return: This method returns to another method &quot;post_details&quot; and post id.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="kn">import</span> <span class="nn">pytz</span>
+    <span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Asia/Dhaka&#39;</span><span class="p">)</span>
+    <span class="n">timeNow</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
+    <span class="n">millis</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">timeNow</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()))</span>
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;comment&#39;</span><span class="p">)</span>
+    <span class="n">idtoken</span><span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">idtoken</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="n">userFname</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">userLname</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Users&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;lname&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="n">userFullName</span> <span class="o">=</span> <span class="n">userFname</span> <span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span> <span class="n">userLname</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;userId&#39;</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span>
+        <span class="s1">&#39;comment&#39;</span><span class="p">:</span> <span class="n">comment</span><span class="p">,</span>
+        <span class="s1">&#39;fullName&#39;</span><span class="p">:</span> <span class="n">userFullName</span>
+    <span class="p">}</span>
+    <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">millis</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;post_details&quot;</span><span class="p">,</span><span class="n">timeStampList</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="like"><a class="viewcode-back" href="../../documentation/blog_post.html#blog_post.views.like">[docs]</a><span class="k">def</span> <span class="nf">like</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">timeStampList</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is to add likes in a post &amp; to save details about likes.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+<span class="sd">    :type timeStampList: Integer.</span>
+
+<span class="sd">    :return: This method redirects to another method &quot;post_details&quot; and returns post id.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="kn">import</span> <span class="nn">pytz</span>
+    <span class="n">idtoken</span><span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">idtoken</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Asia/Dhaka&#39;</span><span class="p">)</span>
+    <span class="n">timeNow</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
+    <span class="n">millis</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">timeNow</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()))</span>
+    <span class="n">likeCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">likeCount</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">likeCountList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">likeCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">likeCount</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+            <span class="n">likeCountKey</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+            <span class="n">likeCountList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">likeCountKey</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">likeCountList</span><span class="p">:</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">likeCountList</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">likeCountKey</span> <span class="o">==</span> <span class="n">a</span> <span class="ow">and</span> <span class="n">total</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">elif</span><span class="p">(</span><span class="n">likeCountKey</span> <span class="o">==</span> <span class="n">a</span><span class="p">):</span>
+                <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">millis</span>
+                <span class="p">}</span>
+                <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">millis</span>
+        <span class="p">}</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">timeStampList</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;post_details&quot;</span><span class="p">,</span> <span class="n">timeStampList</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="timeline"><a class="viewcode-back" href="../../documentation/blog_post.html#blog_post.views.timeline">[docs]</a><span class="k">def</span> <span class="nf">timeline</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is for user&#39;s timeline.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: This method renders a template showing all posts of a user.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="n">idtoken</span><span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;LoginId&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">authe</span><span class="o">.</span><span class="n">get_account_info</span><span class="p">(</span><span class="n">idtoken</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;localId&#39;</span><span class="p">]</span>
+    <span class="kn">import</span> <span class="nn">datetime</span>
+    <span class="n">timeStamp</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">timeStamp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;blog_post/homePage.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">timeStamp</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">timeStampList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStamp</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+            <span class="n">timeStampKey</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">key</span><span class="p">()</span>
+            <span class="n">timeStampList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timeStampKey</span><span class="p">)</span>
+        <span class="n">postList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">postIdList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">userNameList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dateTimeList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">totalLikesList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">totalCommentsList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">urlList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">proPicList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">timeStampList</span><span class="p">:</span>
+            <span class="n">userId</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;userId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">userId</span><span class="p">):</span>
+                <span class="n">post</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">postId</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="n">postIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">postId</span><span class="p">)</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">dateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%I:%M %p </span><span class="si">%d</span><span class="s1">-%m-%Y&#39;</span><span class="p">)</span>
+                <span class="n">dateTimeList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dateTime</span><span class="p">)</span>
+                <span class="n">userName</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;fullName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">userNameList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">userName</span><span class="p">)</span>
+                <span class="n">post</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">postList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">urlList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+                <span class="n">proPic</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;propic&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="n">proPicList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">proPic</span><span class="p">)</span>
+                <span class="n">totalLikes</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">likeCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">likeCount</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="n">likeCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;likes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">likeCount</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+                        <span class="n">totalLikes</span> <span class="o">=</span> <span class="n">totalLikes</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="n">totalLikesList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totalLikes</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">totalLikes</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">totalLikesList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totalLikes</span><span class="p">)</span>  
+                <span class="n">totalComments</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">commentCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">()</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">commentCount</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="n">commentCount</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">commentCount</span><span class="o">.</span><span class="n">each</span><span class="p">():</span>
+                        <span class="n">totalComments</span> <span class="o">=</span> <span class="n">totalComments</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="n">totalCommentsList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totalComments</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">totalComments</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">totalCommentsList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totalComments</span><span class="p">)</span>
+                <span class="n">postDetails</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">postIdList</span><span class="p">,</span><span class="n">userNameList</span><span class="p">,</span><span class="n">dateTimeList</span><span class="p">,</span><span class="n">proPicList</span><span class="p">,</span>
+                          <span class="n">postList</span><span class="p">,</span><span class="n">totalLikesList</span><span class="p">,</span><span class="n">totalCommentsList</span><span class="p">,</span><span class="n">urlList</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">post</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;blog_post/noPost.html&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;blog_post/timeline.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;postDetails&#39;</span><span class="p">:</span><span class="n">postDetails</span><span class="p">}</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="delete_post"><a class="viewcode-back" href="../../documentation/blog_post.html#blog_post.views.delete_post">[docs]</a><span class="k">def</span> <span class="nf">delete_post</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">postIdList</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is used to delete posts of an user from timeline.</span>
+
+<span class="sd">    :param request: It&#39;s a HttpResponse from user.</span>
+<span class="sd">    :param timeStampList: It&#39;s the post id clicked by user to delete the post.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+<span class="sd">    :type timeStampList: Integer.</span>
+
+<span class="sd">    :return: It redirects to the timeline of the user.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">&quot;Blog Post&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">postIdList</span><span class="p">)</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;timeline&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

@@ -1,0 +1,540 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>scrapper.views &#8212; PasheAchi 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&display=swap" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+    
+    
+     
+        <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script type="text/javascript" src="../../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for scrapper.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<div class="viewcode-block" id="covid19_bd"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.covid19_bd">[docs]</a><span class="k">def</span> <span class="nf">covid19_bd</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This covid19_bd method is used to scrap real time information about Bangladesh COVID19 Statistics from an API.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this covid19_bd method returns Bangladesh COVID19 statistics page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/country-report-iso-based/Bangladesh/bgd&quot;</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;x-rapidapi-host&#39;</span><span class="p">:</span> <span class="s2">&quot;vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;x-rapidapi-key&#39;</span><span class="p">:</span> <span class="s2">&quot;dd340330f0mshbe4a15b45995ce0p181f6djsn73e74731beff&quot;</span>
+    <span class="p">}</span>
+        
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ir</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cfr</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">sc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tdd</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nd</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">trr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ac</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">tt</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tp</span> <span class="o">=</span> <span class="p">[]</span>
+  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="n">d</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">ir</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Infection_Risk&#39;</span><span class="p">])</span>
+        <span class="n">cfr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Case_Fatality_Rate&#39;</span><span class="p">])</span> 
+        <span class="n">tp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Test_Percentage&#39;</span><span class="p">])</span>
+        <span class="n">rp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Recovery_Proporation&#39;</span><span class="p">])</span>
+        <span class="n">tc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalCases&#39;</span><span class="p">])</span>
+        <span class="n">nc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;NewCases&#39;</span><span class="p">])</span>
+        <span class="n">tdd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalDeaths&#39;</span><span class="p">])</span>
+        <span class="n">nd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;NewDeaths&#39;</span><span class="p">])</span>
+        <span class="n">trr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalRecovered&#39;</span><span class="p">])</span>
+        <span class="n">nr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;NewRecovered&#39;</span><span class="p">])</span>
+        <span class="n">ac</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;ActiveCases&#39;</span><span class="p">])</span>
+        <span class="n">tt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalTests&#39;</span><span class="p">])</span>
+        <span class="n">population</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">])</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Serious_Critical&#39;</span><span class="p">])</span>
+   
+    <span class="n">covidUpdate</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">tc</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">ir</span><span class="p">,</span> <span class="n">cfr</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">tdd</span><span class="p">,</span> <span class="n">nd</span><span class="p">,</span> <span class="n">trr</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">rp</span><span class="p">,</span> <span class="n">ac</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="n">tp</span><span class="p">)</span>  
+    <span class="c1"># Sending all data in zip form to vaccine_news.html            </span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/corona_scrapper_bd.html&#39;</span><span class="p">,{</span><span class="s2">&quot;covidUpdate&quot;</span><span class="p">:</span><span class="n">covidUpdate</span><span class="p">})</span>  </div>
+
+
+<div class="viewcode-block" id="covid19_world"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.covid19_world">[docs]</a><span class="k">def</span> <span class="nf">covid19_world</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This covid19_world method is used to scrap real time information about World COVID19 Statistics from an API.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this covid19_world method returns World COVID19 statistics page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/world&quot;</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;x-rapidapi-host&#39;</span><span class="p">:</span> <span class="s2">&quot;vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;x-rapidapi-key&#39;</span><span class="p">:</span> <span class="s2">&quot;dd340330f0mshbe4a15b45995ce0p181f6djsn73e74731beff&quot;</span>
+    <span class="p">}</span>
+            
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ir</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cfr</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">sc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tdd</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nd</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">trr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ac</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">tt</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tp</span> <span class="o">=</span> <span class="p">[]</span>
+  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="n">d</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">ir</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Infection_Risk&#39;</span><span class="p">])</span>
+        <span class="n">cfr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Case_Fatality_Rate&#39;</span><span class="p">])</span> 
+        <span class="n">tp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Test_Percentage&#39;</span><span class="p">])</span>
+        <span class="n">rp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Recovery_Proporation&#39;</span><span class="p">])</span>
+        <span class="n">tc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalCases&#39;</span><span class="p">])</span>
+        <span class="n">nc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;NewCases&#39;</span><span class="p">])</span>
+        <span class="n">tdd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalDeaths&#39;</span><span class="p">])</span>
+        <span class="n">nd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;NewDeaths&#39;</span><span class="p">])</span>
+        <span class="n">trr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalRecovered&#39;</span><span class="p">])</span>
+        <span class="n">nr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;NewRecovered&#39;</span><span class="p">])</span>
+        <span class="n">ac</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;ActiveCases&#39;</span><span class="p">])</span>
+        <span class="n">tt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalTests&#39;</span><span class="p">])</span>
+        <span class="n">population</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">])</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Serious_Critical&#39;</span><span class="p">])</span>
+   
+    <span class="n">covidUpdate</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">tc</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">ir</span><span class="p">,</span> <span class="n">cfr</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">tdd</span><span class="p">,</span> <span class="n">nd</span><span class="p">,</span> <span class="n">trr</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">rp</span><span class="p">,</span> <span class="n">ac</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="n">tp</span><span class="p">)</span>  
+    <span class="c1"># Sending all data in zip form to vaccine_news.html            </span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/corona_scrapper_world.html&#39;</span><span class="p">,{</span><span class="s2">&quot;covidUpdate&quot;</span><span class="p">:</span><span class="n">covidUpdate</span><span class="p">})</span>   </div>
+
+<div class="viewcode-block" id="country_cases"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.country_cases">[docs]</a><span class="k">def</span> <span class="nf">country_cases</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This country_cases method is used to scrap real time information aboutt All Countries COVID19 Statistics from an API.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this country_cases method returns COVID19 cases by countries page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/countries&quot;</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;x-rapidapi-host&#39;</span><span class="p">:</span> <span class="s2">&quot;vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;x-rapidapi-key&#39;</span><span class="p">:</span> <span class="s2">&quot;dd340330f0mshbe4a15b45995ce0p181f6djsn73e74731beff&quot;</span>
+    <span class="p">}</span>
+        
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ir</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cfr</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">sc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tdd</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nd</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">trr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ac</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">tt</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tp</span> <span class="o">=</span> <span class="p">[]</span>
+  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="n">d</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">country</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">])</span>
+        <span class="n">ir</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Infection_Risk&#39;</span><span class="p">])</span>
+        <span class="n">cfr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Case_Fatality_Rate&#39;</span><span class="p">])</span> 
+        <span class="n">tp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Test_Percentage&#39;</span><span class="p">])</span>
+        <span class="n">rp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Recovery_Proporation&#39;</span><span class="p">])</span>
+        <span class="n">tc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalCases&#39;</span><span class="p">])</span>
+        <span class="n">nc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;NewCases&#39;</span><span class="p">])</span>
+        <span class="n">tdd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalDeaths&#39;</span><span class="p">])</span>
+        <span class="n">nd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;NewDeaths&#39;</span><span class="p">])</span>
+        <span class="n">trr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalRecovered&#39;</span><span class="p">])</span>
+        <span class="n">nr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;NewRecovered&#39;</span><span class="p">])</span>
+        <span class="n">ac</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;ActiveCases&#39;</span><span class="p">])</span>
+        <span class="n">tt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;TotalTests&#39;</span><span class="p">])</span>
+        <span class="n">population</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">])</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Serious_Critical&#39;</span><span class="p">])</span>
+   
+    <span class="n">covidUpdate</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">tc</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">ir</span><span class="p">,</span> <span class="n">cfr</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">tdd</span><span class="p">,</span> <span class="n">nd</span><span class="p">,</span> <span class="n">trr</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">rp</span><span class="p">,</span> <span class="n">ac</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="n">tp</span><span class="p">)</span>  
+    <span class="c1"># Sending all data in zip form to vaccine_news.html            </span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/country_cases.html&#39;</span><span class="p">,{</span><span class="s2">&quot;covidUpdate&quot;</span><span class="p">:</span><span class="n">covidUpdate</span><span class="p">})</span> </div>
+
+<div class="viewcode-block" id="all_treatments"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.all_treatments">[docs]</a><span class="k">def</span> <span class="nf">all_treatments</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This all_treatments method is used to scrap real time information about all the treatments for COVID19 from an API.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this all_treatments method returns all COVID19 treatment list page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/vaccines/get-all-treatment&quot;</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;x-rapidapi-key&#39;</span><span class="p">:</span> <span class="s2">&quot;dd340330f0mshbe4a15b45995ce0p181f6djsn73e74731beff&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;x-rapidapi-host&#39;</span><span class="p">:</span> <span class="s2">&quot;vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com&quot;</span>
+    <span class="p">}</span>
+    
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="c1">#print(response.text)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">trimedName</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">trimedCategory</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">phase</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nextSteps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">funder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">FDAApproved</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">lastUpdated</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="n">d</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;developerResearcher&#39;</span><span class="p">])</span>
+        <span class="n">trimedName</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;trimedName&#39;</span><span class="p">])</span>
+        <span class="n">category</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">])</span>
+        <span class="n">trimedCategory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;trimedCategory&#39;</span><span class="p">])</span>
+        <span class="n">phase</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;phase&#39;</span><span class="p">])</span>
+        <span class="n">nextSteps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;nextSteps&#39;</span><span class="p">])</span>
+        <span class="n">description</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
+        <span class="n">funder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;funder&#39;</span><span class="p">])</span>
+        <span class="n">FDAApproved</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;FDAApproved&#39;</span><span class="p">])</span>
+        <span class="n">lastUpdated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;lastUpdated&#39;</span><span class="p">])</span>
+        
+    <span class="n">allTreatmentList</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">trimedName</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">trimedCategory</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">nextSteps</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">funder</span><span class="p">,</span> <span class="n">FDAApproved</span><span class="p">,</span> <span class="n">lastUpdated</span><span class="p">)</span>  
+    <span class="c1"># Sending all data in zip form to vaccine_news.html            </span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/treatments_list.html&#39;</span><span class="p">,{</span><span class="s2">&quot;all&quot;</span><span class="p">:</span><span class="n">allTreatmentList</span> <span class="p">})</span></div>
+
+<div class="viewcode-block" id="all_vaccines"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.all_vaccines">[docs]</a><span class="k">def</span> <span class="nf">all_vaccines</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This all_vaccines method is used to scrap real time information about all the vaccines for COVID19 from an API.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this all_vaccines method returns all COVID19 vaccines list page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/vaccines/get-all-vaccines&quot;</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;x-rapidapi-key&#39;</span><span class="p">:</span> <span class="s2">&quot;dd340330f0mshbe4a15b45995ce0p181f6djsn73e74731beff&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;x-rapidapi-host&#39;</span><span class="p">:</span> <span class="s2">&quot;vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com&quot;</span>
+    <span class="p">}</span>
+    
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="c1">#print(response.text)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">trimedName</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">trimedCategory</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">phase</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nextSteps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">funder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">FDAApproved</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">lastUpdated</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="n">d</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;developerResearcher&#39;</span><span class="p">])</span>
+        <span class="n">trimedName</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;trimedName&#39;</span><span class="p">])</span>
+        <span class="n">category</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">])</span>
+        <span class="n">trimedCategory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;trimedCategory&#39;</span><span class="p">])</span>
+        <span class="n">phase</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;phase&#39;</span><span class="p">])</span>
+        <span class="n">nextSteps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;nextSteps&#39;</span><span class="p">])</span>
+        <span class="n">description</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
+        <span class="n">funder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;funder&#39;</span><span class="p">])</span>
+        <span class="n">FDAApproved</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;FDAApproved&#39;</span><span class="p">])</span>
+        <span class="n">lastUpdated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;lastUpdated&#39;</span><span class="p">])</span>
+        
+    <span class="n">allVaccinesList</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">trimedName</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">trimedCategory</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">nextSteps</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">funder</span><span class="p">,</span> <span class="n">FDAApproved</span><span class="p">,</span> <span class="n">lastUpdated</span><span class="p">)</span>  
+    <span class="c1"># Sending all data in zip form to vaccine_news.html            </span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/vaccines_list.html&#39;</span><span class="p">,{</span><span class="s2">&quot;all&quot;</span><span class="p">:</span><span class="n">allVaccinesList</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="ambulance"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.ambulance">[docs]</a><span class="k">def</span> <span class="nf">ambulance</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This ambulance method is used to show information about ambulance services name and contact of Bangladesh.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this ambulance method returns a static page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/ambulance.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="covid_hotline"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.covid_hotline">[docs]</a><span class="k">def</span> <span class="nf">covid_hotline</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This covid_hotline method is used to show information about Bangladesh COVID19 Hotline services.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this covid_hotline method returns a static page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/covid_hotline.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="test_center"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.test_center">[docs]</a><span class="k">def</span> <span class="nf">test_center</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This test_center method is used to show information about Bangladesh COVID19 Test Centers.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this test_center method returns a static page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/test_center.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="test_place"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.test_place">[docs]</a><span class="k">def</span> <span class="nf">test_place</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This test_place method is used to show information about Bangladesh COVID19 Test Instituitions.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this test_place method returns a static page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/test_place.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="oxygen_cylinder"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.oxygen_cylinder">[docs]</a><span class="k">def</span> <span class="nf">oxygen_cylinder</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This oxygen_cylinder method is used to show information about oxygen cylinder services in Bangladesh.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this oxygen_cylinder method returns a static page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/oxygen_cylinder.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="icu_bed"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.icu_bed">[docs]</a><span class="k">def</span> <span class="nf">icu_bed</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This icu_bed method is used to show information about icu_bed numbers in each hospital in Bangladesh.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this icu_bed method returns a static page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/icu_bed_list.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="telemedicine"><a class="viewcode-back" href="../../documentation/scrapper.html#scrapper.views.telemedicine">[docs]</a><span class="k">def</span> <span class="nf">telemedicine</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This telemedicine method is used to show information about icu_bed numbers in each hospital in Bangladesh.</span>
+
+<span class="sd">    :param request: it&#39;s a HttpResponse from user.</span>
+
+<span class="sd">    :type request: HttpResponse.</span>
+
+<span class="sd">    :return: this telemedicine method returns a static page</span>
+<span class="sd">    which is a HTML page.</span>
+
+<span class="sd">    :rtype: HttpResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;scrapper/telemedicine.html&#39;</span><span class="p">)</span></div>
+
+   
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PasheAchi 1.0 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Afsana Binte Rakib, Kanij Tamema Jahan, Shahriar Ferdous Shovon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>
