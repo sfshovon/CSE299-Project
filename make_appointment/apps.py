@@ -1,5 +1,0 @@
-from django.apps import AppConfig
-
-
-class MakeappointmentConfig(AppConfig):
-    name = 'makeAppointment'
