@@ -157,28 +157,34 @@
 </script>
 
 <title> Landing </title>
+
+
 </head>
 
-<header>
-  <img class="animated-gif" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Home_PasheAchi_Logo.gif?alt=media&token=455e2db4-b170-4a4a-b4a5-480a7045ef8c">
-  
-  <div class="navigation">
-    <a href="{% url 'landing' %}"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Sign In/Sign Up</a>
-
-    <a href="{% url 'contact_us' %}"><i class="fas fa-phone" aria-hidden="true"></i> Contact us</a>
-
-    <a href="{% url 'about_us' %}"><i class="fas fa-info-circle" aria-hidden="true"></i> About Us</a>
-          
-  </div>
-</header>
-
 <body onload="startTime()">
- 
+
+
+<div class="clearfix sticky-top" style="background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%); color:white; top:-30px;">
+    <img style="margin-top: 10px; margin-bottom:10px; margin-left:25px;" width="140" height="140" class="animated-gif float-left" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Home_PasheAchi_Logo.gif?alt=media&token=455e2db4-b170-4a4a-b4a5-480a7045ef8c">
+
+    <header class="float-right">
+
+    <div class="navigation">
+    <ul id="navList">
+    <li>
+    <a href="{% url 'landing' %}"><i class="fas fa-sign-in-alt"></i> Sign In/Sign Up</a>
+
+    <a href="{% url 'contact_us' %}"><i class="fas fa-phone"></i> Contact us</a>
+
+    <a href="{% url 'about_us' %}"><i class="fas fa-info-circle"></i> About Us</a>
+    </li>
+    </header>
+    </ul>
+</div>
 
 <div class="float-child" style="border:#130f40">
 <div class="content">
 <div class="info" style="color:white;">
-
 
    <h2>PASHE ACHI</h2>
     <p> Pashe Achi is a web-based COVID assistance platform. Our aim is to help the COVID affected individuals find a relatable platform while providing useful services. From sharing COVID journey to registering for vaccine, it is an all in one platform.</p>
@@ -292,6 +298,7 @@
 </div>
 
 <style>
+    
     body {
         background-position: center;
         line-height: 1.5;
@@ -301,35 +308,19 @@
         background-color: #537895;
         background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
     }
-
+    
     header{
-        position: relative;
-        top: -30px;
-        width: 100%;
-        height:25%;
-        padding: 50px 50px 10px 50px;
-        display: flex;
-        font-size: 24px;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    header .logo{
-        position: relative;
-        color: #000;
-        font-size: 30px;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-weight: 800;
-        letter-spacing: 1px;
+        margin-top: 40px;
+        height:0%;
     }
 
     header .navigation a{
         color: white;
         text-decoration: none;
         font-weight: 500;
+        font-size: 20px;
         letter-spacing: 1px;
-        padding: 2px 15px;
+        padding: 2px 10px;
         border-radius: 20px;
         transition: 0.3s;
         transition-property: background;
@@ -343,11 +334,14 @@
         margin-right: 8px;
     }
 
-    @media (max-width: 960px){
-        header .navigation{
-        display: none;
-        }
-    
+    #navList li{
+        display:inline;
+        float: left;
+    }
+    #navigation{
+        display:inline;
+    }
+
     #check:checked ~ header .navigation{
         z-index: 2;
         position: fixed;
@@ -377,13 +371,8 @@
     }
 
     img.animated-gif{
-        width: 180px;
-        height: auto;
-    }
-
-    .float-container {
-        border: 3px solid #fff;
-        padding: 20px;
+        width: 50px;
+        height: 50px;
     }
 
     .float-child {
@@ -406,12 +395,6 @@
     .content .info p{
         font-size: 14px;
     }
-    }
-
-    @media (max-width: 560px){
-    .content .info h2{
-        font-size: 35px;
-        line-height: 40px;
     }
 
     .content .info h2 span{
@@ -456,12 +439,6 @@
         margin-bottom: 20px;
     }
 
-    .content .info h2 span{
-        color: #fff;
-        font-size: 50px;
-        font-weight: 600;
-    }
-
     .content .info p{
         font-size: 18px;
         font-weight: 500;
@@ -470,9 +447,9 @@
         
     #formcontainer {
         width: 400px;
-        height: 655px;
+        height: 650px;
         position: relative;
-        top: -40px;
+        top: 0px;
         left: 70%;
         box-shadow: 0 0 20px black;
         border-radius: 8px;                

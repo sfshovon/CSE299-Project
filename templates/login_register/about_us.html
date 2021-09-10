@@ -17,24 +17,30 @@
 
 </head>
 <body>
-<header>
-  <img class="animated-gif" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Home_PasheAchi_Logo.gif?alt=media&token=455e2db4-b170-4a4a-b4a5-480a7045ef8c">
-  
-  <div class="navigation">
-    <a href="{% url 'landing' %}"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Sign In/Sign Up</a>
 
-    <a href="{% url 'contact_us' %}"><i class="fas fa-phone" aria-hidden="true"></i> Contact us</a>
+<div class="clearfix sticky-top" style="background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%); color:white; top:-30px;">
+    <img style="margin-top: 10px; margin-bottom:10px; margin-left:25px;" width="140" height="140" class="animated-gif float-left" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Home_PasheAchi_Logo.gif?alt=media&token=455e2db4-b170-4a4a-b4a5-480a7045ef8c">
 
-    <a href="{% url 'about_us' %}"><i class="fas fa-info-circle" aria-hidden="true"></i> About Us</a>
-          
-  </div>
-</header>
+    <header class="float-right">
 
-<h2 class="text-center alert alert-info" style="background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%); color:white; top:-30px;">Meet Our Developers - Team PasheAchi</h2>
+    <div class="navigation">
+    <ul id="navList">
+    <li>
+    <a href="{% url 'landing' %}"><i class="fas fa-sign-in-alt"></i> Sign In/Sign Up</a>
+
+    <a href="{% url 'contact_us' %}"><i class="fas fa-phone"></i> Contact us</a>
+
+    <a href="{% url 'about_us' %}"><i class="fas fa-info-circle"></i> About Us</a>
+    </li>
+    </header>
+    </ul>
+</div>
+
+<h2 class="text-center alert alert-info" style="background-color: #5ca0f2; background-image: linear-gradient(315deg, #5ca0f2 0%, #f5f7f6 74%);">Meet Our Developers - Team PasheAchi</h2>
 <div class="container">
 <div class="row">
 
-    <div class="col-lg-4" style="top:-60px">
+    <div class="col" style="top:-60px">
     <div class="card">
         <div class="face front-face"> <img src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Afsana.JPG?alt=media&token=03f25963-d4dd-4560-bde5-ee23aefba988" alt="" class="profile">
         <div class="pt-3 text-uppercase name"> Afsana Binte Rakib </div>   
@@ -51,7 +57,7 @@
     </div>
     </div>
 
-    <div class="col-lg-4" style="top:-60px">
+    <div class="col" style="top:-60px">
     <div class="card">
         <div class="face front-face"> <img src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Shovon.jpg?alt=media&token=be8c7574-5f7e-4620-9526-0becbceb449d" alt="" class="profile">
         <div class="pt-3 text-uppercase name"> Shahriar Ferdous Shovon </div>          
@@ -68,7 +74,7 @@
     </div>
     </div>
 
-    <div class="col-lg-4" style="top:-60px">
+    <div class="col" style="top:-60px">
     <div class="card">
         <div class="face front-face"> <img src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Tama.jpg?alt=media&token=7707b0fd-e5d8-4f1b-8219-c104e9ae6ee6" alt="" class="profile">
         <div class="pt-3 text-uppercase name"> Kanij Tamema Jahan </div>
@@ -84,23 +90,16 @@
         </div>
     </div>
     </div>
-
-</div>
-</div>
-
-<section>
-<div class="container" style="position:absolute; top: 560px; left:440px;">
-<div class="row">
-<div class="col text-justify py-4">
-    <h1 class="display-5 text-center" style="color:#a9ced4;"><b>Our concern is your well being</b></h1>
-    <p class="lead" style="color:white;">
+    
+    <div class="row" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%);">
+    <div class="col text-justify py-6">
+    <h1 class="display-5 text-center" style="color: #d5e5eb"> <b>Our concern is your well being</b></h1>
+    <p class="display-5" style="color:white; font-size:18px;">
         Pashe Achi is a web application which is developed and designed to provide benefits through the internet. We intend to build a web-based COVID assistance platform from scratch. At the moment, the entire world is suffering from the COVID-19 pandemic. Since the disease has no known cure, people are continuing to get infected by coming in contact with others who carry the virus, causing the infection rate to grow exponentially with time. As a result, providing adequate medical care has become very difficult, especially in a country like Bangladesh. Moreover, finding a valid plasma donor is undoubtedly difficult. If some of these crucial medical services could be provided online, this will ease the suffering of COVID patients seeking medical attention. Moreover, due to a general lack of knowledge about symptoms and primary home treatment procedures, people often face difficulties. Therefore, a platform is much needed for them where they will be able to get much information about COVID. Thus, we intend to build a web-based COVID assistance platform from scratch. The name of our web platform is "Pashe Achi". This name signifies the connectivity among the users and their trust toward our platform for many necessary services. Our number one priority is to create a dynamic web platform, which means we should be able to add, remove, or update any feature at any time. So, there will be a maintenance platform to achieve this goal.
     </p>         
+    </div>
+    </div>
 </div>
-</div>
-</div>
-</section>
-
 
 <style>
 
@@ -113,35 +112,19 @@
         background-color: #537895;
         background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
     }
-
+    
     header{
-        position: relative;
-        top: -30px;
-        width: 100%;
+        margin-top: 40px;
         height:25%;
-        padding: 50px 50px 10px 50px;
-        display: flex;
-        font-size: 24px;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    header .logo{
-        position: relative;
-        color: #000;
-        font-size: 30px;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-weight: 800;
-        letter-spacing: 1px;
     }
 
     header .navigation a{
         color: white;
         text-decoration: none;
         font-weight: 500;
+        font-size: 20px;
         letter-spacing: 1px;
-        padding: 2px 15px;
+        padding: 2px 10px;
         border-radius: 20px;
         transition: 0.3s;
         transition-property: background;
@@ -150,15 +133,19 @@
     header .navigation a:hover{
         background: #226A80;
     }
+
     header .navigation .fa{
         margin-right: 8px;
     }
 
-    @media (max-width: 960px){
-        header .navigation{
-            display: none;
-        }
-    
+    #navList li{
+        display:inline;
+        float: left;
+    }
+    #navigation{
+        display:inline;
+    }
+
     #check:checked ~ header .navigation{
         z-index: 2;
         position: fixed;
@@ -186,13 +173,12 @@
         font-size: 14px;
         }
     }
-    
+
     img.animated-gif{
-        width: 180px;
-        height: auto;
+        width: 50px;
+        height: 50px;
     }
-
-
+        
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
     * {

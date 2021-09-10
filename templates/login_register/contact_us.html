@@ -25,20 +25,25 @@
 
 <body>
 
-<header>
-  <img class="animated-gif" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Home_PasheAchi_Logo.gif?alt=media&token=455e2db4-b170-4a4a-b4a5-480a7045ef8c">
-  
-  <div class="navigation">
-    <a href="{% url 'landing' %}"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Sign In/Sign Up</a>
+<div class="clearfix sticky-top" style="background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%); color:white; top:-30px;">
+    <img style="margin-top: 10px; margin-bottom:10px; margin-left:25px;" width="140" height="140" class="animated-gif float-left" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Home_PasheAchi_Logo.gif?alt=media&token=455e2db4-b170-4a4a-b4a5-480a7045ef8c">
 
-    <a href="{% url 'contact_us' %}"><i class="fas fa-phone" aria-hidden="true"></i> Contact us</a>
+    <header class="float-right">
 
-    <a href="{% url 'about_us' %}"><i class="fas fa-info-circle" aria-hidden="true"></i> About Us</a>
-          
-  </div>
-</header>
+    <div class="navigation">
+    <ul id="navList">
+    <li>
+    <a href="{% url 'landing' %}"><i class="fas fa-sign-in-alt"></i> Sign In/Sign Up</a>
 
-<div class="container mt-xl-5 mb-5" style="position: absolute; top:180px; left:23%; background-color: #5ca0f2; background-image: linear-gradient(315deg, #5ca0f2 -20%, #f5f7f6 80%); font-weight:800;">
+    <a href="{% url 'contact_us' %}"><i class="fas fa-phone"></i> Contact us</a>
+
+    <a href="{% url 'about_us' %}"><i class="fas fa-info-circle"></i> About Us</a>
+    </li>
+    </header>
+    </ul>
+</div>
+
+<div class="container mt-xl-5 mb-5" style="background-color: #5ca0f2; background-image: linear-gradient(315deg, #5ca0f2 -20%, #f5f7f6 80%); font-weight:800;">
 <div class="d-flex justify-content-center pt-5">
     <h2 class="font-weight-bold">Contact Us!</h2>
 </div>
@@ -114,35 +119,19 @@
         background-color: #537895;
         background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
     }
-
+    
     header{
-        position: relative;
-        top: -30px;
-        width: 100%;
+        margin-top: 40px;
         height:25%;
-        padding: 50px 50px 10px 50px;
-        display: flex;
-        font-size: 24px;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    header .logo{
-        position: relative;
-        color: #000;
-        font-size: 30px;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-weight: 800;
-        letter-spacing: 1px;
     }
 
     header .navigation a{
         color: white;
         text-decoration: none;
         font-weight: 500;
+        font-size: 20px;
         letter-spacing: 1px;
-        padding: 2px 15px;
+        padding: 2px 10px;
         border-radius: 20px;
         transition: 0.3s;
         transition-property: background;
@@ -151,15 +140,19 @@
     header .navigation a:hover{
         background: #226A80;
     }
+
     header .navigation .fa{
         margin-right: 8px;
     }
 
-    @media (max-width: 960px){
-        header .navigation{
-            display: none;
-        }
-    
+    #navList li{
+        display:inline;
+        float: left;
+    }
+    #navigation{
+        display:inline;
+    }
+
     #check:checked ~ header .navigation{
         z-index: 2;
         position: fixed;
@@ -187,12 +180,12 @@
         font-size: 14px;
         }
     }
-    
-    img.animated-gif{
-        width: 180px;
-        height: auto;
-    }
 
+    img.animated-gif{
+        width: 50px;
+        height: 50px;
+    }
+        
     #email{
         width: 190px;
         height: 0.5px;
