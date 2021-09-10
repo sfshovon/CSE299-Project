@@ -20,6 +20,17 @@ storage = firebase.storage()
 database = firebase.database()
 
 def become_donor(request):
+    """
+    This method is for checking if the user is already a donor or not.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method renders a template for checking eligibility.
+
+    :rtype: HttpResponse.
+    """ 
     idtoken= request.session['LoginId']
     a = authe.get_account_info(idtoken)
     a = a['users']
@@ -31,8 +42,20 @@ def become_donor(request):
         return render(request, 'plasma_donor/alreadyDonor.html',{'userFname':userFname})
     else:
         return render(request, 'plasma_donor/becomeDonor.html')
+        #return render(request, 'plasma_donor/notEligible.html')
 
 def eligibility(request):
+    """
+    This method checks if the user is eligible for donating plasma or not.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method renders a template for donor's information
+
+    :rtype: HttpResponse.
+    """ 
     idtoken= request.session['LoginId']
     a = authe.get_account_info(idtoken)
     a = a['users']
@@ -58,12 +81,24 @@ def eligibility(request):
         return render(request, 'plasma_donor/notEligible.html')
 
 def add_donor(request):
+    """
+    This method is for storing information in the database about the donor.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method renders a static template.
+
+    :rtype: HttpResponse.
+    """ 
     bloodGroup = request.POST.get('bloodgroup')
     district = request.POST.get('district')
     positiveDate = request.POST.get('positiveDate')
     negativeDate = request.POST.get('negativeDate')
     experience = request.POST.get('experience')
-    covidReportUrl = request.POST.get('url')
+    posCovidReportUrl = request.POST.get('urlPos')
+    negCovidReportUrl = request.POST.get('urlNeg')
     idtoken= request.session['LoginId']
     a = authe.get_account_info(idtoken)
     a = a['users']
@@ -71,7 +106,8 @@ def add_donor(request):
     a = a['localId']
     data = {
         'experience':experience,
-        'covidReportUrl':covidReportUrl,
+        'posCovidReportUrl':posCovidReportUrl,
+        'negCovidReportUrl':negCovidReportUrl,
         'positiveDate':positiveDate,
         'negativeDate':negativeDate,
     }
@@ -104,9 +140,31 @@ def add_donor(request):
         return render(request, 'plasma_donor/addedDonor.html')
 
 def donor_list(request):
+    """
+    This method is for showing blood group types to select one.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method renders a static template with blood group types.
+
+    :rtype: HttpResponse.
+    """ 
     return render(request, 'plasma_donor/viewDonors.html')
 
 def a_positive(request):
+    """
+    This method is for showing A+ plasma donors.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method redirects to "donor_details" method to show all the A+ plasma donors.
+
+    :rtype: HttpResponse.
+    """
     global donors, bloodGroup
     donors = database.child("Plasma Donors").child("A+").get().val()
     if donors == None:
@@ -117,6 +175,17 @@ def a_positive(request):
         return redirect('donor_details')
 
 def a_negative(request):
+    """
+    This method is for showing A- plasma donors.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method redirects to "donor_details" method to show all the A- plasma donors.
+
+    :rtype: HttpResponse.
+    """
     global donors, bloodGroup
     donors = database.child("Plasma Donors").child("A-").get().val()
     if donors == None:
@@ -127,6 +196,17 @@ def a_negative(request):
         return redirect('donor_details')
 
 def b_positive(request):
+    """
+    This method is for showing B+ plasma donors.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method redirects to "donor_details" method to show all the B+ plasma donors.
+
+    :rtype: HttpResponse.
+    """
     global donors, bloodGroup
     donors = database.child("Plasma Donors").child("B+").get().val()
     if donors == None:
@@ -137,6 +217,17 @@ def b_positive(request):
         return redirect('donor_details')
 
 def b_negative(request):
+    """
+    This method is for showing B- plasma donors.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method redirects to "donor_details" method to show all the B- plasma donors.
+
+    :rtype: HttpResponse.
+    """
     global donors, bloodGroup
     donors = database.child("Plasma Donors").child("B-").get().val()
     if donors == None:
@@ -147,6 +238,17 @@ def b_negative(request):
         return redirect('donor_details')
 
 def ab_positive(request):
+    """
+    This method is for showing AB+ plasma donors.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method redirects to "donor_details" method to show all the AB+ plasma donors.
+
+    :rtype: HttpResponse.
+    """
     global donors, bloodGroup
     donors = database.child("Plasma Donors").child("AB+").get().val()
     if donors == None:
@@ -157,6 +259,17 @@ def ab_positive(request):
         return redirect('donor_details')
 
 def ab_negative(request):
+    """
+    This method is for showing AB- plasma donors.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method redirects to "donor_details" method to show all the AB- plasma donors.
+
+    :rtype: HttpResponse.
+    """
     global donors, bloodGroup
     donors = database.child("Plasma Donors").child("AB-").get().val()
     if donors == None:
@@ -167,6 +280,17 @@ def ab_negative(request):
         return redirect('donor_details')
 
 def o_positive(request):
+    """
+    This method is for showing O+ plasma donors.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method redirects to "donor_details" method to show all the O+ plasma donors.
+
+    :rtype: HttpResponse.
+    """
     global donors, bloodGroup
     donors = database.child("Plasma Donors").child("O+").get().val()
     if donors == None:
@@ -177,6 +301,17 @@ def o_positive(request):
         return redirect('donor_details')
 
 def o_negative(request):
+    """
+    This method is for showing O- plasma donors.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method redirects to "donor_details" method to show all the O- plasma donors.
+
+    :rtype: HttpResponse.
+    """
     global donors, bloodGroup
     donors = database.child("Plasma Donors").child("O-").get().val()
     if donors == None:
@@ -187,6 +322,18 @@ def o_negative(request):
         return redirect('donor_details')
 
 def donor_details(request):
+    """
+    This method is for showing details of plasma donors of a specific blood group
+    selected by the users.
+
+    :param request: it's a HttpResponse from user.
+
+    :type request: HttpResponse.
+
+    :return: This method redirects to "donor_details" method to show all the A+ plasma donors.
+
+    :rtype: HttpResponse.
+    """
     donorList = []
     for i in donors.each():
         donorKey = i.key()
