@@ -1,20 +1,26 @@
 import requests
 from django.shortcuts import render
 import json
-
 # Create your views here.
-
 def news(request):
+    """
+        This method is used to display the COVID-19 related news specifically from Bangladesh via web scraping.
+
+        :param request: It is a HttpResponse from user.
+
+        :type request: HttpResponse.
+
+        :return: This method returns a html page. It returns all the relevant COVID news sorted by date.
+
+        :rtype: HttpResponse.
+    """ 
 
     url = "https://covid-19-news.p.rapidapi.com/v1/covid"
-
     querystring = {"q":"covid","lang":"en","media":"True","country":"BD","from":"2021/08/06","sort_by":"date"}
-
     headers = {
     'x-rapidapi-key': "3f65bbd635mshe1afe6cb1c3a5f3p1a2ff8jsn8a95a2d046e8",
     'x-rapidapi-host': "covid-19-news.p.rapidapi.com"
-    }
-    
+    }  
     response = requests.request("GET", url, headers=headers, params=querystring).json()
     data = response['articles']
     length = len(data)
@@ -32,19 +38,27 @@ def news(request):
         websiteLink.append(d['clean_url'])
         picture.append(d['media'])
         date.append(d['published_date'])
-    
     newslist = zip(title, summary, articleLink, websiteLink, picture, date)  
     # Sending all data in zip form to news.html        
     return render(request, 'covidnews/news.html',{"newslist":newslist})
 
 def vaccine_news(request):
-    url = "https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/news/get-vaccine-news/0"
+    """
+        This method is used to display the world vaccine news via web scraping.
 
+        :param request: It is a HttpResponse from user.
+
+        :type request: HttpResponse.
+
+        :return: This method returns a html page. It returns the relevant vaccine news.
+
+        :rtype: HttpResponse.
+    """  
+    url = "https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/news/get-vaccine-news/0"
     headers = {
     'x-rapidapi-key': "3f65bbd635mshe1afe6cb1c3a5f3p1a2ff8jsn8a95a2d046e8",
     'x-rapidapi-host': "vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com"
     }
-
     response = requests.request("GET", url, headers=headers).json()
     print(response)
     data = response['news']
