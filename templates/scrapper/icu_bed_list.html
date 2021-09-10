@@ -1,0 +1,276 @@
+{% extends "login_register/base.html" %}
+
+{% block title %} ICU Beds List {% endblock title %}
+
+{% block body %}
+    
+<h2 class="text-center alert alert-info" style="background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%); color:white; top:0px;">ICU Beds List</h2>
+
+<div style="background-color: #5ca0f2; background-image: linear-gradient(315deg, #5ca0f2 0%, #f5f7f6 74%);">
+<table id="myTable" class="table table-bordered" style="width:100%;">
+    <thead style="background-color: #000000;background-image: linear-gradient(147deg, #000000 0%, #04619f 74%); color:black">
+        <tr>
+            <td>DIVISION&nbsp;</td>
+            <td>SERIAL</td>
+            <td>HOSPITAL NAME</td>
+            <td>LOCATION</td>
+            <td>ICU BED NUMBER</td>
+        </tr>
+    </thead>
+
+    <tfoot style="background-color: #000000;background-image: linear-gradient(147deg, #000000 0%, #04619f 74%); color:black">
+        <tr>
+            <td>DIVISION&nbsp;</td>
+            <td>SERIAL</td>
+            <td>HOSPITAL NAME</td>
+            <td>LOCATION</td>
+            <td>ICU BED NUMBER</td>
+        </tr>
+    </tfoot>
+
+    <tbody style="background-color: #70a1ff;background-image: linear-gradient(315deg, #70a1ff 0%, #c2c0c0 74%); font-weight:600; color: black;">
+        <tr>
+        <td rowspan="19">DHAKA</td>
+        <td>1</td>
+        <td>Dhaka Medical College Hospital</td>
+        <td>Dhaka</td>
+        <td>32</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>Sir Salimullah Medical College &amp; Mitford Hospital</td>
+        <td>Mitford, Dhaka</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Shaheed Suhrawardy Medical College and Hospital</td>
+        <td>Shamoly, Dhaka</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>4</td>
+        <td>Mugda Medical College and Hospital</td>
+        <td>Mugda, Dhaka</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>5</td>
+        <td>Dhaka Dental College and Hospital</td>
+        <td>Dhaka</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>6</td>
+        <td>Shaheed Tazuddin Ahmad Medical College &amp; Hospital</td>
+        <td>Gazipur</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>7</td>
+        <td>Faridpur medical college hospital</td>
+        <td>Faridpur</td>
+        <td>16</td>
+        </tr>
+        <tr>
+        <td>8</td>
+        <td>National Heart Foundation Hospital</td>
+        <td>Shere bangla nagar , Dhaka</td>
+        <td>46</td>
+        </tr>
+        <tr>
+        <td>9</td>
+        <td>National Institute of Cancer Research &amp; Hospital (NICRH)</td>
+        <td>Mohakhali, Dhaka</td>
+        <td>13</td>
+        </tr>
+        <tr>
+        <td>10</td>
+        <td>National Institute of Ear, Nose &amp; Throat Hospital</td>
+        <td>Tejgaon, Dhaka</td>
+        <td>8</td>
+        </tr>
+        <tr>
+        <td>11</td>
+        <td>National Institute of Diseases of the Chest and Hospital (NIDCH)</td>
+        <td>Mohakhali, Dhaka</td>
+        <td>8</td>
+        </tr>
+        <tr>
+        <td>12</td>
+        <td>National institute of neuroscience and Hospital</td>
+        <td>Agargaon, Dhaka</td>
+        <td>20</td>
+        </tr>
+        <tr>
+        <td>13</td>
+        <td>National Institute of Traumatology and Orthopaedic Rehabilitation (NITOR)</td>
+        <td>Shere bangla nagar , Dhaka</td>
+        <td>26</td>
+        </tr>
+        <tr>
+        <td>14</td>
+        <td>National Institute of Kidney Diseases &amp; Urology</td>
+        <td>Shere bangla nagar , Dhaka</td>
+        <td>4</td>
+        </tr>
+        <tr>
+        <td>15</td>
+        <td>Sheikh Hasina National Burn and Plastic Surgery Institute</td>
+        <td>Shere bangla nagar , Dhaka</td>
+        <td>80</td>
+        </tr>
+        <tr>
+        <td>16</td>
+        <td>Kurmitola General Hospital</td>
+        <td>Tongi, Dhaka</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>17</td>
+        <td>Dhaka Shishu (Children) Hospital</td>
+        <td>shamoly, Dhaka</td>
+        <td>47</td>
+        </tr>
+        <tr>
+        <td>18</td>
+        <td>250 Bedded General Hospital, Gopalganj</td>
+        <td>Gopalganj</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>19</td>
+        <td>250 Bedded Manikganj General Hospital</td>
+        <td>Manikganj</td>
+        <td>2</td>
+        </tr>
+        <tr>
+        <td rowspan="4">CHITTAGONG</td>
+        <td>20</td>
+        <td>Chittagong medical college Hospital</td>
+        <td>Chittagong&nbsp;</td>
+        <td>12</td>
+        </tr>
+        <tr>
+        <td>21</td>
+        <td>Cox bazar medical college Hospital</td>
+        <td>Cox bazar</td>
+        <td>2</td>
+        </tr>
+        <tr>
+        <td>22</td>
+        <td>250 bedded Feni General Hospital</td>
+        <td>Feni</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>23</td>
+        <td>250 bedded Cox bazar General Hospital</td>
+        <td>Cox bazar</td>
+        <td>2</td>
+        </tr>
+        <tr>
+        <td>SYLHET</td>
+        <td>24</td>
+        <td>Sylhet M.A.G. Osmani Medical College</td>
+        <td>Sylhet&nbsp;</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td rowspan="2">RANGPUR</td>
+        <td>25</td>
+        <td>Rangpur Medical College and Hospital</td>
+        <td>Rangpur</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>26</td>
+        <td>M Abdur Rahim Medical College,&nbsp;</td>
+        <td>Dinajpur</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td rowspan="2">MYMENSINGH</td>
+        <td>27</td>
+        <td>Mymensingh Medical College &amp; Hospital</td>
+        <td>Mymensingh</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td>28</td>
+        <td>250 Bedded Jamalpur General Hospital</td>
+        <td>Jamalpur</td>
+        <td>4</td>
+        </tr>
+        <tr>
+        <td>BARISHAL</td>
+        <td>29</td>
+        <td>Sher-E-Bangla Medical College Hospital</td>
+        <td>Barishal</td>
+        <td>10</td>
+        </tr>
+        <tr>
+        <td rowspan="3">RAJSHAHI</td>
+        <td>30</td>
+        <td>Rajshahi Medical College Hospital</td>
+        <td>Rajshahi&nbsp;</td>
+        <td>16</td>
+        </tr>
+        <tr>
+        <td>31</td>
+        <td>Shaheed Ziaur Rahman Medical College</td>
+        <td>Bogura</td>
+        <td>3</td>
+        </tr>
+        <tr>
+        <td>32</td>
+        <td>250 bedded Pabna general Hospital</td>
+        <td>Pabna</td>
+        <td>4</td>
+        </tr>
+        <tr>
+        <td rowspan="3">KHULNA</td>
+        <td>33</td>
+        <td>Khulna Medical College Hospital</td>
+        <td>Khulna</td>
+        <td>4</td>
+        </tr>
+        <tr>
+        <td>34</td>
+        <td>Satkhira Medical College Hospital</td>
+        <td>Satkhira</td>
+        <td>9</td>
+        </tr>
+        <tr>
+        <td>35</td>
+        <td>Shaheed Sheikh Abu Naser Specialised Hospital</td>
+        <td>Khulna</td>
+        <td>10</td>
+        </tr>
+
+    </tbody>
+
+</table>
+</div>
+
+<style>
+
+    tr :hover {
+        background-color: #ffbd77;
+        background-image: linear-gradient(319deg, #ffbd77 0%, #f0f4a4 37%, #acfcd9 100%);
+    }
+
+    tr {
+        background-color: #5ca0f2; 
+        background-image: linear-gradient(315deg, #5ca0f2 0%, #f5f7f6 74%);
+    }
+
+</style>
+
+<script>
+	$(document).ready(function() {
+			$('#myTable').DataTable();
+	} );
+</script>
+
+{% endblock body %} 

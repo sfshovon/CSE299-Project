@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
+
+<script>
+    function doMail() {
+        var email ="teampasheachi@gmail.com";
+        location.href = "mailto:"+email;
+    }
+</script>
+
+</head>
+
+<body>
+
+<div class="clearfix sticky-top" style="background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%); color:white; top:-30px;">
+    <img style="margin-top: 10px; margin-bottom:10px; margin-left:25px;" width="140" height="140" class="animated-gif float-left" src="https://firebasestorage.googleapis.com/v0/b/pashe-achi-cse299.appspot.com/o/Home_PasheAchi_Logo.gif?alt=media&token=455e2db4-b170-4a4a-b4a5-480a7045ef8c">
+
+    <header class="float-right">
+
+    <div class="navigation">
+    <ul id="navList">
+    <li>
+    <a href="{% url 'landing' %}"><i class="fas fa-sign-in-alt"></i> Sign In/Sign Up</a>
+
+    <a href="{% url 'contact_us' %}"><i class="fas fa-phone"></i> Contact us</a>
+
+    <a href="{% url 'about_us' %}"><i class="fas fa-info-circle"></i> About Us</a>
+    </li>
+    </header>
+    </ul>
+</div>
+
+<div class="container mt-xl-5 mb-5" style="background-color: #5ca0f2; background-image: linear-gradient(315deg, #5ca0f2 -20%, #f5f7f6 80%); font-weight:800;">
+<div class="d-flex justify-content-center pt-5">
+    <h2 class="font-weight-bold">Contact Us!</h2>
+</div>
+
+<div class="d-flex justify-content-center text-muted">For any query, drop an email.</div>
+
+<div class="d-md-flex flex-md-row justify-content-center py-4">
+  
+    <div class="d-md-flex flex-md-column contact px-4">
+        <div class="d-md-flex justify-content-center icon py-2"> 
+            <span class="fa fa-map-marker"></span> 
+        </div>
+        <div class="contact-info">
+        <a href="https://goo.gl/maps/os1yHu35VrSinG52A" target="_blank" style="color:black"> North South Univerity, Dhaka-1219 </a>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column contact px-4">
+        <div class="d-md-flex justify-content-center icon py-2"> 
+            <span class="fa fa-phone"></span> 
+        </div>
+        <div class="contact-info"><a href='tel:+880 1715933508' style="color:black">+880 1715933508</a></div> 
+    </div>
+
+    <div class="d-flex flex-column contact px-4">
+        <div class="d-md-flex justify-content-center icon py-2"> 
+            <span class="fa fa-envelope"></span>
+        </div>
+        <div class="contact-info">
+        <a href= "https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=teampasheachi@gmail.com" style="color:black">teampasheachi@gmail.com</a>
+        </div>
+    </div>
+</div>
+
+<div class="card-body" style="background-color: #5ca0f2; background-image: linear-gradient(315deg, #5ca0f2 -20%, #f5f7f6 80%); font-weight:800;">
+<div class="form-wrapper"> 
+  
+<form action="javascript:sendmail()" method="post">
+    <div class="field">
+     <label for="Name" class="label">Name</label> 
+        <input type="text" class="form-control" name="Name" id="Name" placeholder="Enter your name here" required>
+    </div>
+
+    <div class="field">
+    <label for="Email" class="label">Email</label> 
+        <input type="email" class="form-control" name="Sender" id="Sender" placeholder="Enter your email here" required>
+    </div>
+
+    <div class="field">
+    <label for="Subject" class="label">Subject</label> 
+        <input type="text" class="form-control" name="Subject" id="Subject" placeholder="Enter the subject here" required>
+    </div>
+
+    <label for="Message" class="label">Message</label> 
+    <textarea name="Message" class="form-control" id="Message" placeholder="Enter your message here" required=""></textarea>
+
+    <button id="email" type="submit" class="btn btn-contact">Send Your Email</button>
+
+
+</form>
+</div>
+</div>
+
+
+<style>
+
+    body {
+        background-position: center;
+        line-height: 1.5;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;   
+        background-color: #537895;
+        background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+    }
+    
+    header{
+        margin-top: 40px;
+        height:25%;
+    }
+
+    header .navigation a{
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 20px;
+        letter-spacing: 1px;
+        padding: 2px 10px;
+        border-radius: 20px;
+        transition: 0.3s;
+        transition-property: background;
+    }
+
+    header .navigation a:hover{
+        background: #226A80;
+    }
+
+    header .navigation .fa{
+        margin-right: 8px;
+    }
+
+    #navList li{
+        display:inline;
+        float: left;
+    }
+    #navigation{
+        display:inline;
+    }
+
+    #check:checked ~ header .navigation{
+        z-index: 2;
+        position: fixed;
+        background: rgba(114, 223, 255, 0.9);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    label .menu-btn{
+        position: absolute;
+    }
+
+    header .logo{
+        position: absolute;
+        bottom: -6px;
+    }
+
+    .content .info p{
+        font-size: 14px;
+        }
+    }
+
+    img.animated-gif{
+        width: 50px;
+        height: 50px;
+    }
+        
+    #email{
+        width: 190px;
+        height: 0.5px;
+        position: relative;
+        top: 0px;
+        left: 40%;
+        border-radius: 5px;
+        border-width: 3px;
+        border-color: #d1ede8;
+        padding: 0px 10px 33px 10px;
+        font-size: 18px;
+        outline: none;
+        margin-bottom: 0px;
+        box-shadow: 0 0 10px black;
+    }
+
+    #email:hover {
+        background-color: #C8241B;
+    }
+
+    #email:focus {
+        box-shadow: 0 0 10px;
+        border: none
+    }  
+
+    .container {
+        background-color: #d5e5eb;
+        border-radius: 10px
+    }
+
+    h2 {
+        color: navy
+    }
+
+
+    .fa-map-marker,
+    .fa-phone,
+    .fa-envelope {
+        font-size: 25px;
+        font-weight: bold
+    }
+
+    .icon {
+        color: rgb(105, 27, 179)
+    }
+
+    .contact:hover {
+        background-color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative
+    }
+
+
+    .input-field {
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-radius: 5px
+    }
+
+    .fa-mobile {
+        font-size: 20px
+    }
+
+    #Message {
+        height: 120px;
+    
+    }
+
+    .btn {
+        background-color: rgb(105, 27, 179);
+        color: #fff;
+        padding: 5px 10px;
+        width: 200px;
+        margin: 10px auto
+}
+
+
+</style>
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+ 
+<script>  
+
+     function sendmail(){
+    
+			var name = $('#Name').val();
+			var email = $('#Sender').val();
+			var subject = $('#Subject').val();
+      var message = $('#Message').val();
+
+			// var body = $('#body').val();
+
+			var Body='Name: '+name+'<br>Email: '+email+'<br>Subject: '+subject+'<br>Message: '+message;
+			//console.log(name, phone, email, message);
+
+			Email.send({
+        SecureToken:"e9a023af-e72e-4739-911a-04ae14672603",
+				To: "teamstarcse327@gmail.com",
+				From: "teampasheachi@gmail.com",
+				Subject: "PasheAchi Contact Us Form Submission From "+name,
+				Body: Body
+			}).then(
+				message =>{
+					//console.log (message);
+					if(message=='OK'){
+					alert('We have received your email. Thanks for reaching us. We will get back to you soon.');
+					}
+					else{
+						console.error (message);
+						alert('There is error at sending message. ')
+						
+					}
+
+				}
+			);
+
+
+
+		}
+
+
+    </script>
+ </script>
+
+</body>
+</html>
+
+
