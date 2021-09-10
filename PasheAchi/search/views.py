@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import pyrebase
+import difflib
 import os
 
 config={
@@ -51,6 +52,7 @@ def search_blog_post(request):
         print(requid)
 
         if(len(requid)==0):
+            request.session['word'] = keyword
             return render(request, "search/searchnotfound.html")
         else:
             for i in requid:
@@ -63,4 +65,42 @@ def search_blog_post(request):
             return render(request,'search/search.html',{"results": results})
 
 def search_not_found(request):
-    return render(request, "search/searchnotfound.html")
+    keyword = request.session['word']
+    print(keyword)
+    requid = []
+    userName = []
+    post = []
+    posts = []
+    # initializing punctuations string
+    punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+    id = database.child("Blog Post").get()
+    idList = []
+    for i in id.each():
+        idKey = i.key()
+        idList.append(idKey)
+    for i in idList:
+        blog = database.child("Blog Post").child(i).child("post").get().val()
+        post = blog.lower()
+        for ele in post:
+            if ele in punc:
+                post = post.replace(ele, "")
+        dict = post.split()
+        word = difflib.get_close_matches(keyword, dict)
+        print(word)
+        for wrd in dict:
+            if(word==wrd):
+                requid.append(i) 
+                break
+    print(requid)
+
+
+    for i in requid:
+        name = database.child("Blog Post").child(i).child("fullName").get().val()
+        searchPost = database.child("Blog Post").child(i).child("post").get().val()
+        userName.append(name)
+        posts.append(searchPost)
+
+    results = zip(userName, posts)
+    return render(request,'search/searchnotfound.html',{"results": results})    
+
+   

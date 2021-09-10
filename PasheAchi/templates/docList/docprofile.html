@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'login_register/base.html'%}
+{% block body %}
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
-    <!-- add style css  -->
-    <link href="assets/css/style.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
 </head>
-
-<body>
-
-
-<div class="container bootstrap snippets bootdey">
+<div class="container bootstrap snippets bootdey" style="margin-top:3%">
     <div class="row">
         <!-- BEGIN USER PROFILE -->
         <div class="col-md-12">
@@ -37,7 +28,7 @@
                     <div class="tab-content">
                         <!-- BEGIN PROFILE -->
                         <div class="tab-pane active" id="profile">
-                            <p class="lead">Doctor Profile</p>
+                            <p class="lead">Doctor Profile <a href = "#" button class="btn btn-info" style="margin-left: 39%; margin-top:0.5%;">Make an Apppointment</button> </a> </p> 
                             <hr>
                             <div class="row">
                                 <div class="col-md-6">
@@ -70,15 +61,10 @@
 <script type="text/javascript">
 	
 </script>
-</body>
 <style>
-body {
-    margin-top: 20px;
-    background: #eee;
-  }
   
   .profile .grid-header {
-    background: url("http://skedit.io/wp-content/uploads/2018/02/BG-plain-horiz-Blue-800x435.png") no-repeat center center;
+    background: url("https://digitalsynopsis.com/wp-content/uploads/2017/07/beautiful-color-ui-gradients-backgrounds-sexy-blue.png") no-repeat center center;
     background-size: cover;
     color: #f5f5f5;
   }
@@ -287,3 +273,4 @@ body {
 </style>
 
 </html>
+{% endblock body %}

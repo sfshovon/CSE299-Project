@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'search',
     'news',
     'icubed',
+    'oxygen_cylinder',
 ]
 
 MIDDLEWARE = [

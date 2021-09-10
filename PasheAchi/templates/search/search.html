@@ -1,100 +1,24 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css bootstrap.min.css"
-      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-      crossorigin="anonymous"
-    />
+{% extends "login_register/base.html" %}
 
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"
-     
-      crossorigin="anonymous"
-    />
-
-  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>   
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-     
-      crossorigin="anonymous"
-    />
-
-    
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+{% block title %}Search Blog Post{% endblock title %}
 
 {% block body %}
 <div id="loader"></div>
-
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand">Pashe Achi</a>
-  <form class="form-inline" action="{% url 'search_blog_post' %}" method="POST" id="s">
-  {% csrf_token %}
-    <input class="form-control mr-sm-2" type="search" name="search" id="search"  placeholder="Enter a keyword...">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
-</nav>
-
-<h1 class="text-center alert alert-info"> Search Results {{search}}</h1>
-
-
-
+<div class="page-header">
+  <h1>Search Results</h1>
+</div>
 {% for userName, posts in results %}
-
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-between mb-3"> </div>
      <div class="row">
       <div class="col sm justify-content-center">
-  
-        <div class="card p-2 py-3 text-center">
-          
-            <h5 class="mb-0">{{userName}}</h5> <medium>{{posts}}</medium> 
-              
+        <div class="card p-2 py-3 text-center">       
+            <h5 class="mb-0">{{userName}}</h5> <medium>{{posts}}</medium>             
         </div>
         </div>
     </div>
 </div>
-
-
 {% endfor %}
- 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
 #loader {
@@ -106,12 +30,10 @@
     background: #fff url('https://i.pinimg.com/originals/f5/27/0a/f5270acbc4b98112fcd520d2eea023de.gif') no-repeat center center;
 
 }
-body {
-    font-family: 'Maven Pro', sans-serif
-}
-
-body {
-    background-color: #eee
+.page-header{
+ 
+    text-align: center;
+    color : white
 }
 
 .add {
@@ -194,8 +116,6 @@ a:link {
     text-decoration: none
 }
   
-
-
 </style>
 <script type="text/javascript">
     var loader;
@@ -220,8 +140,5 @@ a:link {
         loader = document.getElementById('loader');
         loadNow(1);
     });
-    </script>
+</script>
 {% endblock body %}
-
-
-</html>

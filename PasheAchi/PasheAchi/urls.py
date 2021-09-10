@@ -19,14 +19,11 @@ from DoctorList import views
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
-    path('',views.home,name="home"),
-    path('doc_list/',views.doctor_list, name="doc_list"),
-    path('doc_profile/?P<keyy>[\w+]+',views.doctor_profile_view, name="doc_profile"),  
+    path('doc_list/', include('DoctorList.urls')),
     path('search/', include('search.urls')),
     path('covidnews/', include('news.urls')),
     path('icubed/',include('icubed.urls')),
     path('oxygen_cylinder/',include('oxygen_cylinder.urls')),
-
 ]
 
 

@@ -1,22 +1,13 @@
 {% extends "login_register/base.html" %}
 
-{% block title %}Doctor List{% endblock title %}
+{% block title %}Search Doctors{% endblock title %}
 
 {% block body %}
+
 <div class="page-header">
-    <h1 style="margin-top:2%;"><light>Meet Our Specialists</light></h1>
+    <h1 style="margin-top:2%;"><light>Search Result</light></h1>
 </div>
 </head>
-
-<div class="container h-100" style="margin-top:3%;">
-  <form class="d-flex justify-content-center h-100" action="{% url 'search_doctors' %}" method="POST" id="s">
-  {% csrf_token %}
-    <input class="form-control mr-lg-2" type="search" name="search_doc" id="search_doc"  placeholder="Doctor Name...">
-    <button class="btn btn-info" type="submit">Search</button>
-  </form>
-</div>
-
-{% for docName, docSpecialty, docEmail, docImage, docID in results %}
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-between mb-3"> </div>
      <div class="row">
@@ -30,8 +21,6 @@
         </div>
     </div>
 </div>
-{% endfor %}
- 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
 
@@ -110,9 +99,14 @@ button {
     background: green
 }
 
+
+
+
 a:link {
     text-decoration: none
-    
 }
+  
+
+
 </style>
 {% endblock body %}
