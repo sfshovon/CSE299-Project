@@ -1,0 +1,25 @@
+{% extends "login_register/base.html" %}
+{% block title %}Become Plasma Donor{% endblock title %}
+{% block body %}
+<div style="margin-top: 50px;" class="container col-5">
+    <h2 style="background-color:#086375; color:white;" class="text-center alert">Check Your Eligibility</h2>
+    <form action="{% url 'eligibility' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group input">
+            <label style="color: #abc4ff;" class="font-weight-bold" for="negative">Have two or more weeks passed since you tested negative for COVID-19?</label>
+            <select style="height:35px;" class="form-control" id="negative" name="negative" required>
+                <option value="" disabled selected hidden>Select your answer</option>
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+        </div>
+        <div class="form-group input">
+            <label style="color: #abc4ff;" class="font-weight-bold" for="weight">Your weight (In KG):</label>
+            <input style="height:35px;" type="text" name="weight" id="weight" class="form-control" placeholder="e.g. 60" required>
+        </div>
+        <button style="color:white;" type="submit" class="btn btn-info font-weight-bold">
+            Check <i class="fas fa-angle-double-right"></i>
+        </button>
+    </form>
+</div>
+{% endblock body %}

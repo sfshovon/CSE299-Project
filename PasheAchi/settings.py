@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'login_register',
     'scrapper',
     'view_profile',
+    'blog_post',
+    'make_appointment',
+    'view_appointment',
+    'plasma_donor',
 ]
 
 MIDDLEWARE = [

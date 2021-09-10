@@ -31,5 +31,9 @@ urlpatterns = [
     path('about_us/', views.about_us, name = "about_us"),  
     path('profile/', include('view_profile.urls')), 
     path('scrapper/', include('scrapper.urls')),  
+    path('blog_post/', include('blog_post.urls')),
+    path('makeAp/', include('make_appointment.urls')),
+    path('viewAp/', include('view_appointment.urls')),
+    path('plasma_donor/', include('plasma_donor.urls')),
     
 ]
