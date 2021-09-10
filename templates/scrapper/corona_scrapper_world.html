@@ -1,0 +1,131 @@
+{% extends "login_register/base.html" %}
+
+{% block title %}World COVID19 Statistics{% endblock title %}
+
+{% block body %}
+
+    <div class="text-center" style="opacity:0.9">
+        <h3 style="color: #130f40; background-color: #ffbd77; background-image: linear-gradient(319deg, #ffbd77 0%, #f0f4a4 37%, #acfcd9 100%); opacity:0.9; position:absolute; top: 205px; font-weight:1000;" class="forgot p-3" >World COVID19 Statistics
+        <p>Current Date - Time: <span id='ct5'></span></p>
+        <script>
+          function display_ct5() {
+          var date = new Date();
+          var h = date.getHours(); // 0 - 23
+          var m = date.getMinutes(); // 0 - 59
+          var s = date.getSeconds(); // 0 - 59
+          var session = "AM";
+          
+          if(h == 0){
+              h = 12;
+          }
+          
+          if(h > 12){
+              h = h - 12;
+              session = "PM";
+          }
+          
+          h = (h < 10) ? "0" + h : h;
+          m = (m < 10) ? "0" + m : m;
+          s = (s < 10) ? "0" + s : s;
+          
+          var time=date.getMonth() + 1+ "/" + date.getDate() + "/" + date.getFullYear(); 
+          time = time + " - " + h + ":" + m + ":" + s + " " + session;
+          document.getElementById('ct5').innerHTML = time;
+          display_c5();
+          }
+
+          function display_c5(){
+          var refresh=1000; // Refresh rate in milli seconds
+          mytime=setTimeout('display_ct5()',refresh)
+          }
+          display_c5()
+        </script>
+
+
+
+<div class="card-body" style="background-color: #ffbd77; background-image: linear-gradient(319deg, #ffbd77 0%, #f0f4a4 37%, #acfcd9 100%);">
+    <div class="text-center">
+       <div class="row justify-content-between" style="scolor:white; ">
+
+    {% for population, tc, nc, ir, cfr, sc, tdd, nd, trr, nr, rp, ac, tt, tp in covidUpdate %}   
+
+        <div class="mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ tc }}</b> </span></h2>
+              <h3>Total Cases</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ tdd }}</b> </span></h2>
+              <h3>Total Deaths</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ trr }}</b> </span></h2>
+              <h3>Total Recovered</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>+{{ nc }}</b> </span></h2>
+              <h3>New Cases</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>+{{ nd }}</b> </span></h2>
+              <h3>New Deaths</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>+{{ nr }}</b> </span></h2>
+              <h3>New Recovered</h3> 
+            </div>
+        </div>
+
+            <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ rp }}%</b> </span></h2>
+              <h3> Recovery Rate </h3> 
+            </div>
+        </div>
+    
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ sc }}</b> </span></h2>
+              <h3>Critical Cases</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-3 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ cfr }}%</b> </span></h2>
+              <h3>Case Fatality Rate</h3> 
+            </div>
+        </div>
+
+        <div class="bg-primary mb-3 m-2 circle-lg p-3 col-lg-12 col-md-6 col-xs-12" style="background-color: #130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); color:white;">
+            <div class="counter-box wow fadeInUp">
+              <h2><b>{{ ac }}</b> </span></h2>
+              <h3>Active Cases</h3> 
+            </div>
+        </div>
+
+        {% endfor %}
+  
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}  
+                    
+                        

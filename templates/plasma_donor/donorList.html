@@ -1,0 +1,131 @@
+{% extends "login_register/base.html" %}
+{% block title %}Donor List{% endblock title %}
+{% block body %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+.btn {
+    border-radius: 15px !important
+}
+.line-color {
+    color: green;
+    height: 3px
+}
+.flip-card {
+    width: 260px;
+    border-radius: 20px;
+    perspective: 1000px
+}
+.flip-card-inner {
+    background-color: #a2d2ff;
+    background-image: linear-gradient(315deg, #a2d2ff 0%, #bde0fe 74%);
+    width: 260px;
+    height: 300px;
+    border-radius: 20px;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d
+}
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden
+}
+.flip-card-back {
+    transform: rotateY(180deg);
+    width: 260px;
+    height: 300px;
+    border-radius: 20px;
+    background-color: #f2f2f2
+}
+.flip-card-front {
+    color: black
+}
+.card-title {
+    color: #014f86;
+    margin-bottom: 5px;
+}
+.person {
+    color: #014f86;
+    font-family: 'Yrsa', serif;
+    font-size: 30px;
+    padding: 15px
+}
+.card-body {
+    background-color: #f2f2f2;
+    width: 260px;
+    height: 120px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+  padding: 10px;
+}
+.grid-item {
+  padding: 20px;
+}
+img {
+    border-radius: 50%;
+}
+.iconStyle{
+    color:#014f86;
+    margin-right: 10px;
+}
+.btnStyle{
+    color: white;
+    background-color:#014f86;
+}
+.hStyle{
+    background-color: #52b69a;
+    text-align: center;
+}
+</style>
+<div class="container">
+<h1 class="text-center display-4"><span style="color:#ee6055;">{{bloodGroup}}</span> <span style="color:#a2d2ff;">DONORS</span> </h1>
+    <div class="container col-6">
+        <div style="justify-content: center;" class="grid-container">
+            {% for nameList,ageList,emailList,genderList,occupationList,contactList,proPicList,districtList in donorDetails %}
+                <div class="grid-item">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                {% if proPicList == None %}
+                                    <img style="margin-top: 10px;" src="/static/images/NoProfilePicture.png" class="rounded-circle" width="100" alt="avatar">
+                                {% else %}
+                                    <img style="margin-top: 10px;" src={{proPicList}} class="rounded-circle" width="100" height="100" alt="avatar">
+                                {% endif %}
+                                <div style="margin-top: 5px;" class="card-body text-center ">
+                                    <h4 class="card-title">{{nameList}}</h4>
+                                    <div class="card-text text-black-55">
+                                        <p  class="description text-black-50">{{ageList}} Years</p>
+                                        <p><i class="far fa-address-book iconStyle"></i>{{contactList}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h1 class="person">Donor Details</h1>
+                                <div class="container col-6">
+                                    <p style="text-align: left;" class="description text-black-50"><i class="fas fa-venus-mars iconStyle"></i>{{genderList}}</p>
+                                    <p style="text-align: left;" class="description text-black-50"><i class="fas fa-briefcase iconStyle"></i>{{occupationList}}</p>
+                                    <p style="text-align: left;" class="description text-black-50 inline"><i class="fas fa-map-marker-alt iconStyle"></i>{{districtList}}</p>
+                                    <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to={{emailList}}&subject=Pashe%20Achi%20Plasma%20Donor&body=">
+                                        <button type="submit" class="btn font-weight-light btnStyle">
+                                            Send Mail
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

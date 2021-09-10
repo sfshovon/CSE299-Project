@@ -1,0 +1,112 @@
+{% extends "login_register/base.html" %}
+
+{% block title %}Search Doctors{% endblock title %}
+
+{% block body %}
+
+<div class="page-header">
+    <h1 style="margin-top:2%;"><light>Search Result</light></h1>
+</div>
+</head>
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-between mb-3"> </div>
+     <div class="row">
+      <div class="col sm justify-content-center">
+  
+        <div class="card p-2 py-3 text-center">
+          <div class="img mb-2"> <img src="{{docImage}}" width="400" class="rounded-circle"> </div>
+            <h5 class="mb-0">Dr. {{docName}}</h5> <medium>{{docSpecialty}}</medium> <medium> {{docEmail}} </medium> 
+              <div class="mt-4 profileview"><a href = "{% url 'doc_profile' keyy=docID %}" class="btn btn-success text-uppercase">View Consultant Profile</a></button></div>
+        </div>
+        </div>
+    </div>
+</div>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
+
+body {
+    font-family: 'Maven Pro', sans-serif
+}
+
+body {
+    background-color: #eee
+}
+
+.page-header{
+ 
+    text-align: center;
+    color: white;
+}
+
+.add {
+    border-radius: 20px
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: all 1s;
+    cursor: pointer
+    margin-left: 1000px; 
+}
+
+.card:hover {
+    -webkit-box-shadow: 3px 5px 17px -4px #777777;
+    box-shadow: 3px 5px 17px -4px #777777
+}
+
+.ratings i {
+    color: green
+}
+
+.profileview button {
+    border-radius: 20px;
+    background-color: #f2f9ff;
+    color: #000;
+    border-color: #f2f9ff;
+    font-size: 13px
+}
+
+
+.height {
+    height: 100vh
+}
+
+.search {
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+}
+
+.search input {
+    height: 60px;
+    text-indent: 25px;
+    border: 2px solid #d6d4d4
+}
+
+.search input:focus {
+    box-shadow: none;
+    border: 2px solid blue
+}
+
+.search .fa-search {
+    position: absolute;
+    top: 20px;
+    left: 16px
+}
+
+button {
+    align: center;
+    background: green
+}
+
+
+
+
+a:link {
+    text-decoration: none
+}
+  
+
+
+</style>
+{% endblock body %}
