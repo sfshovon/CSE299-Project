@@ -1,6 +1,5 @@
 from django.shortcuts import render
 import pyrebase
-
 config={
     "apiKey": "AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY",
     "authDomain": "pashe-achi-cse299.firebaseapp.com",
@@ -16,8 +15,18 @@ authe = firebase.auth()
 storage = firebase.storage()
 database = firebase.database()
 # Create your views here.
-
 def view_icu_beds(request):
+    """
+        This method is used to display the list of available ICU beds.
+
+        :param request: It is a HttpResponse from user.
+
+        :type request: HttpResponse.
+
+        :return: This method returns a html page. It returns the list of ICU beds along with their availability statuses.
+
+        :rtype: HttpResponse.
+    """ 
     timeStamp = database.child("ICU").get()
     timeStampList = []
     for i in timeStamp.each():
@@ -43,6 +52,17 @@ def view_icu_beds(request):
     return render(request, 'icu/icubed.html',{"results": results})
 
 def icu_details(request, keyy):
+    """
+        This method is used to display the details of a specific icu bed.
+
+        :param request: It is a HttpResponse from user.
+
+        :type request: HttpResponse.
+
+        :return: This method returns a html page. It returns the details along with the location of the icu.
+
+        :rtype: HttpResponse.
+    """  
     name = database.child("ICU").child(keyy).child("hosName").get().val()  
     location = database.child("ICU").child(keyy).child("location").get().val()  
     hosContact = database.child("ICU").child(keyy).child("contact").get().val()
