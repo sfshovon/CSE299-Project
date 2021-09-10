@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from make_appointment.models import Appointment
 from django.conf import settings
 from django.core.mail import send_mail
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 import pyrebase
-
 config={
     "apiKey": "AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY",
     "authDomain": "pashe-achi-cse299.firebaseapp.com",
@@ -15,7 +14,6 @@ config={
     "appId": "1:798613820174:web:8d03f5cf0fbae3e9dcbd5f",
     "measurementId": "G-TZN8WC3LJT"
 }
-
 """
 Global Variables
 """
@@ -26,7 +24,7 @@ database = firebase.database()
 
 def appointments(request):
     """
-    This method is used to retrieve appointments details from database to display patients upcoming appointments.
+    This method is used to retrieve appointments details from database to display users upcoming appointments.
 
     :param request: It's a HttpResponse from user.
 
@@ -34,9 +32,9 @@ def appointments(request):
 
     :return: If the database doesn't contain any appointments, it returns a HTML page showing text.
              Else,
+                If the user has no appointment, it returns a HTML page showing text.
                 If the user has appointments, it returns a HTML page that displays users upcoming appointments.
-                If the user has no appointments, it returns a HTML page showing text.
-                
+   
     :rtype: HttpResponse.
     """
     idtoken= request.session['LoginId']
@@ -57,11 +55,11 @@ def appointments(request):
         appointmentDateList = []
         appointmentTimeList = []
         appointmentIdList = []     
-        patientIdView = None
+        appointment = False
         for i in timeStampList:           
             patientId = database.child("Appointments").child(i).child("patientId").get().val()
             if (patientId == a):
-                patientIdView = database.child("Appointments").child(i).child("patientId").get().val()
+                appointment = True
                 tempDate = database.child("Appointments").child(i).child("date").get().val()
                 t = tempDate.replace("-","")
                 datetimeobject = datetime.strptime(t,'%Y%m%d')
@@ -79,25 +77,23 @@ def appointments(request):
                 appointmentId = i
                 appointmentIdList.append(appointmentId)
         appointmentDetails = zip(appointmentIdList,addressList,doctorNameList,appointmentDateList,appointmentTimeList)
-        if (patientIdView == a):
-            patientName = database.child("Users").child(a).child("fname").get().val()
-            return render(request, 'viewAppointment/viewAppointment.html',
-                        {'appointmentDetails':appointmentDetails,
-                        'patientName':patientName,'appointmentIdList':appointmentIdList,})
+        if(appointment == False):
+           return render(request, 'viewAppointment/noAppointment.html')
         else:
-            return render(request, 'viewAppointment/noAppointment.html')      
+            return render(request, 'viewAppointment/viewAppointment.html',
+                        {'appointmentDetails':appointmentDetails,'appointmentIdList':appointmentIdList,}) 
 
 def cancel_appointment(request,appointmentIdList):
     """
     This method is used to cancel appointments and send email after cancellation.
 
     :param request: It's a HttpResponse from user.
-    :param timeStampList: It's the appointment id clicked by user to cancel appointment.
+    :param timeStampList: It's the appointment id clicked by a user to cancel appointment.
 
     :type request: HttpResponse.
     :type timeStampList: Integer.
 
-    :return: It returns the HTML page of homepage.
+    :return: This method redirects to the viewAppointments method.
 
     :rtype: HttpResponse.
     """
@@ -117,4 +113,4 @@ def cancel_appointment(request,appointmentIdList):
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [doctorEmail,]
     send_mail(subject, message, email_from, recipient_list)
-    return render(request, 'viewAppointment/cancelAppointment.html')
+    return redirect("viewAppointments")
