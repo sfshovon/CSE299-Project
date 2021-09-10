@@ -1,63 +1,51 @@
 {% extends "login_register/base.html" %}
-
 {% load static %}
-
 {% block title %}Make Apppointment{% endblock title %}
-
-{% block chat %} {% endblock chat %}
-
 {% block body %}
 <style>
 .input{
     width: 500px;
 }
-#appointment-image{
-    position: absolute;
-    left: 750px;
-    top: 250px;
-}
 #head-line{
     width: 500px;
     background-color:#086375;
-    color:white;S
+    color:white;
 }
 </style>
-<div class="container">
-    <h2 id="head-line" class="text-center alert">Schedule an Appointment</h2>
-    <form action="{% url 'appForm' %}" method="POST">
-        {% csrf_token %}
-        <div class="form-group input">
-            <label style="color: #abc4ff;" for="doctor">Select Doctor</label>
-            <select style="height:35px;" id="doctor" name="doctorId" class="form-control" onchange="configureDropDownLists(this,document.getElementById('ddl2',),document.getElementById('day',))" required>
-            {% for doctorNameList,doctorId in allDoctorName %} 
-                <option value="" disabled selected hidden>Select a Doctor</option>
-                <option value="{{doctorId}}">{{doctorNameList}}</option>
-            {% endfor %}
-            </select>
+<div style="margin-top: 20px;" class="container col-9">
+    <div class="media">
+        <div class="media-body">
+            <h2 id="head-line" class="text-center alert">Schedule an Appointment</h2>
+            <form action="{% url 'appForm' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group input">
+                    <label style="color: #abc4ff;" for="doctor">Select Doctor</label>
+                    <select style="height:35px;" id="doctor" name="doctorId" class="form-control" onchange="configureDropDownLists(this,document.getElementById('ddl2',),document.getElementById('day',))" required>
+                    {% for doctorNameList,doctorId in allDoctorName %} 
+                        <option value="" disabled selected hidden>Select a Doctor</option>
+                        <option value="{{doctorId}}">{{doctorNameList}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group input">
+                    <select style="display:none;" id="day" class="form-control">
+                    </select>
+                </div>
+                <div class="form-group input">
+                    <label style="color: #abc4ff;" for="ddl2">Select Time</label>
+                    <select style="height:35px;" id="ddl2" name="timeSlot" class="form-control" required>
+                    </select>
+                </div>
+                <div class="form-group input">
+                    <label style="color: #abc4ff;" for="inputDate">Date</label>
+                    <input style="height:35px;" type="text" name="date"class="form-control" id="datepicker" placeholder="Date" required>
+                </div>
+                <input style="color:white;" type="submit" class="btn btn-success font-weight-bold" value="Confirm">
+            </form>
         </div>
-
-        <div class="form-group input">
-            <select style="display:none;" id="day" class="form-control">
-            </select>
-        </div>
-
-        <div class="form-group input">
-            <label style="color: #abc4ff;" for="ddl2">Select Time</label>
-            <select style="height:35px;" id="ddl2" name="timeSlot" class="form-control" required>
-            </select>
-        </div>
-
-        <div class="form-group input">
-            <label style="color: #abc4ff;" for="inputDate">Date</label>
-            <input style="height:35px;" type="text" name="date"class="form-control" id="datepicker" placeholder="Date" required>
-        </div>
-
-        <input style="color:white;" type="submit" class="btn btn-success font-weight-bold" value="Confirm">
-    </form>
+        <img class="align-self-center"  src="/static/images/makeAppointment1.png" alt="avatar">
+    </div>
 </div>
-
-<img id="appointment-image" src="/static/images/makeAppointment1.png" alt="avatar">
-
 <script>
     var d;
     function configureDropDownLists(ddl1, ddl2, day) {
@@ -71,7 +59,6 @@
                 }
             }
         '{% endfor %}'
-
         '{% for doctorId,consultationDay in day %}'
             var days = ['{{consultationDay}}'];
             switch (ddl1.value) {
@@ -81,7 +68,6 @@
                     createOption(day, days[i], days[i]);
                 }
                 d = {{consultationDay}}
-                //console.log(d);
             }
         '{% endfor %}'
         $(document).ready(function(){
@@ -95,7 +81,6 @@
                 beforeShowDay: function(date)
                 {
                     var day = date.getDay();
-                    console.log(d);
                     if (day == d)
                     {
                         return [true];
@@ -114,5 +99,4 @@
     }
 </script>    
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
 {% endblock body %}
