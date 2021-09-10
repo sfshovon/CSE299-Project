@@ -1,18 +1,7 @@
 {% extends "login_register/base.html" %}
-
 {% block title %}Become Plasma Donor{% endblock title %}
-
 {% block body %}
-
 <style>
-.bg{
-    background-image: url("/static/images/doctor-stetho-edited3.png");
-    background-repeat: no-repeat;
-    background-position: center 30px;
-    background-attachment: fixed;
-    background-size: auto;
-    height: 100vh;
-}
 .field {
   display: flex;
   align-items: flex-start;
@@ -31,131 +20,172 @@
 }
 #modalButton{
     position:absolute;
-    top: 185px;
-    left:820px;
-    background-color: #ffd100; 
+    top: 18%;
+    left: 50%;
+    background-color: #b5e48c;
     color: #226239;
+    width: 300px;
     font-weight: bold;
-    border: 3px solid white;
+    border: 1px solid white;*/
     border-radius: 8px;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;  
+    font-size: 20px;
 }
 #modalButton:hover{
-    background-color: white;
+    background-color: #f5ed58;
+}
+.container {
+  position: relative;
 }
 </style>
-<div class ="bg">
-    <div class="container">
-        <button id="modalButton" class="btn btn-info" data-toggle="modal" data-target="#donorModal">Click</button>
-        <div class="modal m" id="donorModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title font-weight-bold w-100 text-center">Donor Information</h5>
-                        <button class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{% url 'add_donor' %}" method="POST">
-                            {% csrf_token %}
-                            <div class="form-row field">
-                                <div class="form-group input col-6">
-                                    <label class="font-weight-bold" for="bloodgroup">Blood Group:</label>
-                                    <select class="form-control" id="bloodgroup" name="bloodgroup"  >
-                                        <option value="" disabled selected hidden>Select Your Blood Group</option>
-                                        <option>A+</option>
-                                        <option>A-</option>
-                                        <option>B+</option>
-                                        <option>B-</option>
-                                        <option>AB+</option>
-                                        <option>AB-</option>
-                                        <option>O+</option>
-                                        <option>O-</option>
-                                    </select>
-                                </div>
-                                <div class="form-group input col-6">
-                                    <label class="font-weight-bold" for="district">District:</label>
-                                    <select id="district" name="district" class="form-control"  >
-                                        {% for district in districtList %}
-                                            <option value="" disabled selected hidden>Select Your District</option>
-                                            <option>{{district}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row field">
-                                <div class="form-group input col-6">
-                                    <label class="font-weight-bold" for="inputDate">Date of Tested COVID Positive:</label>
-                                    <input type="date" name="positiveDate"class="form-control" id="inputDate" placeholder="Select Date"  >
-                                </div>
-                                <div class="form-group input col-6">
-                                    <label class="font-weight-bold" for="inputDate">Date of Tested COVID Negative:</label>
-                                    <input type="date" name="negativeDate"class="form-control" id="inputDate" placeholder="Select Date"  >
-                                </div>
-                            </div>
-                            <div class="form-group input">
-                                <label style="color: #6d6875;" class="font-weight-bold" for="experience">Have you donated plasma before?</label>
-                                <select class="form-control" id="experience" name="experience"  >
-                                    <option value="" disabled selected hidden>Select Your Answer</option>
-                                    <option>Yes</option>
-                                    <option>No</option>
+<div class="container">
+    <h1 style="color: #b5e48c;" class="text-center">Congratulation!!! You are eligible.</h1>
+    <button id="modalButton" class="btn btn-info" data-toggle="modal" data-target="#donorModal">Click Here</button> 
+    <center>
+        <img  src="/static/images/Click-donor2.png" alt="avatar">
+    </center>
+    <div class="modal m" id="donorModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="font-size: 30px;" class="modal-title font-weight-bold w-100 text-center">Donor Information</h5>
+                    <button class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'add_donor' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row field">
+                            <div class="form-group input col-6">
+                                <label class="font-weight-bold" for="bloodgroup">Blood Group:</label>
+                                <select style="height:35px;" class="form-control" id="bloodgroup" name="bloodgroup"  required>
+                                    <option value="" disabled selected hidden>Select Your Blood Group</option>
+                                    <option>A+</option>
+                                    <option>A-</option>
+                                    <option>B+</option>
+                                    <option>B-</option>
+                                    <option>AB+</option>
+                                    <option>AB-</option>
+                                    <option>O+</option>
+                                    <option>O-</option>
                                 </select>
                             </div>
-                            <label style="color: #6d6875;" class="font-weight-bold" for="file">Please upload your covid negative test report</label>
-                            <br>
-                            <input type="file" name="files[]" id="files"  >
-                            <br>
-                            <input type="hidden" name="url" id="url">
-                            <br>
-                            <button class="uploadbutton" type="button" data-toggle="tooltip" data-placement="right" title="Upload Picture" onclick="uploadimage()">
-                            Upload <i class="fas fa-arrow-circle-up"></i></button><br><br>
-                            <button style="color:white;" type="submit" class="btn btn-success font-weight-bold">
-                                Confirm <i class="far fa-check-circle"></i>
-                            </button>
-                        </form>
-                    </div>
+                            <div class="form-group input col-6">
+                                <label class="font-weight-bold" for="district">District:</label>
+                                <select style="height:35px;" id="district" name="district" class="form-control"  required>
+                                    {% for district in districtList %}
+                                        <option value="" disabled selected hidden>Select Your District</option>
+                                        <option>{{district}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row field">
+                            <div class="form-group input col-6">
+                                <label class="font-weight-bold" for="inputDate">Date of Tested COVID Positive:</label>
+                                <input style="height:35px;" type="date" name="positiveDate"class="form-control" id="inputDate" placeholder="Select Date" required>
+                            </div>
+                            <div class="form-group input col-6">
+                                <label class="font-weight-bold" for="inputDate">Date of Tested COVID Negative:</label>
+                                <input style="height:35px;" type="date" name="negativeDate"class="form-control" id="inputDate" placeholder="Select Date" required>
+                            </div>
+                        </div>
+                        <div class="form-group input">
+                            <label style="color: #6d6875;" class="font-weight-bold" for="experience">Have you donated plasma before?</label>
+                            <select style="height:35px;" class="form-control" id="experience" name="experience" required>
+                                <option value="" disabled selected hidden>Select Your Answer</option>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                        <label style="color: #6d6875;" class="font-weight-bold" for="file">Please Upload Your COVID Positive Test Report</label>
+                        
+                        <input type="file" name="files[]" id="files" required>
+                        <input type="hidden" name="urlPos" id="url">
+                        <button style="margin-top: 5px;" class="uploadbutton" type="button" data-toggle="tooltip" data-placement="right" title="Upload Picture" onclick="uploadimage()">
+                        Upload <i class="fas fa-arrow-circle-up"></i></button><br><br>
+                        <label style="color: #6d6875;" class="font-weight-bold" for="file">Please Upload Your COVID Negative Test Report</label>
+                        
+                        <input type="file" name="files[]" id="files2" required>
+                        <input type="hidden" name="urlNeg" id="url2">
+                        <button style="margin-top: 5px;" class="uploadbutton" type="button" data-toggle="tooltip" data-placement="right" title="Upload Picture" onclick="uploadimage2()">
+                        Upload <i class="fas fa-arrow-circle-up"></i></button><br><br>
+                        <button style="color:white;" type="submit" class="btn btn-success font-weight-bold">
+                            Confirm <i class="far fa-check-circle"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
-        <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-storage.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-firestore.js"></script>
-        <script>
-            var firebaseConfig = {
-                apiKey: 'AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY',
-                authDomain: 'pashe-achi-cse299.firebaseapp.com',
-                databaseURL: 'https://pashe-achi-cse299-default-rtdb.firebaseio.com/',
-                projectId: 'pashe-achi-cse299',
-                storageBucket: 'pashe-achi-cse299.appspot.com',
-                messagingSenderId: "798613820174",
-                appId: '1:798613820174:web:8d03f5cf0fbae3e9dcbd5f',
-                measurementId: 'G-TZN8WC3LJT'
-            };
-            firebase.initializeApp(firebaseConfig);
-            function uploadimage(){
-                var storage = firebase.storage();
-                var storageRef = storage.ref();
-                var file = document.getElementById("files").files[0];
-                var thisref = storageRef.child("Plasma Donor").child(file.name).put(file);
-                console.log(thisref);
-                thisref.on("state_changed",function(snapshot){
-                    console.log("file uplaoded succesfully");
-                    },
-                    function(error) {
-                    },
-                    function() {
-                        // Upload completed successfully, now we can get the download URL
-                        var starsRef = storageRef.child("Plasma Donor").child(file.name);
-                        // Get the download URL
-                        starsRef.getDownloadURL()
-                        .then((url) => {
-                            document.getElementById("url").value = url;
-                        console.log(url);
-                        alert("File uploaded successfully");
-                        })
-                    });
-            }  
-        // initialize tooltip  
-        $('[data-toggle="tooltip"]').tooltip();
-        </script>
     </div>
 </div>
+<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-firestore.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: 'AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY',
+        authDomain: 'pashe-achi-cse299.firebaseapp.com',
+        databaseURL: 'https://pashe-achi-cse299-default-rtdb.firebaseio.com/',
+        projectId: 'pashe-achi-cse299',
+        storageBucket: 'pashe-achi-cse299.appspot.com',
+        messagingSenderId: "798613820174",
+        appId: '1:798613820174:web:8d03f5cf0fbae3e9dcbd5f',
+        measurementId: 'G-TZN8WC3LJT'
+    };
+    firebase.initializeApp(firebaseConfig);
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    function uploadimage(){
+        var file = document.getElementById("files").files[0];
+        var thisref = storageRef.child("Plasma Donor").child(file.name).put(file);
+        console.log(thisref);
+        thisref.on("state_changed",function(snapshot){
+            console.log("file uplaoded succesfully");
+            },
+            function(error) {
+            },
+            function() {
+                // Upload completed successfully, now we can get the download URL
+                var starsRef = storageRef.child("Plasma Donor").child(file.name);
+                // Get the download URL
+                starsRef.getDownloadURL()
+                .then((url) => {
+                    document.getElementById("url").value = url;
+                console.log(url);
+                alert("File uploaded successfully");
+                })
+            });
+    }
+    function uploadimage2(){
+        var file2 = document.getElementById("files2").files[0];
+        var thisref2 = storageRef.child("Plasma Donor").child(file2.name).put(file2);
+        console.log(thisref2);
+        thisref2.on("state_changed",function(snapshot){
+            console.log("file uplaoded succesfully");
+            },
+            function(error) {
+            },
+            function() {
+                // Upload completed successfully, now we can get the download URL
+                var starsRef2 = storageRef.child("Plasma Donor").child(file2.name);
+                // Get the download URL
+                starsRef2.getDownloadURL()
+                .then((url) => {
+                    document.getElementById("url2").value = url;
+                console.log(url2);
+                alert("File uploaded successfully");
+            })
+        });
+    }  
+    // initialize tooltip  
+    $('[data-toggle="tooltip"]').tooltip();
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+crossorigin="anonymous"></script>
 {% endblock body %}

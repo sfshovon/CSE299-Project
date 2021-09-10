@@ -1,34 +1,23 @@
 {% extends "login_register/base.html" %}
-
 {% block title %}Donor List{% endblock title %}
-
 {% block body %}
-
 <style>
-.bg{
-    background-image: url("/static/images/view-appointment.png");
-    background-repeat: no-repeat;
-    background-position: right top;
-}
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
 .btn {
     border-radius: 15px !important
 }
-
 .line-color {
     color: green;
     height: 3px
 }
-
 .flip-card {
     width: 260px;
     border-radius: 20px;
     perspective: 1000px
 }
-
 .flip-card-inner {
-    background-color: #B9F6CA;
+    background-color: #a2d2ff;
+    background-image: linear-gradient(315deg, #a2d2ff 0%, #bde0fe 74%);
     width: 260px;
     height: 300px;
     border-radius: 20px;
@@ -36,11 +25,9 @@
     transition: transform 0.8s;
     transform-style: preserve-3d
 }
-
 .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg)
+    transform: rotateY(180deg);
 }
-
 .flip-card-front,
 .flip-card-back {
     position: absolute;
@@ -49,7 +36,6 @@
     border-radius: 20px;
     backface-visibility: hidden
 }
-
 .flip-card-back {
     transform: rotateY(180deg);
     width: 260px;
@@ -60,14 +46,12 @@
 .flip-card-front {
     color: black
 }
-
 .card-title {
-    color: #007b5e;
+    color: #014f86;
     margin-bottom: 5px;
 }
-
 .person {
-    color: #007b5e;
+    color: #014f86;
     font-family: 'Yrsa', serif;
     font-size: 30px;
     padding: 15px
@@ -77,46 +61,41 @@
     width: 260px;
     height: 120px;
 }
-
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 10px;
   padding: 10px;
 }
-
 .grid-item {
   padding: 20px;
 }
-
 img {
-  border-radius: 50%;
+    border-radius: 50%;
 }
-
 .iconStyle{
-    color:#007b5e;
+    color:#014f86;
     margin-right: 10px;
 }
-
 .btnStyle{
     color: white;
-    background-color:#007b5e;
+    background-color:#014f86;
+}
+.hStyle{
+    background-color: #52b69a;
+    text-align: center;
 }
 </style>
-
-<div style="margin-top: 100px; " class="container">
-    <h1><span style="color:#ee6055;">{{bloodGroup}}</span> <span style="color:#709775;">Plasma Donors</span> </h1>
-</div>
-
-<div class="container col-6 justify-content-center">
-    <div  class="grid-container ">
-        {% for nameList,ageList,emailList,genderList,occupationList,contactList,proPicList,districtList in donorDetails %}
-            <div class="grid-item">
-                <div class="card border-0 ">
+<div class="container">
+<h1 class="text-center display-4"><span style="color:#ee6055;">{{bloodGroup}}</span> <span style="color:#a2d2ff;">DONORS</span> </h1>
+    <div class="container col-6">
+        <div style="justify-content: center;" class="grid-container">
+            {% for nameList,ageList,emailList,genderList,occupationList,contactList,proPicList,districtList in donorDetails %}
+                <div class="grid-item">
                     <div class="flip-card">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
-                                {% if proPicList == 0  %}
+                                {% if proPicList == None %}
                                     <img style="margin-top: 10px;" src="/static/images/NoProfilePicture.png" class="rounded-circle" width="100" alt="avatar">
                                 {% else %}
                                     <img style="margin-top: 10px;" src={{proPicList}} class="rounded-circle" width="100" height="100" alt="avatar">
@@ -130,7 +109,7 @@ img {
                                 </div>
                             </div>
                             <div class="flip-card-back">
-                                <h1 class="person text- ">Donor Details</h1>
+                                <h1 class="person">Donor Details</h1>
                                 <div class="container col-6">
                                     <p style="text-align: left;" class="description text-black-50"><i class="fas fa-venus-mars iconStyle"></i>{{genderList}}</p>
                                     <p style="text-align: left;" class="description text-black-50"><i class="fas fa-briefcase iconStyle"></i>{{occupationList}}</p>
@@ -145,9 +124,8 @@ img {
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 </div>
-
 {% endblock body %}
