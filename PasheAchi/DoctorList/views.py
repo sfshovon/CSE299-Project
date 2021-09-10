@@ -2,11 +2,7 @@ from django.shortcuts import render
 #from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 import pyrebase
-import os
-
-
 config={
     "apiKey": "AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY",
     "authDomain": "pashe-achi-cse299.firebaseapp.com",
@@ -17,19 +13,23 @@ config={
     "appId": "1:798613820174:web:8d03f5cf0fbae3e9dcbd5f",
     "measurementId": "G-TZN8WC3LJT"
 }
-
 firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 storage = firebase.storage()
 database = firebase.database()
-
 # Create your views here.
-def home(request):
-    return render(request,'docList/base.html')
-
-
 def doctor_list(request):
-   
+    """
+        This method is used to display the list of available doctors.
+
+        :param request: It is a HttpResponse from user.
+
+        :type request: HttpResponse.
+
+        :return: This method returns a html page. It returns the list of doctors in a single page.
+
+        :rtype: HttpResponse.
+    """  
     timeStamp = database.child("Doctor").get()
     timeStampList = []
     for i in timeStamp.each():
@@ -58,6 +58,17 @@ def doctor_list(request):
     return render(request,'docList/doclist.html',{"results": results})
 
 def doctor_profile_view(request, keyy):
+    """
+        This method is used to display the individual doctor profile along with their information.
+
+        :param request: It is a HttpResponse from user.
+
+        :type request: HttpResponse.
+
+        :return: This method returns a html page. It returns the doctor profile in a single page.
+
+        :rtype: HttpResponse.
+    """ 
     fName = database.child("Doctor").child(keyy).child("docFName").get().val()
     lName = database.child("Doctor").child(keyy).child("docLName").get().val()
     Name=fName + " " +lName 
@@ -73,11 +84,8 @@ def doctor_profile_view(request, keyy):
     hourOne = database.child("Doctor").child(keyy).child("docWorkingHour1").get().val()
     hourTwo = database.child("Doctor").child(keyy).child("docWorkingHour2").get().val()
     fees = database.child("Doctor").child(keyy).child("docConsultationFees").get().val()
-
-    
     return render(request, 'docList/docprofile.html', {'docName':Name, 'docEmail':email, 'docImage':image, 'dWorkPlace':workPlace, 'dQualification':qualification, 'dAbout':about, 'dDesignation':designation, 'specializedField':specialty, 'cDays':consultationDays, 'timeOne':hourOne, 'timeTwo':hourTwo, 'CFees':fees, 'contact':cNumber })
-    #return render(request, 'docList/docprofile.html', {'name':name, 'gender':docGender, 'specializedField':specialty,  'wPlace':workPlace,'timeOne':hourOne, 'timeTwo':hourTwo, 'CFees':fees, 'contact':cNumber,'docEmail':email})
-
+    
     
 
 

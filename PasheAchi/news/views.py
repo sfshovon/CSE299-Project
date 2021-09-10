@@ -46,18 +46,21 @@ def vaccine_news(request):
     }
 
     response = requests.request("GET", url, headers=headers).json()
+    print(response)
     data = response['news']
     length = len(data)
     title = []
     articleLink = []
     picture = []
     date = []
+    content = []
     for i in range(length):
         d=data[i]
         title.append(d['title'])
         articleLink.append(d['link'])
         picture.append(d['urlToImage'])
         date.append(d['pubDate'])
-    vaccineNewsList = zip(title, articleLink, picture, date)  
+        content.append(d['content'])
+    vaccineNewsList = zip(title, articleLink, picture, date, content)  
     # Sending all data in zip form to vaccine_news.html        
     return render(request, 'covidnews/vaccine_news.html',{"vaccineNews":vaccineNewsList})
