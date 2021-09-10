@@ -1,0 +1,89 @@
+{% extends "login_register/base.html" %}
+{% block title %}Timeline{% endblock title %}
+{% block body %}
+<style>
+.text {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+.delete{
+    float:right;
+    margin-top:12px;
+    margin-right:10px;
+    background-color: transparent;
+    border:none;
+    box-shadow:none;
+    color:#ff6873;
+    font-size: 20px;
+}
+#card-body-style{
+    background-color: #d8dbe2;
+    border-style: solid;
+    border-color:#52b69a;
+    border-width: medium;
+    border-radius: 10px;
+}
+#details-style{
+    color: #bc4749;
+}
+</style>
+<div class="col-6 container">
+    {% for postIdList, userNameList, dateTimeList, proPicList, postList, totalLikesList, totalCommentsList, urlList in postDetails %}
+        <div id="card-body-style" class="card mb-3">
+            <form action="{% url 'delete_post' postIdList %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="delete"  value=" ">    
+                <button class="delete">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </form>
+            <div class="card-body">
+                <div class="position-relative">
+                    <div class="clearfix">
+                        <h5 class="font-weight-bold card-title float-left">
+                        {% if proPicList == None %}
+                            <img src="/static/images/NoProfilePicture.png" class="rounded-circle" width="30" height="30" alt="avatar">
+                        {% else %}
+                            <img src={{proPicList}} class="rounded-circle" width="30" height="30" alt="">
+                        {% endif %}
+                        {{userNameList}}</h5>
+                        <h5 style="padding: 7px 0px;" class="font-weight-bold card-title float-right">{{dateTimeList}}</h5>
+                    </div>
+                    {% if urlList == 0 %}
+                        <p style="text-align:justify" class="lead card-text text">{{postList}}</p>
+                    {% else %}
+                    <p style="text-align:justify" class="lead card-text text">{{postList}}</p>
+                    <center>
+                        <img style="height: 100%; width: 100%; object-fit: contain;" src={{urlList}}>
+                    </center>
+                    {% endif %}
+                </div>
+                <br>
+                <div class="clearfix">
+                    <div class="d-flex flex-row float-left">
+                        <form method="POST" action="{% url 'like' postIdList %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value=" ">
+                            <button style="background-color: transparent; border:none; box-shadow:none;" type= "submit">
+                                <i class="far fa-thumbs-up fa-lg"><span>{{totalLikesList}}</span></i>
+                            </button>
+                        </form>
+                        <div class="position-relative">
+                            <button style="background-color: transparent; border:none; box-shadow:none;">
+                                <i class="far fa-comment-dots fa-lg"><span>{{totalCommentsList}}</span></i>
+                                <a href="{% url 'post_details' postIdList  %}" class="stretched-link"></a>
+                            </button>
+                        </div>
+                    </div>
+                    <a id="details-style" class="font-weight-light float-right" href="{% url 'post_details' postIdList  %}">
+                        Details<i style="margin-left: 5px;" class="fas fa-angle-double-right"></i></a> 
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <br>
+</div>
+{% endblock body %}

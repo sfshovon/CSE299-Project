@@ -1,0 +1,155 @@
+{% extends "login_register/base.html" %}
+
+{% block title %} COVID19 Hotline {% endblock title %}
+
+{% block body %}
+
+<h2 class="text-center alert alert-info" style="background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%); color:white; top:0px;">COVID19 Hotline</h2>
+
+<div style="background-color: #5ca0f2; background-image: linear-gradient(315deg, #5ca0f2 0%, #f5f7f6 74%);">
+<table id="myTable" class="table table-bordered" style="width:100%;">
+    <thead style="background-color: #000000;background-image: linear-gradient(147deg, #000000 0%, #04619f 74%); color:black">
+        <tr>
+              <th>হটলাইন নম্বর</th>
+              <th>প্রতিষ্ঠান</th>
+        </tr>
+    </thead>
+
+    <tfoot style="background-color: #000000;background-image: linear-gradient(147deg, #000000 0%, #04619f 74%); color:black">
+        <tr>
+              <th>হটলাইন নম্বর</th>
+              <th>প্রতিষ্ঠান</th>
+        </tr>
+    </tfoot>
+
+  <tbody style="background-color: #70a1ff;background-image: linear-gradient(315deg, #70a1ff 0%, #c2c0c0 74%); font-weight:600; color: black;">
+        <tr>
+        <td class='phoneNumber'><a href='tel:16263'>১৬২৬৩</a></td>
+        <td>স্বাস্থ্য বাতায়ন - স্বাস্থ্য অধিদপ্তর</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'><a href='tel:333'>৩৩৩-১</a></td>
+        <td>এটুআই প্রোগ্রাম, আইসিটি ডিভিশন</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'><a href='tel:333'>৩৩৩-১-২</a></td>
+        <td>সাধারণ স্বাস্থ্য সেবা</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'>
+        <a href='tel:333'>৩৩৩-১-৩</a><br />
+        <a href='tel:09666777222'>০৯৬৬৬৭৭৭২২২</a>
+        </td>
+        <td>কোভিড-১৯ স্বাস্থ্য সেবা</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'>
+        <a href='tel:333'>৩৩৩-১-৪</a><br />
+        <a href='tel:09666888888'>০৯৬৬৬৮৮৮৮৮৮</a>
+        </td>
+        <td>মা ও শিশুর স্বাস্থ্য সেবা</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'>
+        <a href='tel:09666777171'>০৯৬৬৬৭৭৭১৭১</a>
+        </td>
+        <td>কমিউনিটি সাপোর্ট টিম</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'><a href='tel:09611677777'>০৯৬১১৬৭৭৭৭৭</a></td>
+        <td>বিশেষজ্ঞ হেলথ লাইন, বঙ্গবন্ধু শেখ মুজিব মেডিকেল বিশ্ববিদ্যালয়</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'>
+        <a href='tel:10655'>১০৬৫৫</a><br />
+        <a href='tel:+8801944333222'>+৮৮০ ১৯৪৪৩৩৩২২২</a><br />
+        <a href='tel:+8801937000011'>+৮৮০ ১৯৩৭০০০০১১</a><br />
+        <a href='tel:+8801937110011'>+৮৮০ ১৯৩৭১১০০১১</a><br />
+        <a href='tel:+8801927711784'>+৮৮০ ১৯২৭৭১১৭৮৪</a><br />
+        <a href='tel:+8801927711785'>+৮৮০ ১৯২৭৭১১৭৮৫</a>
+        </td>
+        <td>রোগতত্ত্ব, রোগ নিয়ন্ত্রণ ও গবেষণা ইনস্টিটিউট</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'>
+        <a href='tel:+8801401184551'>+৮৮০ ১৪০১১৮৪৫৫১</a><br />
+        <a href='tel:+8801401184554'>+৮৮০ ১৪০১১৮৪৫৫৪</a><br />
+        <a href='tel:+8801401184555'>+৮৮০ ১৪০১১৮৪৫৫৫</a><br />
+        <a href='tel:+8801401184556'>+৮৮০ ১৪০১১৮৪৫৫৬</a><br />
+        <a href='tel:+8801401184559'>+৮৮০ ১৪০১১৮৪৫৫৯</a><br />
+        <a href='tel:+8801401184560'>+৮৮০ ১৪০১১৮৪৫৬০</a><br />
+        <a href='tel:+8801401184563'>+৮৮০ ১৪০১১৮৪৫৬৩</a><br />
+        <a href='tel:+8801401184568'>+৮৮০ ১৪০১১৮৪৫৬৮</a><br />
+        <a href='tel:+8801927711784'>+৮৮০ ১৯২৭৭১১৭৮৪</a><br />
+        <a href='tel:+8801927711785'>+৮৮০ ১৯২৭৭১১৭৮৫</a><br />
+        <a href='tel:+8801937000011'>+৮৮০ ১৯৩৭০০০০১১</a><br />
+        <a href='tel:+8801937110011'>+৮৮০ ১৯৩৭১১০০১১</a>
+        </td>
+        <td>আন্তর্জাতিক উদরাময় গবেষণা কেন্দ্র বাংলাদেশ (আইসিডিডিআরবি)</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'><a href='tel:244075042'>২৪৪০৭৫০৪২</a></td>
+        <td>বাংলাদেশ ইনস্টিটিউট অব ট্রপিক্যাল অ্যান্ড ইনফেকশাস ডিজিজেস (বিআইটিআইডি), চট্টগ্রাম</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'>
+        <a href='tel:+8801306497095'>+৮৮০ ১৩০৬৪৯৭০৯৫</a><br />
+        <a href='tel:+8801306497096'>+৮৮০ ১৩০৬৪৯৭০৯৬</a>
+        </td>
+        <td>ময়মনসিংহ মেডিকেল কলেজ</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'>
+        <a href='tel:+8801744595842'>+৮৮০ ১৭৪৪৫৯৫৮৪২</a><br />
+        <a href='tel:+8801712559673'>+৮৮০ ১৭১২৫৫৯৬৭৩</a>
+        </td>
+        <td>রাজশাহী মেডিকেল কলেজ</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'><a href='tel:+8801712177244'>+৮৮০ ১৭১২১৭৭২৪৪</a></td>
+        <td>রংপুর মেডিকেল কলেজ</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'><a href='tel:+8801713205877'>+৮৮০ ১৭১৩২০৫৮৭৭</a></td>
+        <td>কক্সবাজার মেডিকেল কলেজ</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'><a href='tel:109'>১০৯</a></td>
+        <td>মহিলা ও শিশু বিষয়ক মন্ত্রণালয়</td>
+        </tr>
+        <tr>
+        <td class='phoneNumber'>
+        <a href='tel:16633'>১৬৬৩৩</a><br />
+        <a href='tel:+8801313037546'>+৮৮ ০১৩১৩০৩৭৫৪৬</a>
+        </td>
+        <td>ওভাই সলিউশন্স লিমিটেড</td>
+        </tr>
+  </tbody>
+
+</table>
+</div>  
+
+<style>
+
+    tr :hover {
+        background-color: #ffbd77;
+        background-image: linear-gradient(319deg, #ffbd77 0%, #f0f4a4 37%, #acfcd9 100%);
+    }
+
+    tr {
+        background-color: #5ca0f2; 
+        background-image: linear-gradient(315deg, #5ca0f2 0%, #f5f7f6 74%);
+    }
+
+    a[href] {
+        color: navy;
+    }
+  
+</style>
+<script>
+	$(document).ready(function() {
+			$('#myTable').DataTable();
+	} );
+</script>
+
+{% endblock body %} 
