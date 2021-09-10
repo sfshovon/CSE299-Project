@@ -11,4 +11,3 @@ class Appointment(models.Model):
     timeSlot = models.TimeField(auto_now=False, auto_now_add=False)
     doctorId = models.CharField(max_length=100)
     patientId = models.CharField(max_length=100)
-    

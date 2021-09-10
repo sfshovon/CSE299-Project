@@ -5,7 +5,6 @@ from django.core.mail import send_mail
 from datetime import datetime, timezone
 import pyrebase
 import os
-
 config={
     "apiKey": "AIzaSyCR1mvz5oDzyUfC6fk_Y56mgGXy7uVawCY",
     "authDomain": "pashe-achi-cse299.firebaseapp.com",
@@ -16,7 +15,6 @@ config={
     "appId": "1:798613820174:web:8d03f5cf0fbae3e9dcbd5f",
     "measurementId": "G-TZN8WC3LJT"
 }
-
 """
 Global Variables
 """
@@ -24,7 +22,6 @@ firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 storage = firebase.storage()
 database = firebase.database()
-
 def create_appointment(request):
     """
     This method is used to retrieve doctor's name,id,timeslot from database to display in the appointment form.
@@ -111,15 +108,15 @@ def appointment_form(request):
     patientLName = database.child("Users").child(a).child("lname").get().val()
     patientFullName = patientFName +" "+ patientLName
     patientEmail = database.child("Users").child(a).child("email").get().val()
-    # subject = 'Pashe Achi Appointment Confirmation'
-    # message = 'Hello {}, Your appointment with {} is confirmed.'.format(patientFullName,doctorFullName)
-    # email_from = settings.EMAIL_HOST_USER
-    # recipient_list = [patientEmail,]
-    # send_mail(subject, message, email_from, recipient_list)
-    # subject = 'Pashe Achi Appointment Confirmation'
-    # message = 'Hello {}, {} has added an appointment with you on {} at {}.'.format(doctorFullName,patientFullName,date,timeSlot)
-    # email_from = settings.EMAIL_HOST_USER
-    # recipient_list = [doctorEmail,]
-    # send_mail(subject, message, email_from, recipient_list)
+    subject = 'Pashe Achi Appointment Confirmation'
+    message = 'Hello {}, Your appointment with {} is confirmed.'.format(patientFullName,doctorFullName)
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [patientEmail,]
+    send_mail(subject, message, email_from, recipient_list)
+    subject = 'Pashe Achi Appointment Confirmation'
+    message = 'Hello {}, {} has added an appointment with you on {} at {}.'.format(doctorFullName,patientFullName,date,timeSlot)
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [doctorEmail,]
+    send_mail(subject, message, email_from, recipient_list)
     database.child("Appointments").child(millis).set(data)
     return render(request, 'makeAppointment/confirm.html', {'patientFullName':patientFullName})
