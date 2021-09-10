@@ -1,26 +1,26 @@
 {% extends "login_register/base.html" %}
-
 {% block title %}View Appointment{% endblock title %}
-
 {% block body %}
-
 <style>
-.bg{
-    background-image: url("/static/images/view-appointment2.png");
-    background-repeat: no-repeat;
-    background-position: 750px 50px;
-    background-attachment: fixed;
-    background-size: auto;
+.fixed {
+  position: fixed;
+}
+.headerStyle{
+    background-color: #a2d2ff;
+    background-image: linear-gradient(315deg, #a2d2ff 0%, #bde0fe 74%);
+    border-radius: 15px;
 }
 </style>
-<div class ="bg">
-    <div style="margin-top: 80px;">
-        <div style="margin-left: 100px;" class="container col-4">
+<div style="margin-top: 20px;" class="container col-10">
+    <div class="media">
+        <div styele="margin-left: 30px;" class="media-body col-5">
             {% for appointmentIdList,addressList,doctorNameList,appointmentDateList,appointmentTimeList in appointmentDetails %}
                 <div class="card text-black" value="{{appointmentIdList}}">
-                    <div style="background-color: #00AA9E;" class="card-header">
+                    <div class="card-header headerStyle">
                         <div class="clearfix">
-                            <h4 class="font-weight-bold card-title float-left"><i style="margin-right: 10px;" class="fas fa-user-md"></i>{{doctorNameList}}</h4>
+                            <h4 class="font-weight-bold card-title float-left">
+                                <i style="margin-right: 10px;" class="fas fa-user-md"></i>Dr. {{doctorNameList}}
+                            </h4>
                             <form class="float-right" action="{% url 'cancelAppointments' appointmentIdList %}" method="POST">
                                 {% csrf_token %}
                                 <input type="submit" class="btn btn-danger float-right" value="Cancel">      
@@ -42,6 +42,7 @@
                 <br>
             {% endfor %}
         </div>
+        <img style="margin-left: 700px;" class="fixed"  src="/static/images/ViewAppontment.png" alt="avatar">
     </div>
- </div>
+</div>
 {% endblock body %}
