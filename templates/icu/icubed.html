@@ -1,0 +1,76 @@
+{% extends "login_register/base.html" %}
+
+{% block title %}View ICU Beds{% endblock title %}
+
+{% block body %}
+
+<div class="page-header">
+  <h1>ICU BEDS</h1>
+</div>
+
+  <section id="categories">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <h4>ICU Beds</h4>
+            </div>
+            <table class="table table-striped">
+              <thead class="thead-light">
+              
+                <tr>
+                  <th>Hospital Name</th>
+                  <th>Total ICU beds</th>
+                  <th>Available Beds</th>
+                  <th></th>
+                </tr>
+              </thead>
+              {% for hosName, totalBeds, availableBeds, icuID in results %}
+              <tbody>
+                <tr>
+                
+                  <td>{{hosName}}</td>
+                  <td>{{totalBeds}}</td>
+                  <td>{{availableBeds}}</td>
+                  <td>
+                    <a href = "{% url 'icu_details' keyy=icuID %}" class="btn btn-info">
+                      <i class="fas fa-angle-double-right"></i> More Info
+                    </a>
+                  </td>
+                  
+                </tr>
+                
+              </tbody>
+              {% endfor %}
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
+
+
+.page-header{
+ 
+    text-align: center;
+    color: white;
+}
+
+.add {
+    border-radius: 20px
+}
+
+a:link {
+    text-decoration: none
+}
+  
+
+
+</style>
+
+{% endblock body %}
+

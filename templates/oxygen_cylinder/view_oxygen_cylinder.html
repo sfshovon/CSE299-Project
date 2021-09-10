@@ -1,0 +1,113 @@
+{% extends "login_register/base.html" %}
+
+{% block title %}View Oxygen Cylinder{% endblock title %}
+
+{% block body %}
+
+<div class="page-header">
+    <h1><light>Oxygen Cylinders</light></h1>    
+</div>
+    <div class="container d-flex justify-content-center mt-50 mb-50">
+    <div class="row">
+    {% for pID, name, image, priceList, litre, brand in results %}
+        <div class="col-md-4 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-img-actions"> <img src="{{image}}" class="card-img img-fluid" width="96" height="350" alt=""> </div>
+                </div>
+                <div class="card-body bg-light text-center">
+                    <div class="mb-2">
+                        <h4 class="font-weight-semibold mb-2"> <a href = "{% url 'cylinder_details' keyy=pID %}" class="text-default mb-2" data-abc="true">{{name}}</a> </h4> <a href="#" class="text-muted" data-abc="true">{{brand}}</a>
+                    </div>
+                    <h3 class="mb-0 font-weight-semibold">BDT {{priceList}}</h3>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+
+.page-header{
+ 
+    text-align: center;
+    color:white
+}
+
+.mt-50 {
+    margin-top: 50px
+}
+
+.mb-50 {
+    margin-bottom: 50px
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .1875rem
+}
+
+.card-img-actions {
+    position: relative
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    text-align: center
+}
+
+.card-img {
+    width: 350px
+}
+
+.star {
+    color: red
+}
+
+.bg-cart {
+    background-color: orange;
+    color: #fff
+}
+
+.bg-cart:hover {
+    color: #fff
+}
+
+.bg-buy {
+    background-color: #00ace6;
+    color: #fff;
+    padding-right: 29px
+}
+
+.bg-buy:hover {
+    color: #fff
+}
+
+a {
+    text-decoration: none !important
+}
+
+.buttons {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+</style>
+
+{% endblock body %}

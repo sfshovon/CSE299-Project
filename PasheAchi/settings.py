@@ -45,6 +45,11 @@ INSTALLED_APPS = [
     'make_appointment',
     'view_appointment',
     'plasma_donor',
+    'DoctorList',
+    'search',
+    'news',
+    'icubed',
+    'oxygen_cylinder',
 ]
 
 MIDDLEWARE = [

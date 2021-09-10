@@ -35,5 +35,10 @@ urlpatterns = [
     path('makeAp/', include('make_appointment.urls')),
     path('viewAp/', include('view_appointment.urls')),
     path('plasma_donor/', include('plasma_donor.urls')),
+    path('doc_list/', include('DoctorList.urls')),
+    path('search/', include('search.urls')),
+    path('covidnews/', include('news.urls')),
+    path('icubed/',include('icubed.urls')),
+    path('oxygen_cylinder/',include('oxygen_cylinder.urls')),
     
 ]
